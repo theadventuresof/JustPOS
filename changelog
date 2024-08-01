@@ -1,0 +1,362 @@
+Before 3/30/2024
+
+Added basic order manipulation
+ -Add items from two separate menus and two mod menus
+ -Add a short message for special instructions
+ -Mods can be added or the whole mod list can be deleted
+ -Added qty adjustment
+ -Added open food option
+Recall from receipt adds all items from a receipt to the current order
+Added a .conf file for custom user options 
+ -.conf is created by default if not found
+ -.conf is populated by default if empty/not found
+ -Individual lines can be replaced if found to be empty
+Entire order can be saved to a text file (receipt)
+Decided to keep a changelog
+
+
+4/1/2024
+
+Added logic to retrieve total sales for an entire day from order folder
+
+4/6/2024
+
+Added logic to calculate total monthly sales 	
+
+4/7/2024
+
+Finished flagship report system -- everything is a text file
+
+4/19/2024
+
+Wrote a function to send a receipt/text file to named or default printer
+with lp command (CUPS REQUIRED)
+
+4/22/2024
+
+Began writing TUI
+
+4/24/2024
+
+Finished writing logic to print names/prices to the main menu buttons
+!!Need to find max pages!! - done 4/29/2024
+
+4/25/2024
+
+Replaced function get_conf_val with more generic get_file_data
+Removed print list function
+System buttons are now generated
+!!Need to write get_list function!! - done 4/27/2024
+
+4/27/2024
+
+Get list function is called write_list
+	-Passes two strings to be written to order_cells
+
+4/28/2024
+
+Somehow broke everything, starting from yesterday's build
+Working on pages
+Fixed error in write_list 
+  -displaying incorrect prices by using wrong index
+  
+4/29/2024
+
+Wrote function to clear specific part of stdscr clear_until
+Working on pages...
+!!Need to solve update_order_page!! - done 4/29/2024
+  -Does it update on every item addition?
+!!Need to add bounds checking for add_(itm/mod/etc)!! - done 4/30/2024
+  -Found an error where adding illegal value to mod/charge menu
+   adds a mod or charge
+Page functionality working!
+
+4/30/2024
+
+Began working on mouse/touch input
+!!Need to do item highlighting!!
+
+5/1/2024
+
+Fixed a bug in menu page indexing where the item in the 12th menu button
+displayed on multiple pages
+Began working on highlight
+
+5/2/2024
+
+Continued work on highlighting -- looking for bugs
+Had an idea to slightly modify main menu screen
+  -Add tabs to the left of menu buttons to switch between menus
+  
+5/3/2024
+
+Menu tabs are now color coded and stack correctly according to BSTATE
+Fixed indexing error with drink menu	
+Updated highlighting
+  -highlight can change pages
+  
+5/4/2024
+
+Fixed highlighting bug
+  -A single item being added multiple times cycled highlight on/off
+Began working on keypad
+
+5/5/2024
+
+Mapped mouse for keypad
+
+5/6/2024
+
+Began writing keypad keys to keypad_display
+Began other keypad functions 
+  -Keypad back
+  -Keypad clear
+  -Keypad cancel
+  -Keypad decimal
+  
+5/7/2024
+
+Began working on open food button - done
+Cleaned up tabs, now displaying correctly
+  -!!Charge page shows one extra page!!
+!!Found segfault -- cannot insert open food to head of list!!
+  -Insertion to tail works
+  -Temporarily disabled inserting open food to head of list
+  -which_menu() is responsible for bug
+  -Fixed; which_menu was attempting to read from NULL list element
+Began working on keyboard
+Fixed bug with menu button detection 
+  -Changed to check until 98th column was written backwards as 89
+  
+5/8/2024
+
+Keyboard mostly working
+  -Does everything except apply/copy the message
+  -Now working
+Fixed bad index on get_of_value()
+
+5/9/2024
+
+Wife asked me to stop learning C and pay more attention to her
+
+5/11/2024
+
+Found out how to report mouse movement/position 
+Also figured out how to store location of initial touch
+  -I believe it is possible to implement touch scrolling
+  
+5/16/2024
+
+Very little progress on scrolling, but...
+  -Found difference in lines(y) from touch event to drag within order window
+  -scrolling mechanic now knows the maximum/minumum index and responds accordingly
+  
+5/17/2024
+
+Crawling toward scrolling. 
+  -Now can find number of lines to scroll from order
+  -Each item by default is given three lines 
+    -One for name
+    -One for quantity and price at given quantity
+    -One dotted
+  -Additional lines added for mods/keyboard 
+Also starting to write to order_win
+  !!Need to fix formatting when writing to order_win!! done 5/30/2024
+  !!Need to write only lines visible to order_win!! - done 5/18/2024
+  !!Need to update current/max lines when writing to order_win!! done 5/18/2024
+  !!Need to find lines touched relative to visible lines!! done 5/25/2024
+  
+5/18/2024
+
+Items written to order_win now display quantity and price
+Still working on scrolling
+  -Somewhat working!
+  -Only draws lines within min/max range
+  -Waits one second before attempting to scroll in case user wants to highlight
+
+5/20/2024
+
+Scrolling working! Still need to do formatting/highlighting
+
+5/23/2024
+
+Been working on a major bug in scrolling. 
+  -Scrolling with mods visible too many times broke the get_* functions
+  -Didn't segfault, but it made the program unusable
+  -Fixed by copying names/prices to the order list directly 
+  -Scrolling still does not get the max lines correct when mods are visible
+  -Prices now display correctly with mods visible 
+
+5/24/2024
+
+More major scrolling progress! 
+  -Completely re-wrote system for tracking which lines are visible on order_win
+  -Scrolling now respects the boundaries of order_win even with mods present
+  -Still missing some small things 
+Current goals are to fix the highlighting format when printing to order_win
+and find lines touched in order_win
+After those goals are complete, I think some code cleanup is needed 
+before going further
+
+5/25/2024
+
+Adding some "niceities" to scrolling 
+  -Making sure no blank lines exist unless whole list is < 27 lines
+  -This is so we can find an item based on what lines it occupies
+Moving scrolling functions to their own source/header files
+
+5/27/2024
+
+Minor code cleanup and comment updates
+Fixed small bug with removing mods and scroll index
+  -When MAX_LINE was less than 27, scroll_to_end reset the index to an illegal value
+Fixed small highlighting bug(s)
+  -When scrolling the release of a touch event highlighted the item under cursor position
+  -When touching a blank line in order_win, item 0 was highlighted on and off
+
+5/30/2024
+
+Small fix in highlight -- now highlights whole line 
+
+5/31/2024
+
+Small consistency fix in the codebase. 
+  -get_itm/get_name/get_mod no longer require char type[]
+  -Now using an int to represent the desired menu
+  -This fixes recall assigning from incorrect menu(s)
+  
+6/6/2024
+
+After trying some different strategies to draw a clock settled on setitimer
+
+6/8/2024
+
+Fixed small bug in adding extra charges to items. 
+
+6/10/2024
+
+Small bug fixes and comment updates
+  -Fixed formatting for adding charges to items on order_win
+  -Fixed charge page reading max page value from mod page
+  -Fixed price not being updated after charges/mods deleted
+  
+6/13/2024
+
+Moved keyboard messages into the mod_t structure to allow multiple messages
+  !!Now adds extra line to order in order_win?!! -Fixed 6/13/2024
+  
+6/14/2024
+
+Small cleanup/adjustment to adding messages to receipts and recall
+
+6/17/2024
+
+Added search function. Highlights menu button when substring is found
+in menu item name
+
+6/25/2024
+
+Started building recall menu
+
+6/26/2024
+
+Added return button to recall screen
+  -Some changes to drawing/deleting windows
+  !!Created segfault on window resize!! -- Fixed 6/27/2024
+  
+6/27/2024
+
+I believe I fixed the segfault issue for switching screens/resizing window
+  -Instead of using ncurses delwin, manually set windows to NULL
+  -My assumption is that this prevents deleting a NULL element
+  
+7/6/2024
+
+Decided I want more srolling. Trying to set it up...
+
+7/7/2024
+
+Setting up recall window scrolling functions
+  -Just a clone of scrolling functions for order win
+  
+7/9/2024
+
+No longer storing touch information in recalldex. (Why keep it in two places?)
+Added recalldex_state to track what is visible
+
+7/10/2024
+
+Began writing linked list to hold orders from a given day
+  -Using linked list in case orders are non-sequential
+  -Also due to unknown number of order files 
+Linked list insertion/deletion works 
+
+7/11/2024
+
+Scrolling the recall_win now works
+!!Need to write highlight for recall_win!! -- done 7/18/2024
+Drew a couple buttons
+  -Recall order button
+  -Void order button
+  -Print order button
+  -Search for order button
+  -Search date button
+ 
+7/14/2024
+
+Added logic to determine which line in recall-win is selected
+
+7/18/2024
+
+Highlighting is now possible in recall-win
+Updated comments for new functions
+Orders from current day can now be recalled!
+
+7/20/2024
+
+Orders can be recalled from previous days!
+Need to add dialog for which order date is being viewed
+
+7/23/2024
+
+Added an error dialog box 
+  -My error messaging before was really more of a debugging function
+  -Now a window is drawn with an "OK" button to display errors
+  -This is for visibility and consistency 
+  
+7/24/2024
+
+Fixed a really annoying bug involving scrolling recall_win
+  -Previously, after scrolling recall_win, each selection was one
+   line under (y+1) what the user attempted to select. 
+  -Solution? Changed if((get_recalldex("CURRENT") >= get_recalldex("MIN"))
+   to if((get_recalldex("CURRENT") > get_recalldex("MIN"))
+   
+7/25/2024
+
+Found some major bugs with save_order and recall
+  -Extra charges copy extra lines 
+    -Extra charges is copying garbage lines before adding extra charge
+    -Price is being updated correctly
+    -No longer copying garbage line (was an issue with add_mod)
+    -Now, recall only recalls one extra charge -- fixed
+  -Mods are copied twice (recall only)
+    -They were being added in as comments -- fixed
+  -Open food value does not copy correctly
+    -Open food value displays x2(of_val), but total due is correct
+    -Fixed; save_order was implicitly adding open food value to price
+    -Recall still does not recall open food price correctly
+      -Fixed; implicitly check if value is open food when writing list
+      
+Now save_order works! But recall still has some bugs
+  -Only when recalling an order with an extra charge does there seem 
+   to be an issue
+
+7/31/2024
+
+Small breakthrough with recall()
+  -No longer using nested while loops
+  !!Still a small issue with price reacall?!!
+    -Price from recall_details simply takes input from receipt line
+     and divides that number by the quantity of said item in the order
+     this does not take extra charges into account (save_order still works)
