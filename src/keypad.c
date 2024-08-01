@@ -242,17 +242,14 @@ void write_keypad_val(void)
 }
 
 /*
- * Loop through keypad_val and check for decimal '.'
+ *Check for decimal '.'
  */
 int has_decimal(void)
 {
 	int val=0;
-	for(int i=0; i <= strlen(kpd.keypad_val); i++)
+	if(strstr(kpd.keypad_val,".") > 0)
 	{
-		if(kpd.keypad_val[i] == '.')
-		{
-			val = 1;
-		}
+		val = 1;
 	}
 	return val;
 }

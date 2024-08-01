@@ -253,6 +253,30 @@ void append_order_recall(char *order)
 		}
 		i++;
 		ord = ord->next;
+	}	
+}
+
+/*
+ * 
+ */
+int find_recall_order(char val[])
+{
+	int line = -1,i=0;
+	
+	struct recall_orders *ord = top;
+	if(!ord)
+	{
+		return -1;
+	}
+	while(ord)
+	{
+		if(strcmp(val,ord->order) == 0)
+		{
+			line = i;
+		}
+		i++;
+		ord = ord->next;
 	}
 	
+	return line;
 }

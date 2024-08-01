@@ -594,5 +594,19 @@ void find_mouse_keypad(int y,int x)
 			update_order_stat();
 			write_list();
 		}
+		else if(get_keypad_state("FUNC") == 3)
+		{
+			char order[50];
+			sprintf(order,"order-%.0f",get_keypad_data());
+			clear_keypad();
+			delete_keypad();
+			set_state("STATE",get_state("PREV_STATE"));
+			int check = find_recall_order(order);
+			if(check >= 0)
+			{
+				set_recalldex("LINE",check);
+				write_recall();
+			}
+		}
 	}
 }	

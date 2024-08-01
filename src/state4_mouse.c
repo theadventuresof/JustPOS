@@ -140,5 +140,9 @@ void find_mouse_recall_sys(int y,int x)
 			err_dialog("CHOOSE A DAY TO SEARCH");
 			return;
 		}
+		set_state("STATE",2);
+		set_state("PREV_STATE",4);
+		set_keypad_state("FUNC",3);
+		draw_keypad("CENTER");
 	}
 }
