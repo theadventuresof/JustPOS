@@ -257,7 +257,7 @@ void append_order_recall(char *order)
 }
 
 /*
- * 
+ * Check for specified order number in "order-n" context in linked list
  */
 int find_recall_order(char val[])
 {
@@ -279,4 +279,26 @@ int find_recall_order(char val[])
 	}
 	
 	return line;
+}
+
+/*
+ * Count list nodes in recall_orders list
+ */
+int count_recall(void)
+{
+	int count = 0;
+	
+	struct recall_orders *ord = top;
+	
+	if(!ord)
+	{
+		return -1;
+	}
+	while(ord)
+	{
+		count++;
+		ord = ord->next;
+	}
+	
+	return count;
 }

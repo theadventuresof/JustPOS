@@ -361,3 +361,8 @@ Small breakthrough with recall()
      and divides that number by the quantity of said item in the order
      this does not take extra charges into account (save_order still works)
 Orders can now be searched for when a day is selected
+
+8/1/2024
+
+Small update to recalling items with extra charges -- now adding correctly
+  -except for open food charges

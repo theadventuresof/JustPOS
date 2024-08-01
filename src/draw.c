@@ -174,7 +174,6 @@ void del_menu_buttons(void)
 		if(itm_btns[i] != NULL)
 		{
 			del_panel(itm_btnsp[i]);
-			//delwin(itm_btns[i]);
 			itm_btns[i] = NULL;
 		}
 	}

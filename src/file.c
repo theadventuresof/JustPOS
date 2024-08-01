@@ -219,6 +219,7 @@ void recall(char order[])
 		 * Get one line from the receipt file, remove the newline, and
 		 * check the line against food and drink menus
 		 */
+		float charges=0;
 		fgets(line,50,target_order);
 		line[strcspn(line,"\n")] = 0;
 		itm_num = check_menu_line(line,1);
@@ -243,11 +244,11 @@ void recall(char order[])
 		}
 		else if(strncmp(line,"   ",3) == 0)
 		{
-			recall_mods(line,i-1);
+			charges = recall_mods(line,i-1);
 		}
 		else if(strncmp(line,"x",1) == 0)
 		{
-			recall_details(line,i-1);
+			recall_details(line,i-1,charges);
 		}
 	}
 	fclose(target_order);
@@ -256,7 +257,7 @@ void recall(char order[])
 /*
  * Change quantity and price of recalled items. 
  */
-void recall_details(char line2[],int itm_num)
+void recall_details(char line2[],int itm_num,float charges)
 {
 	char qty[100],cost[100],c;
 	int i,pos=1,val=0;
@@ -302,15 +303,16 @@ void recall_details(char line2[],int itm_num)
 	value = strtof(qty,NULL);
 	modify_qty(itm_num,value);
 	value1 = strtof(cost,NULL);
-	modify_price(itm_num,(value1/value));
+	modify_price(itm_num,((value1/value)-(charges*value)));
 	
 }
 
 /*
  * Read any lines from receipt that starts with three blank spaces. 
  */
-void recall_mods(char line2[],int itm_num)
+float recall_mods(char line2[],int itm_num)
 {
+	float extra_charge=0;
 	int j=0,mod=0,charge=0;
 	char temp[100];
 	
@@ -329,17 +331,19 @@ void recall_mods(char line2[],int itm_num)
 	if(mod > 0)
 	{
 		add_mod(itm_num,mod,3);
-		return;
+		return 0;
 	}
 	charge = check_menu_line(temp,4);
 	if(charge > 0)
 	{
 		add_mod(itm_num,charge,4);
-		return;
+		extra_charge = get_itm(4,"COST",charge);
+		return extra_charge;
 	}
 	else{
 		add_msg(itm_num,temp);
 	}
+	return 0;
 }
 
 /*
