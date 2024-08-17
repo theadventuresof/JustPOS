@@ -301,6 +301,17 @@ void find_mouse_system_buttons(int y,int x)
 		return;
 	}
 	/*
+	 * If pay cash button is pressed
+	 */
+	if((y >= 34) & (y <= 36) & (x >= 76) & (x <= 94))
+	{
+		del_state(1);
+		erase();
+		draw_state(5);
+		set_state("PREV_STATE",1);
+		set_state("STATE",5);
+	}
+	/*
 	 * Bottom left corner saves order to file (creates receipt)
 	 * TESTING ONLY
 	 */
@@ -467,7 +478,8 @@ void find_mouse_keypad(int y,int x)
 	}
 	else if(get_keypad_state("STATE") == 2)
 	{
-		startx = startx - 58;
+		//startx = startx - 58;
+		startx = 5;
 	}
 	
 	/*
@@ -559,9 +571,12 @@ void find_mouse_keypad(int y,int x)
 	 */
 	if((y >= starty) & (y <= starty + 9) & (x >= startx + 46) & (x <= startx + 58))
 	{
-		clear_keypad();
-		delete_keypad();
-		set_state("STATE",get_state("PREV_STATE"));
+		if(get_state("STATE") != 5)
+		{
+			clear_keypad();
+			delete_keypad();
+			set_state("STATE",get_state("PREV_STATE"));
+		}
 	}
 	/*
 	 * If keypad clear is pressed

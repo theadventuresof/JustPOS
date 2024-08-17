@@ -16,6 +16,14 @@ struct recall_orders *top = NULL;
 struct recall_orders *next = NULL;
 
 /*
+ * 
+ */
+void sort_recall(void)
+{
+
+}
+
+/*
  * Insert file name string 'order-*' into list.
  */
 void populate_recall_list(char order[])
@@ -86,7 +94,7 @@ void find_recall_list(char date[],int func)
 					/*
 					 * Send file name string to be inserted into linked list
 					 */
-						populate_recall_list(dirord->d_name);
+						populate_recall_list(dirord->d_name);			
 						i++;
 				}
 			}

@@ -39,3 +39,52 @@ For the sake of giving extra information I tried to use the ncurses
 scroll(int) with scrollok(win,TRUE) idlok(win,TRUE) and wsetscrreg(win,0,TRUE).
 But I couldn't get it to work for lines that were not printed in the window.
 So I had to write my own.   
+
+States----------------------------------------------------------------
+
+Developers reference:
+
+States are virtual placeholders for what is visible on the screen. This
+is so that the correct mouse events are captured at the correct times.
+
+get/set_state() states
+
+STATE = 0
+
+Error dialog window is visible
+
+STATE = 1
+
+The main menu is visible 
+
+STATE = 2
+
+Keypad is visible on top of the main menu
+
+STATE = 3
+
+Keyboard is visible on top of the main menu
+
+STATE = 4
+
+Recall menu is visible
+
+STATE = 5
+
+Cash payment screen is visible
+
+BSTATE = 1
+
+Food menu items are drawn to the main menu
+
+BSTATE = 2
+
+Drink menu items are drawn to the main menu
+
+BSTATE = 3
+
+Mod menu items are drawn to the main menu
+
+BSTATE = 4 
+
+Extra charge items are drawn to the main menu 

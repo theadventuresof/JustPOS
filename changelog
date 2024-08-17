@@ -366,3 +366,7 @@ Orders can now be searched for when a day is selected
 
 Small update to recalling items with extra charges -- now adding correctly
   -except for open food charges
+  
+8/16/2024
+
+Moving keypad "RIGHT" to be keypad "LEFT" for payment screen

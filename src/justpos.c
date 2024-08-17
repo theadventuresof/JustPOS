@@ -131,7 +131,7 @@ int main(void)
 			 * order_win
 			 */
 			else{
-				if((ev.y >= 5) & (ev.y <= 33) & (ev.x >= 105) & (ev.x <= 145) & ((get_state("STATE") == 1) | (get_state("STATE") == 4)))
+				if((ev.y >= 5) & (ev.y <= 33) & (ev.x >= 105) & (ev.x <= 145) & ((get_state("STATE") == 1) | (get_state("STATE") == 4) | (get_state("STATE") == 5)))
 				{
 					/*
 					 * If the touch event is not the same y axis as current y touch event

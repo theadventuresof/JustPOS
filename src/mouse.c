@@ -126,6 +126,13 @@ void get_mouse(int y,int x)
 			}
 		}
 	}
+	else if(get_state("STATE") == 5)
+	{
+		if((y >= 6) & (y <= 35) & (x >= 5) & (x <= 67))
+		{
+			find_mouse_pay_cash(y,x);
+		}
+	}
 	/*
 	 * Show mouse coordinates on screen
 	 */

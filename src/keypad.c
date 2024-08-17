@@ -36,9 +36,10 @@ void draw_keypad(char ref[])
 		startx = x/2 - (62/2);
 		set_keypad_state("STATE",1);
 	}
-	else if(strcmp(ref,"RIGHT") == 0)
+	else if(strcmp(ref,"LEFT") == 0)
 	{
-		startx = x - 62;
+		//startx = x - 62;
+		startx = 5;
 		set_keypad_state("STATE",2);
 	}
 	

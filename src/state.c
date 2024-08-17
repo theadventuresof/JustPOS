@@ -175,10 +175,19 @@ void draw_state(int state)
 			print_clock();
 			draw_logo();
 			write_list();
-			if(get_recalldex("STATE") == 1)
-			{
+			//if(get_recalldex("STATE") == 1)
+			//{
 				write_recall();
-			}
+			//}
+		}
+		else if(state == 5)
+		{
+			draw_order();
+			draw_keypad("LEFT");
+			set_keypad_state("FUNC",4);
+			write_list();
+			draw_logo();
+			print_clock();
 		}
 	} 
 }
