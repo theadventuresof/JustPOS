@@ -175,19 +175,19 @@ void draw_state(int state)
 			print_clock();
 			draw_logo();
 			write_list();
-			//if(get_recalldex("STATE") == 1)
-			//{
-				write_recall();
-			//}
+			write_recall();
 		}
 		else if(state == 5)
 		{
 			draw_order();
+			draw_order_stat();
+			update_order_stat();
 			draw_keypad("LEFT");
 			set_keypad_state("FUNC",4);
 			write_list();
 			draw_logo();
 			print_clock();
+			draw_cash_btns();
 		}
 	} 
 }
@@ -212,6 +212,14 @@ void del_state(int state)
 		del_recall_win();
 		del_recall_sys_btns();
 		del_order_win();
+	}
+	else if(state == 5)
+	{
+		erase();
+		delete_keypad();
+		del_order_win();
+		del_cash_btns();
+		
 	}
 }
 

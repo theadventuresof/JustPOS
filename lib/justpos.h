@@ -26,5 +26,6 @@
 #include "misc.h"
 #include "draw_state_4.h"
 #include "recall.h"
+#include "draw_state_5.h"
 
 #endif

@@ -139,22 +139,22 @@ void delete_keypad(void)
 	if(get_state("STATE") == 2)
 	{
 		del_panel(keypad_winp);
-		delwin(keypad_win);
+		keypad_win = NULL;
 		del_panel(keypad_displayp);
-		delwin(keypad_display);
+		keypad_display = NULL;
 		del_panel(keypad_cancelp);
-		delwin(keypad_cancel);
+		keypad_cancel = NULL;
 		del_panel(keypad_okp);
-		delwin(keypad_ok);
+		keypad_ok = NULL;
 		del_panel(keypad_clrp);
-		delwin(keypad_clr);
+		keypad_clr = NULL;
 		int i;
 		for(i = 0; i < 12; i++)
 		{
 			if(keypad_nums[i])
 			{
 				del_panel(keypad_numsp[i]);
-				delwin(keypad_nums[i]);
+				keypad_nums[i] = NULL;
 			}
 		}	
 	}

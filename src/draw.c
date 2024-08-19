@@ -202,7 +202,6 @@ void del_order_stat(void)
 	if(order_stat != NULL)
 	{
 		del_panel(order_statp);
-		//delwin(order_stat);
 		order_stat = NULL;
 	}
 }
