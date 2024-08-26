@@ -128,9 +128,27 @@ void get_mouse(int y,int x)
 	}
 	else if(get_state("STATE") == 5)
 	{
+		/*
+		 * If mouse event occurs on keypad 
+		 */
 		if((y >= 6) & (y <= 35) & (x >= 5) & (x <= 67))
 		{
-			find_mouse_pay_cash(y,x);
+			find_mouse_payment_keypad(y,x);
+		}
+		else if((y >= 38) & (y <= 40) & (x >= 6) & (x <= 20))
+		{
+			delete_keypad();
+			update_panels();
+			doupdate();
+			del_state(5);
+			erase();
+			set_state("STATE",1);
+			set_state("PREV_STATE",1);
+			draw_state(1);
+		}
+		else if((y >= 7) & (y <= 30) & (x >= 74) & (x <= 89))
+		{
+			find_mouse_cash_buttons(y,x);
 		}
 	}
 	/*

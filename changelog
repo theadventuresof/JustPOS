@@ -374,3 +374,13 @@ Moving keypad "RIGHT" to be keypad "LEFT" for payment screen
 8/19/2024
 
 Drawing some buttons to the cash payment screen
+
+8/26/2024
+
+Added return button to payment screen 
+  -!!Keypad is not deleting correctly!! remnents visible
+    -Fixed -- delete_keypad() was only deleting if STATE was equal to 2
+  -Working on exact change button
+    -Not copying 2 positions of decimal
+      -Fixed by creating a new function, but I'm pretty sure this was just
+       because I was limiting strncat to 2 places instead of strlen(val) + 1

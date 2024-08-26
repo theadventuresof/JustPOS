@@ -471,7 +471,14 @@ void find_mouse_keypad(int y,int x)
 {
 	int starty,startx;
 	getmaxyx(stdscr,starty,startx);
-	starty = (starty/2) - 8;
+	if(get_keypad_state("STATE") == 1)
+	{
+		starty = (starty/2) - 8;
+	}
+	else if(get_keypad_state("STATE") == 2)
+	{
+		starty = 13;
+	}
 	if(get_keypad_state("STATE") == 1)
 	{
 		startx = (startx/2) - 27;

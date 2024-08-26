@@ -5,6 +5,7 @@ void draw_keypad(char pos[]);
 void delete_keypad(void);
 void set_keypad_state(char ref[],int val);
 void set_keypad_val(char val[1]);
+void copy_to_keypad(char val[]);
 void clear_keypad(void);
 void write_keypad_val(void);
 void keypad_back(void);

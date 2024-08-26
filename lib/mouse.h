@@ -10,6 +10,7 @@ void find_mouse_menu_tabs(int y,int x);
 void find_mouse_keypad(int y,int x);
 void find_mouse_keyboard(int y,int x);
 void find_mouse_recall_sys(int y,int x);
-void find_mouse_pay_cash(int y,int x);
+void find_mouse_payment_keypad(int y,int x);
+void find_mouse_cash_buttons(int y,int x);
 
 #endif

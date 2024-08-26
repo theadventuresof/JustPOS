@@ -29,6 +29,7 @@ PANEL *keypad_okp;
  */
 void draw_keypad(char ref[])
 {
+	delete_keypad();
 	int y,x,startx;
 	getmaxyx(stdscr,y,x);
 	if(strcmp(ref,"CENTER") == 0)
@@ -47,7 +48,14 @@ void draw_keypad(char ref[])
 	 * Main keypad window. This is a large window that will encapsulate
 	 * all the other keypad windows.
 	 */
-	keypad_win = newwin(30,62,(y/2) - 15,startx);
+	if(get_keypad_state("STATE") == 1)
+	{
+		keypad_win = newwin(30,62,(y/2) - 15,startx);
+	}
+	else if(get_keypad_state("STATE") == 2)
+	{
+		keypad_win = newwin(30,62,6,startx);
+	}
 	box(keypad_win,0,0);
 	keypad_winp = new_panel(keypad_win);
 	
@@ -136,28 +144,40 @@ void draw_keypad(char ref[])
  */
 void delete_keypad(void)
 {
-	if(get_state("STATE") == 2)
+	if(keypad_win != NULL)
 	{
 		del_panel(keypad_winp);
 		keypad_win = NULL;
+	}
+	if(keypad_display != NULL)
+	{
 		del_panel(keypad_displayp);
 		keypad_display = NULL;
+	}
+	if(keypad_cancel != NULL)
+	{
 		del_panel(keypad_cancelp);
 		keypad_cancel = NULL;
+	}
+	if(keypad_ok != NULL)
+	{
 		del_panel(keypad_okp);
 		keypad_ok = NULL;
+	}
+	if(keypad_clr != NULL)
+	{
 		del_panel(keypad_clrp);
 		keypad_clr = NULL;
-		int i;
-		for(i = 0; i < 12; i++)
-		{
-			if(keypad_nums[i])
-			{
-				del_panel(keypad_numsp[i]);
-				keypad_nums[i] = NULL;
-			}
-		}	
 	}
+	int i;
+	for(i = 0; i < 12; i++)
+	{
+		if(keypad_nums[i])
+		{
+			del_panel(keypad_numsp[i]);
+			keypad_nums[i] = NULL;
+		}
+	}	
 	update_panels();
 	doupdate();
 }
@@ -201,7 +221,7 @@ void set_keypad_val(char val[1])
 {
 	/*
 	 * Don't accept more than 10 digits (including after decimal if 
-	 * applicable 
+	 * applicable) 
 	 */
 	if(strlen(kpd.keypad_val) < 10)
 	{
@@ -227,6 +247,18 @@ void set_keypad_val(char val[1])
 		}
 		strncat(kpd.keypad_val,val,2);
 	}
+	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	update_panels();
+	doupdate();
+}
+
+/*
+ * Copy specific dollar amount to keypad -- for cash buttons on payment screen 
+ */
+void copy_to_keypad(char val[])
+{
+	clear_keypad();
+	strncpy(kpd.keypad_val,val,strlen(val) + 1);
 	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
 	update_panels();
 	doupdate();

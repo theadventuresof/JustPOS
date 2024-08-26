@@ -154,7 +154,7 @@ void draw_state(int state)
 			}
 			else if(get_keypad_state("STATE") == 2)
 			{
-				strncpy(val,"RIGHT",6);
+				strncpy(val,"LEFT",6);
 			}
 			delete_keypad();
 			draw_state(get_state("PREV_STATE"));
@@ -215,11 +215,10 @@ void del_state(int state)
 	}
 	else if(state == 5)
 	{
-		erase();
 		delete_keypad();
 		del_order_win();
 		del_cash_btns();
-		
+		erase();
 	}
 }
 
