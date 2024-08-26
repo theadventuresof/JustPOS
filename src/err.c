@@ -82,10 +82,10 @@ void err_dialog(char error[])
 	getmaxyx(stdscr,y,x);
 	set_state("PREV_STATE",get_state("STATE"));
 	set_state("STATE",0);
-	err = newwin(10,60,y/2-5,x/2-30);
+	err = newwin(10,60,(y/2)-5,(x/2)-30);
 	box(err,0,0);
 	errp = new_panel(err);
-	ok = newwin(3,10,y/2+1,x/2-5);	
+	ok = newwin(3,10,(y/2)+1,(x/2)-5);	
 	box(ok,0,0);
 	okp = new_panel(ok);
 	mvwprintw(err,4,(30-strlen(error)/2),"%s",error);

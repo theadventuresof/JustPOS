@@ -10,10 +10,14 @@ void get_mouse(int y,int x)
 	 */
 	if(get_state("STATE") == 0)
 	{
+		int maxy,maxx;
+		getmaxyx(stdscr,maxy,maxx);
+		maxy = (maxy/2) + 1;
+		maxx = (maxx/2) - 5;
 		/*
 		 * If OK is pressed
 		 */
-		if((y >= 23) & (y <= 25) & (x >= 75) & (x <= 84))
+		if((y >= maxy) & (y <= maxy + 2) & (x >= maxx) & (x <= maxx + 9))
 		{
 			del_err_dialog();
 			return;

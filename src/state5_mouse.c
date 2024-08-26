@@ -33,4 +33,11 @@ void find_mouse_cash_buttons(int y,int x)
 	{
 		copy_to_keypad("5.00");
 	}
+	/*
+	 * If $10 is selected
+	 */
+	else if((y >= 17) & (y <= 19) & (x >= 75) & (x <= 88))
+	{
+		copy_to_keypad("10.00");
+	} 
 }
