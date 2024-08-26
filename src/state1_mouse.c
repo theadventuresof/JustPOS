@@ -486,7 +486,7 @@ void find_mouse_keypad(int y,int x)
 	else if(get_keypad_state("STATE") == 2)
 	{
 		//startx = startx - 58;
-		startx = 5;
+		startx = 9;
 	}
 	
 	/*
