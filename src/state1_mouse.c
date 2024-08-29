@@ -228,6 +228,7 @@ void find_mouse_system_buttons(int y,int x)
 		}
 		update_panels();
 		doupdate();
+		return;
 	}
 	/*
 	 * If del itm button is pressed
@@ -244,6 +245,7 @@ void find_mouse_system_buttons(int y,int x)
 		update_order_stat();
 		update_panels();
 		doupdate();
+		return;
 	}
 	/*
 	 * If adj qty button is pressed
@@ -259,6 +261,7 @@ void find_mouse_system_buttons(int y,int x)
 		else{
 			err_dialog("PLEASE SELECT AN ITEM TO MODIFY");
 		}
+		return;
 	}
 	/*
 	 * If open food button is pressed
@@ -268,6 +271,7 @@ void find_mouse_system_buttons(int y,int x)
 		set_state("STATE",2);
 		set_keypad_state("FUNC",2);
 		draw_keypad("CENTER");
+		return;
 	}
 	/*
 	 * If recall button is pressed
@@ -288,6 +292,7 @@ void find_mouse_system_buttons(int y,int x)
 		set_recalldex("LINE",-1);
 		write_list();
 		write_recall();
+		return;
 	}
 	/*
 	 * If search button is pressed
@@ -315,17 +320,18 @@ void find_mouse_system_buttons(int y,int x)
 		draw_state(5);
 		set_state("PREV_STATE",5);
 		set_state("STATE",5);
+		return;
 	}
 	/*
-	 * Bottom left corner saves order to file (creates receipt)
-	 * TESTING ONLY
+	 * If settings is pressed
 	 */
 	if((y >= 34) & (y <= 36) & (x <= 20))
 	{
-		/*if(total_items() > 0)
-		{
-			save_order();
-		}*/
+		del_state(1);
+		set_state("PREV_STATE",6);
+		set_state("STATE",6);
+		erase();
+		draw_state(6);
 		return;
 	}
 }

@@ -144,6 +144,7 @@ void draw_keypad(char ref[])
  */
 void delete_keypad(void)
 {
+	clear_keypad();
 	if(keypad_win != NULL)
 	{
 		del_panel(keypad_winp);

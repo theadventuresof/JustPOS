@@ -109,6 +109,16 @@ void del_recall_sys_btns(void)
 		del_panel(print_orderp);
 		print_order = NULL;
 	}
+	if(search_date != NULL)
+	{
+		del_panel(search_datep);
+		search_date = NULL;	
+	}
+	if(search_recall != NULL)
+	{
+		del_panel(search_recallp);
+		search_recall = NULL;
+	}
 }
 
 /*

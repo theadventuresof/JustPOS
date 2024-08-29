@@ -124,6 +124,7 @@ void draw_state(int state)
 	{
 		erase();
 		center_error("The screen is too small to display JustPOS");
+		return;
 	}
 	else if((y > 39) & (x > 149))
 	{
@@ -144,6 +145,7 @@ void draw_state(int state)
 			write_list();
 			write_pages();
 			print_clock();
+			return;
 		}
 		else if(state == 2)
 		{
@@ -160,12 +162,14 @@ void draw_state(int state)
 			draw_state(get_state("PREV_STATE"));
 			draw_keypad(val);
 			write_keypad_val();
+			return;
 		}
 		else if(state == 3)
 		{
 			del_keyboard();
 			draw_state(get_state("PREV_STATE"));
 			draw_keyboard();
+			return;
 		}
 		else if(state == 4)
 		{
@@ -176,6 +180,7 @@ void draw_state(int state)
 			draw_logo();
 			write_list();
 			write_recall();
+			return;
 		}
 		else if(state == 5)
 		{
@@ -188,6 +193,15 @@ void draw_state(int state)
 			draw_logo();
 			print_clock();
 			draw_cash_btns();
+			return;
+		}
+		else if(state == 6)
+		{
+			erase();
+			draw_logo();
+			print_clock();
+			draw_settings_return();
+			return;
 		}
 	} 
 }
@@ -205,6 +219,7 @@ void del_state(int state)
 		del_page_status();
 		del_order_stat();
 		del_order_win();
+		return;
 	}
 	
 	else if(state == 4)
@@ -212,13 +227,18 @@ void del_state(int state)
 		del_recall_win();
 		del_recall_sys_btns();
 		del_order_win();
+		return;
 	}
 	else if(state == 5)
 	{
 		delete_keypad();
 		del_order_win();
 		del_cash_btns();
-		erase();
+		return;
+	}
+	else if(state == 6)
+	{
+		del_settings_windows();
 	}
 }
 

@@ -27,5 +27,6 @@
 #include "draw_state_4.h"
 #include "recall.h"
 #include "draw_state_5.h"
+#include "draw_state_6.h"
 
 #endif
