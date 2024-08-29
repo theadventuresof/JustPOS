@@ -779,7 +779,7 @@ void draw_logo(void)
 	mvwprintw(stdscr,41,25," \\____/\\ __,_|____/\\__|_|     \\____/|_____/");
 	attroff(A_BOLD);
 	attroff(COLOR_PAIR(5));
-	mvwprintw(stdscr,42,25	,"                                    %s",VERSION);
+	mvwprintw(stdscr,42,25,"                                    %s",VERSION);
 } 
 
 /*

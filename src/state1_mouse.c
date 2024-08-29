@@ -305,10 +305,15 @@ void find_mouse_system_buttons(int y,int x)
 	 */
 	if((y >= 34) & (y <= 36) & (x >= 76) & (x <= 94))
 	{
+		if(total_items() == 0)
+		{
+			err_dialog("NO ITEMS TO PAY FOR");
+			return;
+		}
 		del_state(1);
 		erase();
 		draw_state(5);
-		set_state("PREV_STATE",1);
+		set_state("PREV_STATE",5);
 		set_state("STATE",5);
 	}
 	/*
@@ -317,10 +322,11 @@ void find_mouse_system_buttons(int y,int x)
 	 */
 	if((y >= 34) & (y <= 36) & (x <= 20))
 	{
-		if(total_items() > 0)
+		/*if(total_items() > 0)
 		{
 			save_order();
-		}
+		}*/
+		return;
 	}
 }
 
@@ -597,6 +603,9 @@ void find_mouse_keypad(int y,int x)
 	 */
 	if((y >= starty + 18) & (y <= starty + 21) & (x >= startx + 46) & (x <= startx + 58))
 	{
+		/*
+		 * FUNC 1 = modify item quantity
+		 */
 		if((get_keypad_state("FUNC") == 1) & (get_keypad_data() > 0))
 		{
 			int data = (int)get_keypad_data();
@@ -607,6 +616,9 @@ void find_mouse_keypad(int y,int x)
 			update_order_stat();
 			write_list();
 		}
+		/*
+		 * FUNC 2 = Add open food item/charge
+		 */
 		else if(get_keypad_state("FUNC") == 2)
 		{
 			add_open_food(get_keypad_data());
@@ -616,6 +628,9 @@ void find_mouse_keypad(int y,int x)
 			update_order_stat();
 			write_list();
 		}
+		/*
+		 * FUNC 3 = Search for order in specified day -- recall menu
+		 */
 		else if(get_keypad_state("FUNC") == 3)
 		{
 			char order[50];
@@ -628,6 +643,27 @@ void find_mouse_keypad(int y,int x)
 			{
 				set_recalldex("LINE",check);
 				write_recall();
+			}
+		}
+		/*
+		 * FUNC 4 = Evaluate cash payment
+		 */
+		else if(get_keypad_state("FUNC") == 4)
+		{
+			float total = get_keypad_data();
+			float owed = calc_total();
+			float change;
+			if(total < owed)
+			{
+				err_dialog("INSUFFICIENT FUNDS!");
+				return;
+			}
+			else if(total >= owed)
+			{
+				change = total - owed;
+				save_order(total,change);
+				del_order();
+				change_dialog(change);
 			}
 		}
 	}

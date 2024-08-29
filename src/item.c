@@ -162,7 +162,7 @@ float get_itm(int menu,char val[],int itm_num)
 		move(36,1);
 		clrtoeol();
 		printw("%s",dir);
-		print_err("SYSTEM FILE NOT FOUND!! GET_ITM");
+		err_dialog("SYSTEM FILE NOT FOUND!! GET_ITM");
 		free(dir);
 		free(line);
 		free(temp);
@@ -223,7 +223,7 @@ void get_mod(int menu,char *name,int itm_num)
 	data = fopen(dir,"r");
 	if(data == NULL)
 	{
-	 	center_error("MODS.DAT NOT FOUND");
+	 	err_dialog("MODS.DAT NOT FOUND");
 		return;
 	}
 	if(itm_num == 0)

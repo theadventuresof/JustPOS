@@ -11,7 +11,7 @@ void remove_mods(int itm_num);
 void add_open_food(float total);
 void modify_qty(int itm_num,int qty);
 void modify_price(int itm_num,float price);
-void save_order(void);
+void save_order(float paid,float change);
 void del_order(void);
 void print_list(void);
 void highlight(int itm_num);

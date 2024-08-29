@@ -182,7 +182,7 @@ int find_orderno()
 		closedir(dirp);
 	}
 	else{
-		center_error("COULD NOT OPEN ORDER DIRECTORY ORDERS WILL NOT BE SAVED");
+		err_dialog("COULD NOT OPEN ORDER DIRECTORY ORDERS WILL NOT BE SAVED");
 	}
 	return num;
 }
@@ -386,7 +386,7 @@ int check_menu_line(char val[],int menu)
 	 */
 	if(data == NULL)
 	{
-		print_err("SYSTEM FILE NOT FOUND!!");
+		err_dialog("SYSTEM FILE NOT FOUND!!");
 		fclose(data);
 		return false;
 	}

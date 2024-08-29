@@ -23,7 +23,7 @@ void print_reciept(char path[])
 		strncat(command," ",2);
 	}
 	strncat(command,path,strlen(path) + 1);
-	printw("\n\n%s\n",command);
+	//printw("\n\n%s\n",command);
 	//system(command);
 
 }

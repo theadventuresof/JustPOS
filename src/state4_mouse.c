@@ -8,7 +8,7 @@ void find_mouse_recall_sys(int y,int x)
 	/*
 	 * If return button is pressed
 	 */ 
-	if((y >= 6) & (y <= 8) & (x >= 10) & (x <= 30))
+	if((y >= 38) & (y <= 40) & (x >= 6) & (x <= 20))
 	{
 		del_state(4);
 		reset_recall_date();

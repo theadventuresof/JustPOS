@@ -54,12 +54,10 @@ PANEL *void_ordp;
 void draw_recall_sys_btns(void)
 {
 	del_recall_sys_btns();
-	recall_back = newwin(3,20,6,10);
+	recall_back = newwin(3,15,38,5);
 	box(recall_back,0,0);
-	mvwprintw(recall_back,1,7,"RETURN");
+	mvwprintw(recall_back,1,5,"RETURN");
 	recall_backp = new_panel(recall_back);
-	move(10,10);
-	printw("________________________________");
 	recall_ord = newwin(3,20,12,10);
 	box(recall_ord,0,0);
 	mvwprintw(recall_ord,1,4,"RECALL/SELECT");

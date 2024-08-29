@@ -756,9 +756,9 @@ void highlight(int itm_num)
  
 
 /*
- * Missing: total paid, change due, what if CARD?
+ * 
  */
-void save_order(void)
+void save_order(float paid,float change)
 {	
 	char full_name[100];
 	
@@ -875,8 +875,8 @@ void save_order(void)
 	fprintf(cur_order,"-------------------\n\n");
 	fprintf(cur_order,"Items Sold:\t%d\n",total_items());
 	fprintf(cur_order,"Total  Due:\t$%.2f\n",calc_total());
-	fprintf(cur_order,"Total Paid:\t\n");
-	fprintf(cur_order,"Change Due:\t\n");
+	fprintf(cur_order,"Total Paid:\t$%.2f\n",paid);
+	fprintf(cur_order,"Change Due:\t$%.2f\n",change);
 	
 	print_reciept(full_name);
 	fclose(cur_order);

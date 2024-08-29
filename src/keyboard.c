@@ -206,9 +206,9 @@ void del_keyboard(void)
 void add_key(char key[])
 {
 	/*
-	 * If keyboard_msg has less than 50 characters, add one more
+	 * If keyboard_msg has less than 25 characters, add one more
 	 */
-	if(strlen(keys.msg) < 49)
+	if(strlen(keys.msg) < 24)
 	{
 		strncat(keys.msg,key,2);
 	}

@@ -80,7 +80,7 @@ int main(void)
 	struct itimerval it_val;
 	if(signal(SIGALRM,(void(*)(int))print_clock) == SIG_ERR)
 	{
-		print_err("NO CLOCK FOR YOU");
+		err_dialog("NO CLOCK FOR YOU");
 	}
 	/*
 	 * According to 'man setitimer' if tv_sec and tv_usec are not empty
@@ -91,7 +91,7 @@ int main(void)
 	it_val.it_interval = it_val.it_value;
 	if(setitimer(ITIMER_REAL,&it_val,NULL) == -1)
 	{
-		print_err("NO CLOCK FOR YOU");
+		err_dialog("NO CLOCK FOR YOU");
 	}
 	print_clock();
 	/*

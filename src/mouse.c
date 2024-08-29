@@ -102,7 +102,7 @@ void get_mouse(int y,int x)
 		/*
 		 * If mouse event occured on recall system buttons
 		 */
-		if((y >= 6) & (y <= 34) & (x >= 9) & (x <= 30))
+		if((y >= 6) & (y <= 40) & (x >= 5) & (x <= 30))
 		{
 			find_mouse_recall_sys(y,x);
 		}
@@ -150,7 +150,7 @@ void get_mouse(int y,int x)
 			set_state("PREV_STATE",1);
 			draw_state(1);
 		}
-		else if((y >= 7) & (y <= 30) & (x >= 74) & (x <= 89))
+		else if((y >= 7) & (y <= 35) & (x >= 74) & (x <= 89))
 		{
 			find_mouse_cash_buttons(y,x);
 		}
