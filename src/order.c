@@ -569,6 +569,10 @@ void write_list(void)
 		strncpy(name,ord->name,strlen(ord->name) + 1);
 		concat_blanks(34-strlen(name),name);
 		write_to_order_win(name,1,ord->highlight);
+		if(ord->menu != 5)
+		{
+			charges += ord->charge;
+		}
 		mod = ord->child;
 		/*
 		 * Begin iterating through child list
@@ -582,7 +586,7 @@ void write_list(void)
 			else if(mod->mod_menu == 4)
 			{
 				strncpy(menu,"CHARGE",7);
-				charges += (get_itm(4,"COST",mod->mod_num) * (ord->qty));
+				charges += get_itm(4,"COST",mod->mod_num);
 			}
 			if(mod->mod_menu == 0)
 			{
@@ -608,11 +612,12 @@ void write_list(void)
 		}
 		if(ord->menu < 5)
 		{
-			sprintf(details,"x%d\t\t@$%.2f",ord->qty,((charges + ord->charge)*ord->qty));
+			sprintf(details,"x%d\t\t@$%.2f",ord->qty,(charges * ord->qty));
 		}
 		else if(ord->menu == 5)
 		{
-			sprintf(details,"x%d\t\t@$%.2f",ord->qty,((charges + ord->open_food)*ord->qty));
+			charges += ord->open_food;
+			sprintf(details,"x%d\t\t@$%.2f",ord->qty,(charges * ord->qty));
 		}
 		concat_blanks(25-strlen(details),details);
 		write_to_order_win(details,0,ord->highlight);
