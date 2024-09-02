@@ -828,7 +828,6 @@ void save_order(float paid,float change)
 		float itm_price = 0;
 		if(ord->menu < 5)
 		{
-			//get_name(ord->menu,name,ord->itm_num);
 			strncpy(name,ord->name,strlen(ord->name) + 1);
 		}
 		else if(ord->menu == 5)
@@ -851,12 +850,10 @@ void save_order(float paid,float change)
 				strncpy(mod,"CHARGE\0",8);
 				itm_price += (get_itm(4,"COST",mods->mod_num)*ord->qty);
 			}
-			//if((strlen(mods->msg) > 0) & (mods->msg[0] != '\0'))
 			if(strlen(mods->msg) > 0)
 			{
 				fprintf(cur_order,"   %s\n",mods->msg);
 			}
-			//get_name(mods->mod_menu,mod,mods->mod_num);
 			strncpy(mod,mods->name,strlen(mods->name) + 1);
 			/*
 			 * Regular mod vs extra charge
@@ -874,7 +871,8 @@ void save_order(float paid,float change)
 		/*
 		 * Print quanity and cost for total items @ qty
 		 */
-		fprintf(cur_order,"x%d\t$%.2f\n",ord->qty,(get_itm(ord->menu,"COST",ord->itm_num) * (ord->qty) + itm_price));
+		//fprintf(cur_order,"x%d\t$%.2f\n",ord->qty,(get_itm(ord->menu,"COST",ord->itm_num) * (ord->qty) + itm_price));
+		fprintf(cur_order,"x%d\t$%.2f\n",ord->qty,(ord->charge * ord->qty) + itm_price);
 		ord = ord->next;
 	}
 	fprintf(cur_order,"-------------------\n\n");
@@ -883,12 +881,12 @@ void save_order(float paid,float change)
 	fprintf(cur_order,"Total Paid:\t$%.2f\n",paid);
 	fprintf(cur_order,"Change Due:\t$%.2f\n",change);
 	
-	print_reciept(full_name);
 	fclose(cur_order);
 	free(msg);
 	free(orderno);
 	free(name);
 	free(mod);
+	print_reciept(full_name);
 
 	/*
 	 * Generate daily.rpt (In case of program crash)
