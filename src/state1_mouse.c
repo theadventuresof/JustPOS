@@ -668,6 +668,7 @@ void find_mouse_keypad(int y,int x)
 			{
 				change = total - owed;
 				save_order(total,change);
+				gen_today();
 				del_order();
 				change_dialog(change);
 			}

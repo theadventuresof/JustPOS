@@ -761,7 +761,7 @@ void highlight(int itm_num)
  
 
 /*
- * 
+ * Write order list to file, print file, and create/update daily report 
  */
 void save_order(float paid,float change)
 {	
@@ -810,7 +810,93 @@ void save_order(float paid,float change)
 	 * Also print order number, and date
 	 */
 	get_file_data(".conf","msg=",name);
-	fprintf(cur_order,"%s\n\n",name);
+	int start=0,i=0;
+	/*
+	 * If message from .conf is less than 28 chars, center single line
+	 * and print message
+	 */
+	if(strlen(name) < 27)
+	{
+		/*
+		 * Find out how many spaces to copy for centering message
+		 */
+		start = 28-strlen(name);
+		for(i = 0; i < start/2; i++)
+		{
+			fprintf(cur_order," ");
+		}
+		fprintf(cur_order,"%s\n\n",name);
+	}
+	/*
+	 * If .conf message is more than 28 chars, separate lines based on
+	 * whitespace and message length (100 char max)
+	 */
+	else if(strlen(name) > 27)
+	{
+		char temp[50];
+		int j=0;
+		/*
+		 * Loop through message 
+		 */
+		while(i < strlen(name))
+		{
+			/*
+			 * Set i to rightmost position or i + 27
+			 */
+			if(i + 27 < strlen(name))
+			{
+				i += 27;
+			}
+			else{
+				i = strlen(name);
+			}
+			/*
+			 * Start moving backwards (left) through message looking for
+			 * whitespace
+			 */
+			for(int k = i; k > j;k--)
+			{
+				/*
+				 * If whitespace is found, preserve position and break loop
+				 */
+				if(name[k] == ' ')
+				{
+					i = k;
+					break;
+				}
+			}
+			/*
+			 * Copy partial message from i (rightmost position) to j
+			 * (beginning position)
+			 */
+			copy_fragment(name,j,i,temp);
+			/*
+			 * After copying, set j = i to change starting index
+			 */
+			j = i;
+			/*
+			 * Find out how many spaces (if any) to copy in front of
+			 * message fragment
+			 */
+			start = 28-strlen(temp);
+			for(int k = 0;k < start/2; k++)
+			{
+				fprintf(cur_order," ");
+			}
+			/*
+			 * Print message fragment
+			 */
+			fprintf(cur_order,"%s\n",temp);
+		}
+		fprintf(cur_order,"\n");
+	}
+	get_file_data(".conf","contact=",name);
+	start = 28-strlen(name);
+	for(int k =0;k < strlen(name)/2;k++)
+	{
+		fprintf(cur_order," ");
+	}
+	fprintf(cur_order,"%s\n\n\n",name);
 	fprintf(cur_order,"Order no. %d\n",find_orderno());
 	get_time(time);
 	fprintf(cur_order,"%s\n\n",time);
@@ -887,16 +973,6 @@ void save_order(float paid,float change)
 	free(name);
 	free(mod);
 	print_reciept(full_name);
-
-	/*
-	 * Generate daily.rpt (In case of program crash)
-	 * 
-	 * Probably more efficient to get the value from daily.rpt and add
-	 * value of total_sales...
-	 */
-	char date[100];
-	get_dir_date(date);
-	gen_daily(date);
 }
 
 /*

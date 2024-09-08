@@ -338,7 +338,7 @@ int validate_month(char month[])
 /*
  * Generate all reports 
  */
-void gen_today()
+void gen_today(void)
 {
 	char date[100],temp[50];
 	get_file_data(".conf","dir=",date);

@@ -396,5 +396,13 @@ Changed placement of RETURN button on recall menu to match cash payment screen
 Fixed bug displaying incorrect charges on order_win
   -When more than one item had an extra charge, the calculation was 
    done incorrectly to show a charge greater than what was owed
+   
+9/8/2024
+
+Centered message from .conf 
+  -Although this is a rather small update, the logic took me some time
+   to work out. The problem being that I wanted to center the message 
+   from .conf and not interrupt words -- that is preserve whitespace.
+  -Added option to .conf for phone number/social media handle 
 
  

@@ -57,3 +57,19 @@ void search(char val[])
 		}
 	}
 }
+
+/*
+ * Copy a fragment of a string from source to dest -- used by save_order
+ */
+void copy_fragment(char source[],int begin,int end,char *dest)
+{
+	char temp[end-begin+1];
+	int i=begin,k=0;
+	for(i = begin; i < end; i++)
+	{
+		temp[k] = source[i];
+		temp[k + 1] = '\0';
+		k++;
+	}
+	strncpy(dest,temp,strlen(temp) + 1);
+}
