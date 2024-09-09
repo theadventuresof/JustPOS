@@ -93,6 +93,7 @@ int get_state(char type[])
  */
 void init(void)
 {
+	system("sed -i '/^$/d' dat/food.dat dat/drinks.dat dat/mods.dat dat/charge.dat");
 	find_max_items();
 	set_max_pages();
 	set_state("STATE",1);

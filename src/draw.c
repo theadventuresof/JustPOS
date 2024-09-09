@@ -128,7 +128,6 @@ void write_to_menu_buttons(void)
 		else if(get_state("BSTATE") == 3)
 		{	
 			wattron(itm_btns[i],COLOR_PAIR(6));
-			wattron(itm_btns[11],COLOR_PAIR(2));
 		}
 		else if(get_state("BSTATE") == 4) 
 		{

@@ -402,7 +402,18 @@ Fixed bug displaying incorrect charges on order_win
 Centered message from .conf 
   -Although this is a rather small update, the logic took me some time
    to work out. The problem being that I wanted to center the message 
-   from .conf and not interrupt words -- that is preserve whitespace.
+   from .conf and not interrupt words.
+   -Basically, my receipts have a 28 char width. (using lp -- maybe post
+    script can help size/font?) So, when reading the message, one variable
+    represents the beginning of what to copy, and another variable starts
+    at the 28th space and searches leftward for whitespace. The fragments
+    are then copied and aligned. 
   -Added option to .conf for phone number/social media handle 
 
  
+9/9/2024
+
+Realized that if my menu (*dat) files had blank lines, it would mess
+things up. Added a sed command '/d^$/' to init that remove all blank lines
+from the menu files. (Coudln't figure out how to skip lines that only 
+contianed \n so this is my workaround)

@@ -1,5 +1,12 @@
-Name/description,price,food cost
-Hamberguesa,50.00,30.00
+#Name/description,price,food cost
+Burger,30.00,12.00
+CBK Doble,40.00,18.00
+Doble Doble,20.00,10.00
+Space,27.00,14.00
+The lion,29,14.00
+Simple BURGER for kids,20.00,10.00
+ANNIVERSARY,50.00,20.00
+Cheeseburger,55.00,20.00
 Papas Fritas,40.00,20.00
 Ensalada,25.00,10.00
 Dulces (x15),15.00,5.00

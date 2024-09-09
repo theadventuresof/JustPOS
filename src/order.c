@@ -901,7 +901,7 @@ void save_order(float paid,float change)
 	get_time(time);
 	fprintf(cur_order,"%s\n\n",time);
 	free(time);
-	fprintf(cur_order,"------------------\n");
+	fprintf(cur_order,"-------------------\n");
 	/*
 	 * Begin iterating through list
 	 */

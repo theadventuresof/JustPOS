@@ -58,10 +58,6 @@ void get_name(int menu,char* name,int itm_num)
 	 */
 	if(data == NULL)
 	{
-		/*print_err("SYSTEM FILE NOT FOUND!! GET_NAME");
-		free(line);
-		free(dir);
-		fclose(data);*/
 		return;
 	}
 	/*
@@ -69,9 +65,6 @@ void get_name(int menu,char* name,int itm_num)
 	 */
 	if(itm_num == 0)
 	{
-		/*free(line);
-		free(dir);
-		fclose(data);*/
 		return;
 	}
 	/*
