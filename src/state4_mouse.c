@@ -1,4 +1,15 @@
-#include "../lib/justpos.h"
+#include <string.h>
+
+#include "../lib/mouse.h"
+#include "../lib/err.h"
+#include "../lib/order.h"
+#include "../lib/recall.h"
+#include "../lib/scroll.h"
+#include "../lib/file.h"
+#include "../lib/state.h"
+#include "../lib/print.h"
+#include "../lib/keypad.h"
+#include "../lib/report.h"
 
 /*
  * 
@@ -134,6 +145,9 @@ void find_mouse_recall_sys(int y,int x)
 		set_recalldex("MAX",27);
 		write_recall();
 	}
+	/*
+	 * If search order button is pressed
+	 */
 	else if((y >= 16) & (y <= 18) & (x >= 10) & (x <= 30))
 	{
 		if(get_recalldex("STATE") != 1)
@@ -145,5 +159,23 @@ void find_mouse_recall_sys(int y,int x)
 		set_state("PREV_STATE",4);
 		set_keypad_state("FUNC",3);
 		draw_keypad("CENTER");
+	}
+	/*
+	 * If print order button is pressed
+	 */
+	else if((y >= 25) & (y <= 27) & (x >= 10) & (x <= 30))
+	{
+		if(get_recalldex("STATE") != 1)
+		{
+			err_dialog("NO ORDER SELECTED TO PRINT");
+			return;
+		}
+		if(get_recalldex("LINE") < 0)
+		{
+			err_dialog("NO ORDER SELECTED TO PRINT");
+			return;
+		}
+		char path[100];
+		print_reciept(path);
 	}
 }

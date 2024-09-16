@@ -1,5 +1,12 @@
-#include "../lib/justpos.h"
+#include <string.h>
+#include <stdlib.h>
 #include <dirent.h>
+
+#include "../lib/recall.h"
+#include "../lib/err.h"
+#include "../lib/draw.h"
+#include "../lib/draw_state_4.h"
+#include "../lib/scroll.h"
 
 DIR *ordp;
 struct dirent *dirord;

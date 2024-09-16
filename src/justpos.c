@@ -1,8 +1,12 @@
-/*
- * Include justpos.h to make use of local functions from other files 
- * (also includes system-wide macros/curses)
- */
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <sys/time.h>
+#include <signal.h>
+
+#include "../lib/err.h"
+#include "../lib/misc.h"
+#include "../lib/state.h"
+#include "../lib/mouse.h"
+#include "../lib/scroll.h"
 
 int main(void)
 {

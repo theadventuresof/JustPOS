@@ -1,6 +1,12 @@
-#include "../lib/justpos.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
 #include <sys/stat.h>
 #include <dirent.h>
+
+#include "../lib/report.h"
+#include "../lib/file.h"
 
 DIR *dir;
 DIR *subdir;

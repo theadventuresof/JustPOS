@@ -1,4 +1,9 @@
-#include "../lib/justpos.h"
+#include <stdio.h>
+#include <string.h>
+
+#include "../lib/scroll.h"
+#include "../lib/order.h"
+#include "../lib/recall.h"
 
 /*
  * This structure tracks data relevant to scrolling the order

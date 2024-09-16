@@ -1,4 +1,11 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "../lib/order.h"
+#include "../lib/state.h"
+#include "../lib/draw.h"
+#include "../lib/err.h"
 
 /*
  * Draws red error text over center of screen -- used for screen size check
@@ -90,6 +97,9 @@ void change_dialog(float change)
 	 * the error dialog is deleted, state 1 mouse is catpured 
 	 */
 	set_state("PREV_STATE",1);
+	set_state("BSTATE",1);
+	shuffle_tabs();
+	write_to_menu_buttons();
 	/*
 	 * err_dialog window is visible so STATE is 0 
 	 */

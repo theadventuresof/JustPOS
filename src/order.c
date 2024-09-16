@@ -1,4 +1,17 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "../lib/order.h"
+#include "../lib/err.h"
+#include "../lib/print.h"
+#include "../lib/report.h"
+#include "../lib/scroll.h"
+#include "../lib/file.h"
+#include "../lib/draw.h"
+#include "../lib/state.h"
+#include "../lib/item.h"
+#include "../lib/misc.h"
 
 struct mod_t{
 	char name[50];
@@ -612,14 +625,14 @@ void write_list(void)
 		}
 		if(ord->menu < 5)
 		{
-			sprintf(details,"x%d\t\t@$%.2f",ord->qty,(charges * ord->qty));
+			sprintf(details,"x%d        @$%.2f",ord->qty,(charges * ord->qty));
 		}
 		else if(ord->menu == 5)
 		{
 			charges += ord->open_food;
-			sprintf(details,"x%d\t\t@$%.2f",ord->qty,(charges * ord->qty));
+			sprintf(details,"x%d        @$%.2f",ord->qty,(charges * ord->qty));
 		}
-		concat_blanks(25-strlen(details),details);
+		concat_blanks(34-strlen(details),details);
 		write_to_order_win(details,0,ord->highlight);
 		write_to_order_win("----------------------------------",0,0);
 		ord = ord->next;
@@ -641,14 +654,11 @@ int which_menu(int itm_num)
 		return false;
 	}
 	int i=0,val;
-	//if(itm_num > 0)
-	//{
-		while(i < itm_num)
-		{
-			ord = ord->next;
-			i++;
-		}
-	//}
+	while(i < itm_num)
+	{
+		ord = ord->next;
+		i++;
+	}
 	val = ord->menu;
 	return val;
 }
@@ -998,6 +1008,10 @@ void add_mod(int itm_num,int mod_num,int menu)
 	 * Begin iterating through parent list until specified node
 	 */
 	struct order_t *new_node = head;
+	if(new_node == NULL)
+	{
+		return;
+	}
 	int i=0;
 	while(i < itm_num)
 	{

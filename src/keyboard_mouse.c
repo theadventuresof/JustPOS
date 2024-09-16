@@ -1,4 +1,9 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/keyboard.h"
+#include "../lib/state.h"
+#include "../lib/order.h"
+#include "../lib/misc.h"
 
 /*
  * Find mouse events that occur over keyboard

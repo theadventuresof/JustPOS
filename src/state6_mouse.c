@@ -1,4 +1,7 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/mouse.h"
+#include "../lib/state.h"
 
 void find_mouse_settings(int y,int x)
 {

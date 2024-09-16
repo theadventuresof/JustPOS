@@ -1,5 +1,8 @@
-#include "../lib/justpos.h"
+#include <stdio.h>
 
+#include "../lib/mouse.h"
+#include "../lib/order.h"
+#include "../lib/keypad.h"
 
 /*
  * Direct mouse input for keypad insertion

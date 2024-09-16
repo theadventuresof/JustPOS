@@ -1,4 +1,6 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/draw_state_5.h"
 
 WINDOW *state_five_sys_btns[6];
 PANEL *state_five_sys_btnsp[6];

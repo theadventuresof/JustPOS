@@ -1,4 +1,6 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/draw_state_6.h"
 
 WINDOW *settings_return;
 PANEL *settings_returnp;

@@ -1,4 +1,7 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/draw_state_4.h"
+#include "../lib/scroll.h"
 
 WINDOW *recall_win;
 PANEL *recall_winp;

@@ -1,8 +1,16 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <time.h>
 #include <dirent.h>
 #include <ctype.h>
+
+#include "../lib/file.h"
+#include "../lib/err.h"
+#include "../lib/order.h"
+#include "../lib/item.h"
+#include "../lib/report.h"
 
 struct stat overflow;
 time_t rawtime;

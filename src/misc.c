@@ -1,4 +1,11 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+
+#include "../lib/misc.h"
+#include "../lib/item.h"
+#include "../lib/state.h"
+#include "../lib/draw.h"
+#include "../lib/file.h"
 
 /*
  * Print date and time information to stdscr

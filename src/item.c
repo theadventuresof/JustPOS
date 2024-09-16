@@ -1,4 +1,10 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "../lib/item.h"
+#include "../lib/order.h"
+#include "../lib/err.h"
 
 /*
  * Get item name from specified menu

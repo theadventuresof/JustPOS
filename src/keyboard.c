@@ -1,4 +1,7 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+
+#include "../lib/keyboard.h"
 
 struct keys{
 	char msg[80];

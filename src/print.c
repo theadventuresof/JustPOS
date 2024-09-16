@@ -1,4 +1,9 @@
-#include "../lib/justpos.h"
+#include <string.h>
+#include <stdlib.h>
+
+#include "../lib/print.h"
+#include "../lib/file.h"
+#include "../lib/report.h"
 
 /*
  * Build a string for lp command to print to specified printer
@@ -23,6 +28,7 @@ void print_reciept(char path[])
 		strncat(command," ",2);
 	}
 	strncat(command,path,strlen(path) + 1);
+	strncat(command," &> /dev/null",14);
 	//system(command);
 
 }

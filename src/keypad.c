@@ -1,4 +1,8 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "../lib/keypad.h"
 
 /*
  * Keep track of where keypad is on the screen as well as what to do

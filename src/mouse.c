@@ -1,4 +1,12 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+
+#include "../lib/mouse.h"
+#include "../lib/err.h"
+#include "../lib/order.h"
+#include "../lib/scroll.h"
+#include "../lib/state.h"
+#include "../lib/recall.h"
+#include "../lib/keypad.h"
 
 /*
  * The main entry point for mouse/touch input

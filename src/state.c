@@ -1,4 +1,21 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../lib/state.h"
+#include "../lib/draw.h"
+#include "../lib/keyboard.h"
+#include "../lib/keypad.h"
+#include "../lib/draw_state_4.h"
+#include "../lib/draw_state_5.h"
+#include "../lib/draw_state_6.h"
+#include "../lib/scroll.h"
+#include "../lib/misc.h"
+#include "../lib/recall.h"
+#include "../lib/err.h"
+#include "../lib/file.h"
+#include "../lib/order.h"
 
 /*
  * Keep track of what is visible so that we know how to use input

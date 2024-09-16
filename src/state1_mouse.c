@@ -1,4 +1,18 @@
-#include "../lib/justpos.h"
+#include <panel.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "../lib/mouse.h"
+#include "../lib/report.h"
+#include "../lib/keypad.h"
+#include "../lib/order.h"
+#include "../lib/draw.h"
+#include "../lib/state.h"
+#include "../lib/err.h"
+#include "../lib/keyboard.h"
+#include "../lib/recall.h" 
+#include "../lib/scroll.h"
+#include "../lib/file.h"
 
 /*
  * Find mouse events that occur over the 12 menu buttons
