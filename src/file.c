@@ -121,7 +121,7 @@ void export_default(void)
 	system("echo \"#Default directory for storing orders.\" >> .conf");
 	system("echo \"dir=orders/\n\" >> .conf");
 	system("echo \"#A short message to display on top of receipts\" >> .conf");
-	system("echo \"msg=Thank you for choosing JustBurger!\n\" >> .conf");
+	system("echo \"msg=Thank you and please come again!!\n\" >> .conf");
 	system("echo \"#A phone number or social media handle\" >> .conf");
 	system("echo \"contact=1-800-555-2335\n\" >> .conf");
 	system("echo \"#Name for reciept printer (via CUPS)\" >> .conf");

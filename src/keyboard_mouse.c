@@ -73,12 +73,25 @@ void find_mouse_keyboard(int y,int x)
 			char dir[100];
 			strncpy(full,"dir=",5);
 			copy_keyboard_val(dir);
-			strncat(full,dir,strlen(dir));
+			strncat(full,dir,strlen(dir) + 1);
 			if(full[strlen(full)] != '/')
 			{
 				strncat(full,"/",2);
 			}
 			change_conf_line("dir=",full);
+			clear_keyboard();
+			del_keyboard();
+			set_state("STATE",get_state("PREV_STATE"));
+			return;
+		}
+		else if(get_keyboard("FUNC") == 4)
+		{
+			char full[100];
+			char msg[100];
+			strncpy(full,"msg=",5);
+			copy_keyboard_val(msg);
+			strncat(full,msg,strlen(msg) + 1);
+			change_conf_line("msg=",full);
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));

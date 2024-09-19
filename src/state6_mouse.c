@@ -17,6 +17,16 @@ void find_mouse_settings(int y,int x)
 		set_state("PREV_STATE",6);
 	}
 	/*
+	 * If conf_msg window is pressed
+	 */
+	if((y >= 11) & (y <= 16) & (x >= 10) & (x <= 60))
+	{
+		draw_keyboard();
+		set_keyboard("FUNC",4);
+		set_state("STATE",3);
+		set_state("PREV_STATE",6);
+	}
+	/*
 	 * If return is pressed
 	 */
 	if((y >= 38) & (y <= 40) & (x >= 6) & (x <= 20))
