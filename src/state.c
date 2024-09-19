@@ -124,6 +124,7 @@ void init(void)
 	set_recalldex("MIN",0);
 	set_recalldex("MAX",27);
 	set_recalldex("MAX_LINE",1);
+	set_keyboard("STATE",1);
 	draw_logo();
 	index_init();
 	draw_state(1); 

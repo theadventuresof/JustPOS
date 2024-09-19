@@ -73,112 +73,310 @@ void find_mouse_keyboard(int y,int x)
 	{
 		add_key(" ");
 	} 
+	/*
+	 * If 123/ABC is pressed (if state is to be changed)
+	 */
+	if((y >= max_y + 16) & (y <= max_y + 19) & (x >= (max_x/2) - 50) & (x <= ((max_x/2) - 50) + 10))
+	{
+		if(get_keyboard("STATE") == 1)
+		{
+			set_keyboard("STATE",2);
+			write_keys();
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			set_keyboard("STATE",1);
+			write_keys();
+		}
+	}
 	//Row 1 keys
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (0 * 15) + 5) & (x <= (0 * 15) + 13))
 	{
-		add_key("Q");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("Q");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("1");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (1 * 15) + 5) & (x <= (1 * 15) + 13))
 	{
-		add_key("W");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("W");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("2");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (2 * 15) + 5) & (x <= (2 * 15) + 13))
 	{
-		add_key("E");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("E");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("3");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (3 * 15) + 5) & (x <= (3 * 15) + 13))
 	{
-		add_key("R");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("R");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("4");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (4 * 15) + 5) & (x <= (4 * 15) + 13))
 	{
-		add_key("T");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("T");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("5");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (5 * 15) + 5) & (x <= (5 * 15) + 13))
 	{
-		add_key("Y");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("Y");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("6");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (6 * 15) + 5) & (x <= (6 * 15) + 13))
 	{
-		add_key("U");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("U");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("7");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (7 * 15) + 5) & (x <= (7 * 15) + 13))
 	{
-		add_key("I");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("I");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("8");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (8 * 15) + 5) & (x <= (8 * 15) + 13))
 	{
-		add_key("O");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("O");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("9");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (9 * 15) + 5) & (x <= (9 * 15) + 13))
 	{
-		add_key("P");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("P");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("0");
+		}
 	}
 	//Row 2 keys
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (0 * 15) + 8) & (x <= (0 * 15) + 16))
 	{
-		add_key("A");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("A");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("-");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (1 * 15) + 8) & (x <= (1 * 15) + 16))
 	{
-		add_key("S");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("S");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("/");
+		}	
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (2 * 15) + 8) & (x <= (2 * 15) + 16))
 	{
-		add_key("D");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("D");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key(":");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (3 * 15) + 8) & (x <= (3 * 15) + 16))
 	{
-		add_key("F");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("F");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key(";");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (4 * 15) + 8) & (x <= (4 * 15) + 16))
 	{
-		add_key("G");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("G");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("(");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (5 * 15) + 8) & (x <= (5 * 15) + 16))
 	{
-		add_key("H");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("H");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key(")");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (6 * 15) + 8) & (x <= (6 * 15) + 16))
 	{
-		add_key("J");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("J");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("$");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (7 * 15) + 8) & (x <= (7 * 15) + 16))
 	{
-		add_key("K");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("K");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("&");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (8 * 15) + 8) & (x <= (8 * 15) + 16))
 	{
-		add_key("L");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("L");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("@");
+		}
 	}
 	//Row three keys
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (0 * 15) + 11) & (x <= (0 * 15) + 19))
 	{
-		add_key("Z");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("Z");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("!");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (1 * 15) + 11) & (x <= (1 * 15) + 19))
 	{
-		add_key("X");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("X");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("#");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (2 * 15) + 11) & (x <= (2 * 15) + 19))
 	{
-		add_key("C");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("C");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("?");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (3 * 15) + 11) & (x <= (3 * 15) + 19))
 	{
-		add_key("V");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("V");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("*");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (4 * 15) + 11) & (x <= (4 * 15) + 19))
 	{
-		add_key("B");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("B");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("+");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (5 * 15) + 11) & (x <= (5 * 15) + 19))
 	{
-		add_key("N");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("N");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key(".");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (6 * 15) + 11) & (x <= (6 * 15) + 19))
 	{
-		add_key("M");
+		if(get_keyboard("STATE") == 1)
+		{
+			add_key("M");
+		}
+		else if(get_keyboard("STATE") == 2)
+		{
+			add_key("^");
+		}
 	}
 
 }
