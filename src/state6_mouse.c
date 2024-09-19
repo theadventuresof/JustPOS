@@ -2,9 +2,20 @@
 
 #include "../lib/mouse.h"
 #include "../lib/state.h"
+#include "../lib/keyboard.h"
 
 void find_mouse_settings(int y,int x)
 {
+	/*
+	 * If order_dir window is pressed
+	 */
+	if((y >= 5) & (y <= 7) & (x >= 10) & ( x <= 60))
+	{	
+		draw_keyboard();
+		set_keyboard("FUNC",3);
+		set_state("STATE",3);
+		set_state("PREV_STATE",6);
+	}
 	/*
 	 * If return is pressed
 	 */
@@ -15,6 +26,5 @@ void find_mouse_settings(int y,int x)
 		set_state("STATE",1);
 		set_state("PREV_STATE",1);
 		draw_state(1);
-		return;
 	}
 }

@@ -148,6 +148,9 @@ void draw_state(int state)
 	else if((y > 39) & (x > 149))
 	{
 		erase();
+		/*
+		 * Main menu is visible
+		 */
 		if(state == 1)
 		{
 			draw_menu_buttons();
@@ -166,6 +169,9 @@ void draw_state(int state)
 			print_clock();
 			return;
 		}
+		/*
+		 * Keypad is visible
+		 */
 		else if(state == 2)
 		{
 			char val[50];
@@ -183,6 +189,9 @@ void draw_state(int state)
 			write_keypad_val();
 			return;
 		}
+		/*
+		 * Keyboard is visible
+		 */
 		else if(state == 3)
 		{
 			del_keyboard();
@@ -190,6 +199,9 @@ void draw_state(int state)
 			draw_keyboard();
 			return;
 		}
+		/*
+		 * Recall menu is visible
+		 */
 		else if(state == 4)
 		{
 			draw_recall_win();
@@ -201,6 +213,9 @@ void draw_state(int state)
 			write_recall();
 			return;
 		}
+		/*
+		 * Cash payment screen is visible
+		 */
 		else if(state == 5)
 		{
 			draw_order();
@@ -214,6 +229,9 @@ void draw_state(int state)
 			draw_cash_btns();
 			return;
 		}
+		/*
+		 * Settings menu is visible
+		 */
 		else if(state == 6)
 		{
 			erase();

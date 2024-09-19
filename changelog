@@ -425,8 +425,14 @@ Started moving away from including un-needed headers. Before I was using
 This was easy for testing, but overall bad practice. Starting to only 
 include the needed headers for functionality.
 
-Eventually I need to fix my Makefile as well. It currently has no targets 
-or rules aside from using -lpanel -lncurses as libraries and it builds *
+Eventually I need to fix my Makefile as well. It currently has no
+rules aside from using -lpanel -lncurses as libraries and it builds *.c
 files in src/
+
+9/19/2024
+
+Added numbers and symbols to keyboard
+
+Added option to change order directory from settings
 
 

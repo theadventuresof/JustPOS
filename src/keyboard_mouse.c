@@ -1,9 +1,11 @@
 #include <panel.h>
+#include <string.h>
 
 #include "../lib/keyboard.h"
 #include "../lib/state.h"
 #include "../lib/order.h"
 #include "../lib/misc.h"
+#include "../lib/file.h"
 
 /*
  * Find mouse events that occur over keyboard
@@ -60,6 +62,23 @@ void find_mouse_keyboard(int y,int x)
 			char msg[50];
 			copy_keyboard_val(msg);
 			search(msg);
+			clear_keyboard();
+			del_keyboard();
+			set_state("STATE",get_state("PREV_STATE"));
+			return;
+		}
+		else if(get_keyboard("FUNC") == 3)
+		{
+			char full[100];
+			char dir[100];
+			strncpy(full,"dir=",5);
+			copy_keyboard_val(dir);
+			strncat(full,dir,strlen(dir));
+			if(full[strlen(full)] != '/')
+			{
+				strncat(full,"/",2);
+			}
+			change_conf_line("dir=",full);
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));
@@ -242,7 +261,7 @@ void find_mouse_keyboard(int y,int x)
 		}
 		else if(get_keyboard("STATE") == 2)
 		{
-			add_key(";");
+			add_key("_");
 		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (4 * 15) + 8) & (x <= (4 * 15) + 16))

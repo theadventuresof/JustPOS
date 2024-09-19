@@ -200,7 +200,7 @@ void write_keys(void)
 		mvwprintw(keyboard_keys[10],2,4,"-");
 		mvwprintw(keyboard_keys[11],2,4,"/");
 		mvwprintw(keyboard_keys[12],2,4,":");
-		mvwprintw(keyboard_keys[13],2,4,";");
+		mvwprintw(keyboard_keys[13],2,4,"_");
 		mvwprintw(keyboard_keys[14],2,4,"(");
 		mvwprintw(keyboard_keys[15],2,4,")");
 		mvwprintw(keyboard_keys[16],2,4,"$");
@@ -215,11 +215,11 @@ void write_keys(void)
 		mvwprintw(keyboard_keys[25],2,4,"^");
 		mvwprintw(keyboard_symbols,1,4,"ABC");
 	}
-	wattron(keyboard_display,A_BOLD);
+	/*wattron(keyboard_display,A_BOLD);
 	wattron(keyboard_display,A_BLINK);
 	mvwprintw(keyboard_display,1,1,"_");
 	wattroff(keyboard_display,A_BOLD);
-	wattroff(keyboard_display,A_BLINK);
+	wattroff(keyboard_display,A_BLINK);*/
 	update_panels();
 	doupdate();
 }
