@@ -28,6 +28,7 @@ struct status{
 	int highlight;
 	int prev_itm;
 	int current_cell;
+	int printer1;
 }status;
 
 /*
@@ -70,6 +71,10 @@ void set_state(char type[],int val)
 	{
 		status.prev_state = val;
 	}
+	else if(strcmp("PRINTER_1",type) == 0)
+	{
+		status.printer1 = val;
+	}
 }
 
 
@@ -103,6 +108,10 @@ int get_state(char type[])
 	{
 		val = status.prev_state;
 	}
+	else if(strcmp("PRINTER_1",type) == 0)
+	{
+		val = status.printer1;
+	}
 	return val;
 }
 
@@ -119,6 +128,7 @@ void init(void)
 	set_state("BSTATE",1);
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);
+	set_state("PRINTER_1",0);
 	set_scrolldex("MIN",0);
 	set_scrolldex("MAX",27);
 	set_scrolldex("MAX_LINE",1);

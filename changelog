@@ -441,5 +441,10 @@ Started drawing manager screen
 
 Updating how many characters are allowed for each type of keyboard input
   !!order directory and receipt message do not allow 99 chars to be copied!!
+  
+Added enable printer_1 button
+
+Found another bug where open food + extra charge copies the charge 
+value twice
 
 

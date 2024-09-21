@@ -6,6 +6,7 @@
 #include "../lib/order.h"
 #include "../lib/misc.h"
 #include "../lib/file.h"
+#include "../lib/draw_state_6.h"
 
 /*
  * Find mouse events that occur over keyboard
@@ -91,6 +92,7 @@ void find_mouse_keyboard(int y,int x)
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));
+			draw_settings_windows();
 			return;
 		}
 		/*
@@ -107,6 +109,7 @@ void find_mouse_keyboard(int y,int x)
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));
+			draw_settings_windows();
 			return;
 		}
 		/*
@@ -124,6 +127,7 @@ void find_mouse_keyboard(int y,int x)
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));
+			draw_settings_windows();
 			return;
 		}
 	}

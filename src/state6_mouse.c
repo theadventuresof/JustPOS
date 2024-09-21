@@ -3,6 +3,7 @@
 #include "../lib/mouse.h"
 #include "../lib/state.h"
 #include "../lib/keyboard.h"
+#include "../lib/draw_state_6.h"
 
 void find_mouse_settings(int y,int x)
 {
@@ -46,5 +47,20 @@ void find_mouse_settings(int y,int x)
 		set_state("STATE",1);
 		set_state("PREV_STATE",1);
 		draw_state(1);
+	}
+	/*
+	 * If enable printer_1 is pressed
+	 */
+	if((y >= 5) & (y <= 7) & (x >= 90) & (x <= 96))
+	{
+		if(get_state("PRINTER_1") == 1)
+		{
+			set_state("PRINTER_1",0);
+		}
+		else if(get_state("PRINTER_1") == 0)
+		{
+			set_state("PRINTER_1",1);
+		}
+		draw_settings_windows();
 	}
 }

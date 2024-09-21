@@ -3,6 +3,7 @@
 
 #include "../lib/draw_state_6.h"
 #include "../lib/report.h"
+#include "../lib/state.h"
 
 WINDOW *settings_return;
 PANEL *settings_returnp;
@@ -24,6 +25,7 @@ PANEL *enable_p1p;
  */
 void draw_settings_windows(void)
 {
+	del_settings_windows();
 	/*
 	 * Draw order directory field
 	 */
@@ -57,10 +59,16 @@ void draw_settings_windows(void)
 	/*
 	 * Draw enable printer1 button
 	 */
-	enable_p1 = newwin(3,6,5,90);
+	enable_p1 = newwin(3,7,5,90);
 	box(enable_p1,0,0);
 	enable_p1p = new_panel(enable_p1);
 	mvwprintw(stdscr,4,91,"Enable counter printer");
+	if(get_state("PRINTER_1") == 1)
+	{
+		wattron(enable_p1,A_BOLD);
+		mvwprintw(enable_p1,1,3,"X");
+		wattroff(enable_p1,A_BOLD);
+	}
 	/*
 	 * Draw return to main menu button
 	 */

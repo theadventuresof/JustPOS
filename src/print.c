@@ -4,6 +4,7 @@
 #include "../lib/print.h"
 #include "../lib/file.h"
 #include "../lib/report.h"
+#include "../lib/state.h"
 
 /*
  * Build a string for lp command to print to specified printer
@@ -11,6 +12,10 @@
  */
 void print_reciept(char path[])
 {
+	if(get_state("PRINTER_1") == 0)
+	{
+		return;
+	}
 	char temp[100],command[100];
 	strncpy(command,"lp ",4);
 	if(check_conf_val("printer1=") == 1)
@@ -29,6 +34,6 @@ void print_reciept(char path[])
 	}
 	strncat(command,path,strlen(path) + 1);
 	strncat(command," &> /dev/null",14);
-	//system(command);
+	system(command);
 
 }
