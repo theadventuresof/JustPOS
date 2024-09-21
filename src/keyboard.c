@@ -17,6 +17,7 @@ WINDOW *keyboard_backspace;
 WINDOW *keyboard_clear;
 WINDOW *keyboard_done;
 WINDOW *keyboard_symbols;
+WINDOW *keyboard_case;
 WINDOW *keyboard_keys[30];
 
 PANEL *keyboard_winp;
@@ -27,6 +28,7 @@ PANEL *keyboard_backspacep;
 PANEL *keyboard_clearp;
 PANEL *keyboard_donep;
 PANEL *keyboard_symbolsp;
+PANEL *keyboard_casep;
 PANEL *keyboard_keysp[30];
 
 /*
@@ -79,6 +81,23 @@ void draw_keyboard(void)
 	else if(get_keyboard("STATE") == 2)
 	{
 		mvwprintw(keyboard_symbols,1,4,"ABC");
+	}
+	
+	/*
+	 * 
+	 */
+	keyboard_case = derwin(keyboard_win,3,6,16,(x/2)-60);
+	box(keyboard_case,' ',' ');
+	keyboard_casep = new_panel(keyboard_case);
+	if(get_keyboard("STATE") == 1)
+	{
+		mvwprintw(keyboard_case,0,3,"|");
+		mvwprintw(keyboard_case,1,3,"v");
+	}
+	else if(get_keyboard("STATE") == 3)
+	{
+		mvwprintw(keyboard_case,0,3,"^");
+		mvwprintw(keyboard_case,1,3,"|");
 	}
 	
 	/*
@@ -184,6 +203,8 @@ void write_keys(void)
 		mvwprintw(keyboard_keys[24],2,4,"N");
 		mvwprintw(keyboard_keys[25],2,4,"M");
 		mvwprintw(keyboard_symbols,1,4,"123");
+		mvwprintw(keyboard_case,0,3,"|");
+		mvwprintw(keyboard_case,1,3,"v");
 	}
 	else if(get_keyboard("STATE") == 2)
 	{
@@ -214,6 +235,37 @@ void write_keys(void)
 		mvwprintw(keyboard_keys[24],2,4,".");
 		mvwprintw(keyboard_keys[25],2,4,"^");
 		mvwprintw(keyboard_symbols,1,4,"ABC");
+	}
+	else if(get_keyboard("STATE") == 3)
+	{
+		mvwprintw(keyboard_keys[0],2,4,"q");
+		mvwprintw(keyboard_keys[1],2,4,"w");
+		mvwprintw(keyboard_keys[2],2,4,"e");
+		mvwprintw(keyboard_keys[3],2,4,"r");
+		mvwprintw(keyboard_keys[4],2,4,"t");
+		mvwprintw(keyboard_keys[5],2,4,"y");
+		mvwprintw(keyboard_keys[6],2,4,"u");
+		mvwprintw(keyboard_keys[7],2,4,"i");
+		mvwprintw(keyboard_keys[8],2,4,"o");
+		mvwprintw(keyboard_keys[9],2,4,"p");
+		mvwprintw(keyboard_keys[10],2,4,"a");
+		mvwprintw(keyboard_keys[11],2,4,"s");
+		mvwprintw(keyboard_keys[12],2,4,"d");
+		mvwprintw(keyboard_keys[13],2,4,"f");
+		mvwprintw(keyboard_keys[14],2,4,"g");
+		mvwprintw(keyboard_keys[15],2,4,"h");
+		mvwprintw(keyboard_keys[16],2,4,"j");
+		mvwprintw(keyboard_keys[17],2,4,"k");
+		mvwprintw(keyboard_keys[18],2,4,"l");
+		mvwprintw(keyboard_keys[19],2,4,"z");
+		mvwprintw(keyboard_keys[20],2,4,"x");
+		mvwprintw(keyboard_keys[21],2,4,"c");
+		mvwprintw(keyboard_keys[22],2,4,"v");
+		mvwprintw(keyboard_keys[23],2,4,"b");
+		mvwprintw(keyboard_keys[24],2,4,"n");
+		mvwprintw(keyboard_keys[25],2,4,"m");
+		mvwprintw(keyboard_case,0,3,"^");
+		mvwprintw(keyboard_case,1,3,"|");
 	}
 	if(strlen(keys.msg) == 0)
 	{
@@ -252,6 +304,8 @@ void del_keyboard(void)
 		delwin(keyboard_done);
 		del_panel(keyboard_symbolsp);
 		delwin(keyboard_symbols);
+		del_panel(keyboard_casep);
+		delwin(keyboard_case);
 		for(i = 0; i < 27; i++)
 		{
 			del_panel(keyboard_keysp[i]);

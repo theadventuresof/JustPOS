@@ -120,26 +120,66 @@ int get_state(char type[])
  */
 void init(void)
 {
+	/*
+	 * Remove blank lines from menu files
+	 */
 	system("sed -i '/^$/d' dat/food.dat dat/drinks.dat dat/mods.dat dat/charge.dat");
+	/*
+	 * Find max items and pages based on item count
+	 */
 	find_max_items();
 	set_max_pages();
+	/*
+	 * Set default state (main menu)
+	 */
 	set_state("STATE",1);
 	set_state("PREV_STATE",1);
+	/*
+	 * Set buttons to display food menu
+	 */
 	set_state("BSTATE",1);
+	/*
+	 * Tell system that no item is selected
+	 */
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);
+	/*
+	 * Disable printer_1 by default
+	 */
 	set_state("PRINTER_1",0);
+	/*
+	 * Init indexes for scrollable windows 
+	 */
 	set_scrolldex("MIN",0);
 	set_scrolldex("MAX",27);
 	set_scrolldex("MAX_LINE",1);
 	set_recalldex("MIN",0);
 	set_recalldex("MAX",27);
 	set_recalldex("MAX_LINE",1);
+	/*
+	 * Set keyboard to default state (LETTERS IN CAPS)
+	 */
 	set_keyboard("STATE",1);
+	/*
+	 * Draw JustPOS logo
+	 */
 	draw_logo();
+	/*
+	 * Set all pages to 1
+	 */
 	index_init();
+	/*
+	 * Draw main menu
+	 */
 	draw_state(1); 
-	check_conf(); 
+	/*
+	 * 
+	 */
+	check_conf();
+	/*
+	 * Check installed printers and store in a text file
+	 */ 
+	system("lpstat -v &> dat/installed_printers.dat");
 }
 
 

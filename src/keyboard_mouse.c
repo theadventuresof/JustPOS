@@ -143,12 +143,32 @@ void find_mouse_keyboard(int y,int x)
 	 */
 	if((y >= max_y + 16) & (y <= max_y + 19) & (x >= (max_x/2) - 50) & (x <= ((max_x/2) - 50) + 10))
 	{
-		if(get_keyboard("STATE") == 1)
+		if((get_keyboard("STATE") == 1) | (get_keyboard("STATE") == 3))
 		{
 			set_keyboard("STATE",2);
 			write_keys();
 		}
 		else if(get_keyboard("STATE") == 2)
+		{
+			set_keyboard("STATE",1);
+			write_keys();
+		}
+	}
+	/*
+	 * If upper/lower case button is pressed
+	 */
+	if((y >= max_y + 16) & (y <= max_y + 19) & (x >= (max_x/2) - 60) & (x <= ((max_x/2) - 60) + 6))
+	{
+		if(get_keyboard("STATE") == 2)
+		{
+			return;
+		}
+		if(get_keyboard("STATE") == 1)
+		{
+			set_keyboard("STATE",3);
+			write_keys();
+		}
+		else if(get_keyboard("STATE") == 3)
 		{
 			set_keyboard("STATE",1);
 			write_keys();
@@ -165,6 +185,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("1");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("q");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (1 * 15) + 5) & (x <= (1 * 15) + 13))
 	{
@@ -175,6 +199,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("2");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("w");
 		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (2 * 15) + 5) & (x <= (2 * 15) + 13))
@@ -187,6 +215,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("3");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("e");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (3 * 15) + 5) & (x <= (3 * 15) + 13))
 	{
@@ -197,6 +229,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("4");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("r");
 		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (4 * 15) + 5) & (x <= (4 * 15) + 13))
@@ -209,6 +245,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("5");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("t");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (5 * 15) + 5) & (x <= (5 * 15) + 13))
 	{
@@ -219,6 +259,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("6");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("y");
 		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (6 * 15) + 5) & (x <= (6 * 15) + 13))
@@ -231,6 +275,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("7");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("u");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (7 * 15) + 5) & (x <= (7 * 15) + 13))
 	{
@@ -241,6 +289,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("8");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("i");
 		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (8 * 15) + 5) & (x <= (8 * 15) + 13))
@@ -253,6 +305,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("9");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("o");
+		}
 	}
 	else if((y >= max_y + 4) & (y <= max_y + 7) & (x >= (9 * 15) + 5) & (x <= (9 * 15) + 13))
 	{
@@ -263,6 +319,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("0");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("p");
 		}
 	}
 	//Row 2 keys
@@ -276,6 +336,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("-");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("a");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (1 * 15) + 8) & (x <= (1 * 15) + 16))
 	{
@@ -287,6 +351,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("/");
 		}	
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("s");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (2 * 15) + 8) & (x <= (2 * 15) + 16))
 	{
@@ -297,6 +365,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key(":");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("d");
 		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (3 * 15) + 8) & (x <= (3 * 15) + 16))
@@ -309,6 +381,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("_");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("f");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (4 * 15) + 8) & (x <= (4 * 15) + 16))
 	{
@@ -319,6 +395,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("(");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("g");
 		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (5 * 15) + 8) & (x <= (5 * 15) + 16))
@@ -331,6 +411,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key(")");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("h");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (6 * 15) + 8) & (x <= (6 * 15) + 16))
 	{
@@ -341,6 +425,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("$");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("j");
 		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (7 * 15) + 8) & (x <= (7 * 15) + 16))
@@ -353,6 +441,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("&");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("k");
+		}
 	}
 	else if((y >= max_y + 8) & (y <= max_y + 11) & (x >= (8 * 15) + 8) & (x <= (8 * 15) + 16))
 	{
@@ -363,6 +455,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("@");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("l");
 		}
 	}
 	//Row three keys
@@ -376,6 +472,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("!");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("z");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (1 * 15) + 11) & (x <= (1 * 15) + 19))
 	{
@@ -386,6 +486,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("#");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("x");
 		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (2 * 15) + 11) & (x <= (2 * 15) + 19))
@@ -398,6 +502,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("?");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("c");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (3 * 15) + 11) & (x <= (3 * 15) + 19))
 	{
@@ -408,6 +516,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("*");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("v");
 		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (4 * 15) + 11) & (x <= (4 * 15) + 19))
@@ -420,6 +532,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key("+");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("b");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (5 * 15) + 11) & (x <= (5 * 15) + 19))
 	{
@@ -431,6 +547,10 @@ void find_mouse_keyboard(int y,int x)
 		{
 			add_key(".");
 		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("n");
+		}
 	}
 	else if((y >= max_y + 12) & (y <= max_y + 15) & (x >= (6 * 15) + 11) & (x <= (6 * 15) + 19))
 	{
@@ -441,6 +561,10 @@ void find_mouse_keyboard(int y,int x)
 		else if(get_keyboard("STATE") == 2)
 		{
 			add_key("^");
+		}
+		else if(get_keyboard("STATE") == 3)
+		{
+			add_key("m");
 		}
 	}
 
