@@ -171,8 +171,12 @@ void get_mouse(int y,int x)
 		find_mouse_settings(y,x);
 	}
 	/*
-	 * Show mouse coordinates on screen
+	 * 
 	 */
+	else if(get_state("STATE") == 7)
+	{
+		find_mouse_manager(y,x);
+	}
 	move(2,1);
 	clrtoeol();
 	printw("%d/%d",y,x);

@@ -435,4 +435,11 @@ Added numbers and symbols to keyboard
 
 Added option to change order directory from settings
 
+9/21/2024
+
+Started drawing manager screen
+
+Updating how many characters are allowed for each type of keyboard input
+  !!order directory and receipt message do not allow 99 chars to be copied!!
+
 

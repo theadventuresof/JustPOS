@@ -320,6 +320,28 @@ void find_mouse_system_buttons(int y,int x)
 		return;
 	}
 	/*
+	 * If settings is pressed
+	 */
+	if((y >= 34) & (y <= 36) & (x <= 20))
+	{
+		del_state(1);
+		set_state("PREV_STATE",6);
+		set_state("STATE",6);
+		//erase();
+		draw_state(6);
+		return;
+	}
+	/*
+	 * If manager button is pressed
+	 */
+	if((y >= 34) & (y <= 36) & (x >= 25) & (x <= 44))
+	{
+		del_state(1);
+		set_state("PREV_STATE",7);
+		set_state("STATE",7);
+		draw_state(7);
+	}
+	/*
 	 * If pay cash button is pressed
 	 */
 	if((y >= 34) & (y <= 36) & (x >= 76) & (x <= 94))
@@ -334,18 +356,6 @@ void find_mouse_system_buttons(int y,int x)
 		draw_state(5);
 		set_state("PREV_STATE",5);
 		set_state("STATE",5);
-		return;
-	}
-	/*
-	 * If settings is pressed
-	 */
-	if((y >= 34) & (y <= 36) & (x <= 20))
-	{
-		del_state(1);
-		set_state("PREV_STATE",6);
-		set_state("STATE",6);
-		erase();
-		draw_state(6);
 		return;
 	}
 }

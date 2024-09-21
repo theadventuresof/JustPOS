@@ -16,10 +16,13 @@ PANEL *conf_msgp;
 WINDOW *phone;
 PANEL *phonep;
 
+WINDOW *enable_p1;
+PANEL *enable_p1p;
+
 /*
  * Draw return button for settings screen
  */
-void draw_settings_return(void)
+void draw_settings_windows(void)
 {
 	/*
 	 * Draw order directory field
@@ -52,6 +55,13 @@ void draw_settings_return(void)
 	mvwprintw(phone,1,2,"%s",phone_num);
 	mvwprintw(stdscr,19,11,"Phone number or social media handle for receipts");
 	/*
+	 * Draw enable printer1 button
+	 */
+	enable_p1 = newwin(3,6,5,90);
+	box(enable_p1,0,0);
+	enable_p1p = new_panel(enable_p1);
+	mvwprintw(stdscr,4,91,"Enable counter printer");
+	/*
 	 * Draw return to main menu button
 	 */
 	settings_return = newwin(3,15,38,5);
@@ -81,5 +91,15 @@ void del_settings_windows(void)
 	{
 		del_panel(conf_msgp);
 		conf_msg = NULL;
+	}
+	if(phone != NULL)
+	{
+		del_panel(phonep);
+		phone = NULL;
+	}
+	if(enable_p1 != NULL)
+	{
+		del_panel(enable_p1p);
+		enable_p1 = NULL;
 	}
 }

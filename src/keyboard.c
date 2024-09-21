@@ -269,11 +269,28 @@ void del_keyboard(void)
 void add_key(char key[])
 {
 	/*
-	 * If keyboard_msg has less than 25 characters, add one more
+	 * Limit special instruction messages to 25 char
 	 */
-	if(strlen(keys.msg) < 24)
+	if(get_keyboard("FUNC") == 1)
 	{
-		strncat(keys.msg,key,2);
+		if(strlen(keys.msg) < 24)
+		{
+			strncat(keys.msg,key,2);
+		}
+	}
+	if((get_keyboard("FUNC") == 2) | (get_keyboard("FUNC") == 5))
+	{
+		if(strlen(keys.msg) < 49)
+		{
+			strncat(keys.msg,key,2);
+		}
+	}
+	if((get_keyboard("FUNC") == 3) | (get_keyboard("FUNC") == 4))
+	{
+		if(strlen(keys.msg) < 99)
+		{
+			strncat(keys.msg,key,2);
+		}
 	}
 	/*
 	 * Preserve formatting, and draw blinking underscore

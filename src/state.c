@@ -10,6 +10,7 @@
 #include "../lib/draw_state_4.h"
 #include "../lib/draw_state_5.h"
 #include "../lib/draw_state_6.h"
+#include "../lib/draw_state_7.h"
 #include "../lib/scroll.h"
 #include "../lib/misc.h"
 #include "../lib/recall.h"
@@ -237,7 +238,18 @@ void draw_state(int state)
 			erase();
 			draw_logo();
 			print_clock();
-			draw_settings_return();
+			draw_settings_windows();
+			return;
+		}
+		/*
+		 * Manager menu is visible
+		 */
+		else if(state == 7)
+		{
+			erase();
+			draw_logo();
+			print_clock();
+			draw_manager_buttons();
 			return;
 		}
 	} 
@@ -276,6 +288,12 @@ void del_state(int state)
 	else if(state == 6)
 	{
 		del_settings_windows();
+		return;
+	}
+	else if(state == 7)
+	{
+		del_manager_buttons();
+		return;
 	}
 }
 

@@ -44,6 +44,9 @@ void find_mouse_keyboard(int y,int x)
 	 */
 	if((y >= max_y + 17) & (y <= max_y + 20) & (x >= 140) & (x <= 153))
 	{
+		/*
+		 * If special instruction is to be added to an item
+		 */
 		if(get_keyboard("FUNC") == 1)
 		{
 			char msg[50];
@@ -57,6 +60,9 @@ void find_mouse_keyboard(int y,int x)
 			doupdate();
 			return;
 		}
+		/*
+		 * If an item is to be searched for in the menu files
+		 */
 		else if(get_keyboard("FUNC") == 2)
 		{
 			char msg[50];
@@ -67,6 +73,9 @@ void find_mouse_keyboard(int y,int x)
 			set_state("STATE",get_state("PREV_STATE"));
 			return;
 		}
+		/*
+		 * If default order directory is to be changed (settings menu)
+		 */
 		else if(get_keyboard("FUNC") == 3)
 		{
 			char full[100];
@@ -84,14 +93,34 @@ void find_mouse_keyboard(int y,int x)
 			set_state("STATE",get_state("PREV_STATE"));
 			return;
 		}
+		/*
+		 * If the receipt header is to be changed (settings menu) 
+		 */
 		else if(get_keyboard("FUNC") == 4)
 		{
-			char full[100];
+			char full[120];
 			char msg[100];
 			strncpy(full,"msg=",5);
 			copy_keyboard_val(msg);
 			strncat(full,msg,strlen(msg) + 1);
 			change_conf_line("msg=",full);
+			clear_keyboard();
+			del_keyboard();
+			set_state("STATE",get_state("PREV_STATE"));
+			return;
+		}
+		/*
+		 * If the phone number/socail media/contact info is to be 
+		 * updated (settings menu)
+		 */
+		else if(get_keyboard("FUNC") == 5)
+		{
+			char full[100];
+			char phone[50];
+			strncpy(full,"contact=",9);
+			copy_keyboard_val(phone);
+			strncat(full,phone,strlen(phone)+1);
+			change_conf_line("contact=",full);
 			clear_keyboard();
 			del_keyboard();
 			set_state("STATE",get_state("PREV_STATE"));
