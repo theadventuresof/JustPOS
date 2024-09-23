@@ -4,7 +4,7 @@
 #include "../lib/keyboard.h"
 
 struct keys{
-	char msg[80];
+	char msg[100];
 	int keyboard_func;
 	int keyboard_state;
 }keys;

@@ -445,8 +445,21 @@ Added lower case to keyboard
 
 Updating how many characters are allowed for each type of keyboard input
   !!order directory and receipt message do not allow 99 chars to be copied!!
+  -Fixed -- string was only set to 80 char when I wanted to copy 100 char 
   
 Found another bug where open food + extra charge copies the charge 
-value twice
+value twice -- working but maybe not fixed? 9/23/2024
 
+9/23/2024
+
+Fixed keyboard bug
+
+In my attempts to work on the open food + extra charge bug, I ended up
+adding a string and an sprintf statement to convert the extra charges 
+from float to string and view it via an error dialog box. I got some
+really unexpected input. Basically it was showing me the total charges
+for the item above the open food. But for some unknown reason after 
+displaying a strange value in the dialog box, it displayed the correct
+value on the order list. I'm not marking this as fixed, but it is 
+technically working.
 

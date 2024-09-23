@@ -313,6 +313,14 @@ void recall_details(char line2[],int itm_num,float charges)
 	value = strtof(qty,NULL);
 	modify_qty(itm_num,value);
 	value1 = strtof(cost,NULL);
+	if(which_menu(itm_num) == 5)
+	{
+		char stuff[20];
+		sprintf(stuff,"%.2f",get_of_val(itm_num));
+		//err_dialog(stuff);
+		modify_price(itm_num,((get_of_val(itm_num)*value)+(charges*value)));
+		return;
+	}
 	modify_price(itm_num,((value1/value)-(charges*value)));
 	
 }

@@ -199,7 +199,6 @@ void add_open_food(float total)
 	lk->qty = 1;
 	lk->itm_num = 0;
 	lk->menu = 5;
-	//lk->msg[0] = '\0';
 	lk->open_food = total;
 	lk->charge = total;
 	lk->next = NULL;
