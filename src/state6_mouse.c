@@ -63,4 +63,19 @@ void find_mouse_settings(int y,int x)
 		}
 		draw_settings_windows();
 	}
+	/*
+	 * If enable printer_2 is pressed
+	 */
+	if((y >= 5) & (y <= 7) & (x >= 121) & (x <= 127))
+	{
+		if(get_state("PRINTER_2") == 1)
+		{
+			set_state("PRINTER_2",0);
+		}
+		else if(get_state("PRINTER_2") == 0)
+		{
+			set_state("PRINTER_2",1);
+		}
+		draw_settings_windows();
+	}
 }

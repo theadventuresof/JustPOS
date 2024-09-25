@@ -110,7 +110,7 @@ int check_conf_val(char conf_arg[])
 }
 
 /*
- * Using touch/echo, we create a default .conf file
+ * Using touch/echo, create a default .conf file
  */
 void export_default(void)
 {
@@ -129,6 +129,11 @@ void export_default(void)
 	system("echo \"printer1=\n\" >> .conf");
 	system("echo \"#Number of copies for printer 1\" >> .conf");
 	system("echo \"printer1-copies=1\n\" >> .conf");
+	system("echo \"#Name for grill printer (via CUPS)\" >> .conf");
+	system("echo \"#Leave empty for default printer\" >> .conf");
+	system("echo \"printer2=\n\" >> .conf");
+	system("echo \"#Number of copies for printer 2\" >> .conf");
+	system("echo \"printer2-copies=1\n\" >> .conf");
 }
 
 /*

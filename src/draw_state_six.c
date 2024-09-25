@@ -20,6 +20,9 @@ PANEL *phonep;
 WINDOW *enable_p1;
 PANEL *enable_p1p;
 
+WINDOW *enable_p2;
+PANEL *enable_p2p;
+
 /*
  * Draw return button for settings screen
  */
@@ -70,6 +73,19 @@ void draw_settings_windows(void)
 		wattroff(enable_p1,A_BOLD);
 	}
 	/*
+	 * Draw enable printer2 button
+	 */
+	enable_p2 = newwin(3,7,5,120);
+	box(enable_p2,0,0);
+	enable_p2p = new_panel(enable_p2);
+	mvwprintw(stdscr,4,121,"Enable grill printer");
+	if(get_state("PRINTER_2") == 1)
+	{
+		wattron(enable_p2,A_BOLD);
+		mvwprintw(enable_p2,1,3,"X");
+		wattroff(enable_p2,A_BOLD);
+	}
+	/*
 	 * Draw return to main menu button
 	 */
 	settings_return = newwin(3,15,38,5);
@@ -109,5 +125,10 @@ void del_settings_windows(void)
 	{
 		del_panel(enable_p1p);
 		enable_p1 = NULL;
+	}
+	if(enable_p2 != NULL)
+	{
+		del_panel(enable_p2p);
+		enable_p2 = NULL;
 	}
 }

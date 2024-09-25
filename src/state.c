@@ -29,6 +29,7 @@ struct status{
 	int prev_itm;
 	int current_cell;
 	int printer1;
+	int printer2;
 }status;
 
 /*
@@ -75,6 +76,10 @@ void set_state(char type[],int val)
 	{
 		status.printer1 = val;
 	}
+	else if(strcmp("PRINTER_2",type) == 0)
+	{
+		status.printer2 = val;
+	}
 }
 
 
@@ -112,6 +117,10 @@ int get_state(char type[])
 	{
 		val = status.printer1;
 	}
+	else if(strcmp("PRINTER_2",type) == 0)
+	{
+		val = status.printer2;
+	}
 	return val;
 }
 
@@ -147,6 +156,7 @@ void init(void)
 	 * Disable printer_1 by default
 	 */
 	set_state("PRINTER_1",0);
+	set_state("PRINTER_2",0);
 	/*
 	 * Init indexes for scrollable windows 
 	 */

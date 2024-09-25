@@ -6,6 +6,7 @@
 #include "../lib/order.h"
 #include "../lib/misc.h"
 #include "../lib/file.h"
+#include "../lib/err.h"
 #include "../lib/draw_state_6.h"
 
 /*
@@ -84,14 +85,31 @@ void find_mouse_keyboard(int y,int x)
 			strncpy(full,"dir=",5);
 			copy_keyboard_val(dir);
 			strncat(full,dir,strlen(dir) + 1);
-			if(full[strlen(full)] != '/')
+			if(full[strlen(full)-1] != '/')
 			{
 				strncat(full,"/",2);
+			}
+			for(int i = 0;i < strlen(dir) + 1; i++)
+			{
+				if(dir[i] == ' ')
+				{
+					err_dialog("Folder names cannot include spaces");
+					clear_keyboard();
+					del_keyboard();
+					return;
+				}
+			}
+			if(strlen(dir) == 0)
+			{
+				clear_keyboard();
+				del_keyboard();
+				set_state("STATE",6);
+				return;
 			}
 			change_conf_line("dir=",full);
 			clear_keyboard();
 			del_keyboard();
-			set_state("STATE",get_state("PREV_STATE"));
+			set_state("STATE",6);
 			draw_settings_windows();
 			return;
 		}

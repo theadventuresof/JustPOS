@@ -50,7 +50,7 @@ System buttons are now generated
 
 4/27/2024
 
-Get list function is called write_list
+Get list function is now called write_list
 	-Passes two strings to be written to order_cells
 
 4/28/2024
@@ -452,7 +452,7 @@ value twice -- working but maybe not fixed? 9/23/2024
 
 9/23/2024
 
-Fixed keyboard bug
+Fixed keyboard bug (see above)
 
 In my attempts to work on the open food + extra charge bug, I ended up
 adding a string and an sprintf statement to convert the extra charges 
@@ -461,5 +461,17 @@ really unexpected input. Basically it was showing me the total charges
 for the item above the open food. But for some unknown reason after 
 displaying a strange value in the dialog box, it displayed the correct
 value on the order list. I'm not marking this as fixed, but it is 
-technically working.
+technically working -- Tested on Fedora and Slackware.
+
+Prohibited spaces in order directory
+
+9/24/2024
+
+Fixed adding '/' to end of order directory if it was absent and doing
+nothing if it's present
+
+Added enable grill printer (printer_2) button
+
+Using lpstat -v >> dat/installed_printers.dat to get list of installed
+printers (VIA CUPS)
 
