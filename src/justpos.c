@@ -158,6 +158,21 @@ int main(void)
 						scroll_recall(get_scrolldex("DIFF"));
 					}
 				}
+				/*
+				 * Check for settings menu state (6) and check if event occured on
+				 * printer display window
+				 */
+				else if((ev.y >= 15) & (ev.y <= 20) & (ev.x >= 90) & (ev.x <= 139) & (get_state("STATE") == 6))
+				{
+					if((get_scrolldex("DIFF") != get_scrolldex("TOUCH")-ev.y) & (get_scrolldex("TOUCH") > 0))
+					{
+						set_scrolldex("DIFF",get_scrolldex("TOUCH")-ev.y);
+						scroll_print(get_scrolldex("DIFF"));
+						move(0,0);
+						clrtoeol();
+						printw("%d/%d",get_printerdex("MIN"),get_printerdex("MAX"));
+					}
+				}
 			}
 		}
 		/*

@@ -17,24 +17,18 @@ PANEL *conf_msgp;
 WINDOW *phone;
 PANEL *phonep;
 
-WINDOW *enable_p1;
-PANEL *enable_p1p;
+WINDOW *printer_display;
+PANEL *printer_displayp;
 
-WINDOW *enable_p2;
-PANEL *enable_p2p;
-
-WINDOW *config_p1;
-PANEL *config_p1p;
-
-WINDOW *config_p2;
-PANEL *config_p2p;
+WINDOW *printer_button[4];
+PANEL *printer_buttonp[4];
 
 /*
  * Draw return button for settings screen
  */
 void draw_settings_windows(void)
 {
-	del_settings_windows();
+	//del_settings_windows();
 	/*
 	 * Draw order directory field
 	 */
@@ -43,7 +37,7 @@ void draw_settings_windows(void)
 	char orddir[100];
 	get_file_data(".conf","dir=",orddir);
 	mvwprintw(order_dir,1,2,"%s",orddir);
-	mvwprintw(stdscr,4,11,"Parent directory for receipt storage:");
+	mvwprintw(stdscr,4,11,"Parent directory for receipt storage");
 	order_dirp = new_panel(order_dir);
 	/*
 	 * Draw .conf message field
@@ -68,44 +62,52 @@ void draw_settings_windows(void)
 	/*
 	 * Draw enable printer1 button
 	 */
-	enable_p1 = newwin(3,7,5,90);
-	box(enable_p1,0,0);
-	enable_p1p = new_panel(enable_p1);
+	printer_button[0] = newwin(3,7,5,90);
+	box(printer_button[0],0,0);
+	printer_buttonp[0] = new_panel(printer_button[0]);
 	mvwprintw(stdscr,4,91,"Enable counter printer");
 	if(get_state("PRINTER_1") == 1)
 	{
-		wattron(enable_p1,A_BOLD);
-		mvwprintw(enable_p1,1,3,"X");
-		wattroff(enable_p1,A_BOLD);
+		wattron(printer_button[0],A_BOLD);
+		mvwprintw(printer_button[0],1,3,"X");
+		wattroff(printer_button[0],A_BOLD);
 	}
 	/*
 	 * Draw enable printer2 button
 	 */
-	enable_p2 = newwin(3,7,5,120);
-	box(enable_p2,0,0);
-	enable_p2p = new_panel(enable_p2);
+	printer_button[1] = newwin(3,7,5,120);
+	box(printer_button[1],0,0);
+	printer_buttonp[1] = new_panel(printer_button[1]);
 	mvwprintw(stdscr,4,121,"Enable grill printer");
 	if(get_state("PRINTER_2") == 1)
 	{
-		wattron(enable_p2,A_BOLD);
-		mvwprintw(enable_p2,1,3,"X");
-		wattroff(enable_p2,A_BOLD);
+		wattron(printer_button[1],A_BOLD);
+		mvwprintw(printer_button[1],1,3,"X");
+		wattroff(printer_button[1],A_BOLD);
 	}
 	/*
 	 * Draw configure printer 1 box
 	 */
-	config_p1 = newwin(3,7,10,90);
-	box(config_p1,0,0);
-	enable_p1p = new_panel(config_p1);
+	printer_button[2] = newwin(3,7,10,90);
+	box(printer_button[2],0,0);
+	printer_buttonp[2] = new_panel(printer_button[2]);
 	mvwprintw(stdscr,9,91,"Configure counter printer");
 	
 	/*
 	 * Draw configure printer 2 box
 	 */
-	config_p2 = newwin(3,7,10,120);
-	box(config_p2,0,0);
-	enable_p2p = new_panel(config_p2);
+	printer_button[3] = newwin(3,7,10,120);
+	box(printer_button[3],0,0);
+	printer_buttonp[3] = new_panel(printer_button[3]);
 	mvwprintw(stdscr,9,121,"Configure grill printer");
+	
+	/*
+	 * Draw installed printers window 
+	 */
+	printer_display = newwin(6,50,15,90);
+	box(printer_display,0,0);
+	printer_displayp = new_panel(printer_display);
+	mvwprintw(stdscr,14,91,"Detected printers");
 	/*
 	 * Draw return to main menu button
 	 */
@@ -142,24 +144,17 @@ void del_settings_windows(void)
 		del_panel(phonep);
 		phone = NULL;
 	}
-	if(enable_p1 != NULL)
+	if(printer_display != NULL)
 	{
-		del_panel(enable_p1p);
-		enable_p1 = NULL;
+		del_panel(printer_displayp);
+		printer_display = NULL;
 	}
-	if(enable_p2 != NULL)
+	for(int i = 0; i < 4; i++)
 	{
-		del_panel(enable_p2p);
-		enable_p2 = NULL;
-	}
-	if(config_p1 != NULL)
-	{
-		del_panel(config_p1p);
-		config_p1 = NULL;
-	}
-	if(config_p2 != NULL)
-	{
-		del_panel(config_p2p);
-		config_p2p = NULL;
+		if(printer_button[i] != NULL)
+		{
+			del_panel(printer_buttonp[i]);
+			printer_button[i] = NULL;
+		}
 	}
 }

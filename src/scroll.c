@@ -406,3 +406,60 @@ void set_printerdex(char type[],int val)
 		printerdex.line = val;
 	}
 }
+
+/*
+ * 
+ */
+void scroll_print(int lines)
+{
+	/*
+	 * If lines is negative, the list is being dragged down and needs to
+	 * move to the top
+	 */
+	if(lines < 0)
+	{
+		/*
+		 * Return if beginning is reached
+		 */
+		if(get_printerdex("MIN") - 1 < 0)
+		{
+			return;
+		}
+		/*
+		 * Scroll up one line at a time
+		 */
+		else{
+			set_printerdex("MIN",get_printerdex("MIN")-1);
+			set_printerdex("MAX",get_printerdex("MAX")-1);
+		}
+		/*
+		 * Show update
+		 */
+		//write_printers();
+	}
+	/*
+	 * If lines is positive, the dragging direction is up and the list 
+	 * needs to move down
+	 */
+	if(lines > 0)
+	{
+		/*
+		 * Return if end of list has been reached
+		 */
+		if(get_printerdex("MAX") + 1 > get_printerdex("MAX_LINE"))
+		{
+			return;
+		}
+		/*
+		 * Scroll down one line at a time
+		 */
+		else{
+			set_printerdex("MIN",get_printerdex("MIN")+1);
+			set_printerdex("MAX",get_printerdex("MAX")+1);
+		}
+		/*
+		 * Show updates
+		 */
+		//write_printers();
+	}
+}

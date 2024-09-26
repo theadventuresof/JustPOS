@@ -3,6 +3,7 @@
 
 void scroll_order(int lines);
 void scroll_recall(int lines);
+void scroll_print(int lines);
 void set_scrolldex(char type[],int val);
 void set_recalldex(char type[],int val);
 void set_printerdex(char type[],int val);

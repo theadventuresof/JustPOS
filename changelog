@@ -479,4 +479,8 @@ printers (VIA CUPS)
 
 Trying to draw some new buttons for state 6 and now the enable printer
 buttons do not delete
+  -Solved by making all printer buttons an array of WINDOWS/PANELS and 
+   procedurally deleting
+   
+Setting up a new scrollable area for detected printers in settings menu 
 

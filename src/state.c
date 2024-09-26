@@ -166,6 +166,9 @@ void init(void)
 	set_recalldex("MIN",0);
 	set_recalldex("MAX",27);
 	set_recalldex("MAX_LINE",1);
+	set_printerdex("MIN",0);
+	set_printerdex("MAX",5);
+	set_printerdex("MAX_LINE",10);
 	/*
 	 * Set keyboard to default state (LETTERS IN CAPS)
 	 */
