@@ -23,6 +23,12 @@ PANEL *enable_p1p;
 WINDOW *enable_p2;
 PANEL *enable_p2p;
 
+WINDOW *config_p1;
+PANEL *config_p1p;
+
+WINDOW *config_p2;
+PANEL *config_p2p;
+
 /*
  * Draw return button for settings screen
  */
@@ -86,6 +92,21 @@ void draw_settings_windows(void)
 		wattroff(enable_p2,A_BOLD);
 	}
 	/*
+	 * Draw configure printer 1 box
+	 */
+	config_p1 = newwin(3,7,10,90);
+	box(config_p1,0,0);
+	enable_p1p = new_panel(config_p1);
+	mvwprintw(stdscr,9,91,"Configure counter printer");
+	
+	/*
+	 * Draw configure printer 2 box
+	 */
+	config_p2 = newwin(3,7,10,120);
+	box(config_p2,0,0);
+	enable_p2p = new_panel(config_p2);
+	mvwprintw(stdscr,9,121,"Configure grill printer");
+	/*
 	 * Draw return to main menu button
 	 */
 	settings_return = newwin(3,15,38,5);
@@ -130,5 +151,15 @@ void del_settings_windows(void)
 	{
 		del_panel(enable_p2p);
 		enable_p2 = NULL;
+	}
+	if(config_p1 != NULL)
+	{
+		del_panel(config_p1p);
+		config_p1 = NULL;
+	}
+	if(config_p2 != NULL)
+	{
+		del_panel(config_p2p);
+		config_p2p = NULL;
 	}
 }

@@ -475,3 +475,8 @@ Added enable grill printer (printer_2) button
 Using lpstat -v >> dat/installed_printers.dat to get list of installed
 printers (VIA CUPS)
 
+9/26/2024
+
+Trying to draw some new buttons for state 6 and now the enable printer
+buttons do not delete
+

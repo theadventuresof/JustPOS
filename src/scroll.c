@@ -320,14 +320,89 @@ void set_recall_date(char date[])
 }
 
 /*
- * 
+ * Copy recall date to external string
  */
 void get_recall_date(char *date)
 {
 	strncpy(date,recalldex.date,strlen(recalldex.date) + 1);
 }
 
+/*
+ * Set recall date to empty
+ */
 void reset_recall_date(void)
 {
 	recalldex.date[0] = '\0';
+}
+
+struct printerdex{
+	int min_line;
+	int max_line; 
+	int max_index;
+	int current;
+	int line;
+	char device[100];	
+}printerdex;
+
+/*
+ * 
+ */
+int get_printerdex(char type[])
+{
+	int val=0;
+	if(strcmp(type,"MIN") == 0)
+	{
+		val = printerdex.min_line;
+	}
+	else if(strcmp(type,"MAX") == 0)
+	{
+		val = printerdex.max_line;
+	}
+	else if(strcmp(type,"MAX_LINE") == 0)
+	{
+		val = printerdex.max_index;
+	}
+	else if(strcmp(type,"CURRENT") == 0)
+	{
+		if(val == 0)
+		{
+			printerdex.current = 0;
+		}
+		else if(val == 1)
+		{
+			printerdex.current++;
+		}
+	}
+	else if(strcmp(type,"LINE") == 0)
+	{
+		val = printerdex.line;
+	}
+	return val;
+}
+
+/*
+ * 
+ */
+void set_printerdex(char type[],int val)
+{
+	if(strcmp(type,"MIN") == 0)
+	{
+		printerdex.min_line = val;
+	}
+	else if(strcmp(type,"MAX") == 0)
+	{
+		printerdex.max_line = val;
+	}
+	else if(strcmp(type,"MAX_LINE") == 0)
+	{
+		printerdex.max_index = val;
+	}
+	else if(strcmp(type,"CURRENT") == 0)
+	{
+		printerdex.current = val;
+	}
+	else if(strcmp(type,"LINE") == 0)
+	{
+		printerdex.line = val;
+	}
 }
