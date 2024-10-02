@@ -7,6 +7,7 @@
 #include "../lib/state.h"
 #include "../lib/mouse.h"
 #include "../lib/scroll.h"
+#include "../lib/print.h"
 
 int main(void)
 {
@@ -40,6 +41,7 @@ int main(void)
 	init_pair(9,COLOR_BLACK,COLOR_BLUE);
 	init_pair(10,COLOR_BLACK,COLOR_YELLOW);
 	init_pair(11,COLOR_CYAN,COLOR_BLACK);
+	init_pair(12,COLOR_WHITE,COLOR_BLUE);
 	
 	
 	/*
@@ -169,8 +171,7 @@ int main(void)
 						set_scrolldex("DIFF",get_scrolldex("TOUCH")-ev.y);
 						scroll_print(get_scrolldex("DIFF"));
 						move(0,0);
-						clrtoeol();
-						printw("%d/%d",get_printerdex("MIN"),get_printerdex("MAX"));
+						printw("%d/%d %d",get_printerdex("MIN"),get_printerdex("MAX"),get_printerdex("CURRENT"));
 					}
 				}
 			}

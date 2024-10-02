@@ -17,6 +17,7 @@
 #include "../lib/err.h"
 #include "../lib/file.h"
 #include "../lib/order.h"
+#include "../lib/print.h"
 
 /*
  * Keep track of what is visible so that we know how to use input
@@ -166,9 +167,9 @@ void init(void)
 	set_recalldex("MIN",0);
 	set_recalldex("MAX",27);
 	set_recalldex("MAX_LINE",1);
-	set_printerdex("MIN",0);
-	set_printerdex("MAX",5);
-	set_printerdex("MAX_LINE",10);
+	set_printerdex("MIN",1);
+	set_printerdex("MAX",6);
+	set_printerdex("MAX_LINE",1);
 	/*
 	 * Set keyboard to default state (LETTERS IN CAPS)
 	 */
@@ -302,6 +303,7 @@ void draw_state(int state)
 			draw_logo();
 			print_clock();
 			draw_settings_windows();
+			find_printers();
 			return;
 		}
 		/*

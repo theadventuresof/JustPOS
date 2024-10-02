@@ -4,6 +4,7 @@
 #include "../lib/draw_state_6.h"
 #include "../lib/report.h"
 #include "../lib/state.h"
+#include "../lib/scroll.h"
 
 WINDOW *settings_return;
 PANEL *settings_returnp;
@@ -20,6 +21,9 @@ PANEL *phonep;
 WINDOW *printer_display;
 PANEL *printer_displayp;
 
+WINDOW *printer_win;
+PANEL *printer_winp;
+
 WINDOW *printer_button[4];
 PANEL *printer_buttonp[4];
 
@@ -28,7 +32,7 @@ PANEL *printer_buttonp[4];
  */
 void draw_settings_windows(void)
 {
-	//del_settings_windows();
+	del_settings_windows();
 	/*
 	 * Draw order directory field
 	 */
@@ -104,10 +108,15 @@ void draw_settings_windows(void)
 	/*
 	 * Draw installed printers window 
 	 */
-	printer_display = newwin(6,50,15,90);
+	printer_display = newwin(7,50,15,90);
 	box(printer_display,0,0);
 	printer_displayp = new_panel(printer_display);
 	mvwprintw(stdscr,14,91,"Detected printers");
+	/*
+	 * Draw window to display printers
+	 */
+	printer_win = newwin(5,48,16,91);
+	printer_winp = new_panel(printer_win);
 	/*
 	 * Draw return to main menu button
 	 */
@@ -115,6 +124,46 @@ void draw_settings_windows(void)
 	box(settings_return,0,0);
 	mvwprintw(settings_return,1,5,"RETURN");
 	settings_returnp = new_panel(settings_return);
+	write_printers();
+	update_panels();
+	doupdate();
+}
+
+/*
+ * 
+ */
+void clear_printer_win(void)
+{
+	werase(printer_win);
+	
+	update_panels();
+	doupdate();
+}
+
+/*
+ * 
+ */
+void write_to_printer_win(char device[],int format)
+{
+	int y,x;
+	getyx(printer_win,y,x);
+	if(y == 0)
+	{
+		y = 2;
+	}
+	if(x == 0)
+	{
+		x = 1;
+	}
+	wattron(printer_win,A_BOLD);
+	wattron(printer_win,COLOR_PAIR(1));
+	set_printerdex("CURRENT",1);
+	if((get_printerdex("CURRENT") >= get_printerdex("MIN")) & (get_printerdex("CURRENT") < get_printerdex("MAX")))
+	{
+		wprintw(printer_win,"%s",device);
+	}
+	wattroff(printer_win,A_BOLD);
+	wattroff(printer_win,COLOR_PAIR(1));
 	update_panels();
 	doupdate();
 }
@@ -148,6 +197,11 @@ void del_settings_windows(void)
 	{
 		del_panel(printer_displayp);
 		printer_display = NULL;
+	}
+	if(printer_win != NULL)
+	{
+		del_panel(printer_winp);
+		printer_win = NULL;
 	}
 	for(int i = 0; i < 4; i++)
 	{

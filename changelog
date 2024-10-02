@@ -482,5 +482,24 @@ buttons do not delete
   -Solved by making all printer buttons an array of WINDOWS/PANELS and 
    procedurally deleting
    
-Setting up a new scrollable area for detected printers in settings menu 
+Setting up a new scrollable area for detected printers in settings menu
+
+Trying to add a list to accept all printer names, currently segfaulting
+
+9/30/2024
+
+I have been struggling to add a linked list to hold all detected printers. 
+Today, the list is working. But my function to read the device names gets
+the last printer twice.
+
+Removing ncurses function calls from order.c in case I ever choose to 
+port this to another library (IE not ncurses) I can use the same code to
+drive the list functions
+
+10/1/2024
+
+Added duplicate checking to printer list
+
+Started working on printer_win scrolling
+  -Making progress, now scrollable!
 

@@ -4,6 +4,7 @@
 #include "../lib/scroll.h"
 #include "../lib/order.h"
 #include "../lib/recall.h"
+#include "../lib/print.h"
 
 /*
  * This structure tracks data relevant to scrolling the order
@@ -364,14 +365,7 @@ int get_printerdex(char type[])
 	}
 	else if(strcmp(type,"CURRENT") == 0)
 	{
-		if(val == 0)
-		{
-			printerdex.current = 0;
-		}
-		else if(val == 1)
-		{
-			printerdex.current++;
-		}
+		val = printerdex.current;
 	}
 	else if(strcmp(type,"LINE") == 0)
 	{
@@ -399,7 +393,14 @@ void set_printerdex(char type[],int val)
 	}
 	else if(strcmp(type,"CURRENT") == 0)
 	{
-		printerdex.current = val;
+		if(val == 0)
+		{
+			printerdex.current = 0;
+		}
+		else if(val == 1)
+		{
+			printerdex.current++;
+		}
 	}
 	else if(strcmp(type,"LINE") == 0)
 	{
@@ -421,7 +422,7 @@ void scroll_print(int lines)
 		/*
 		 * Return if beginning is reached
 		 */
-		if(get_printerdex("MIN") - 1 < 0)
+		if(get_printerdex("MIN") - 1 <= 0)
 		{
 			return;
 		}
@@ -435,7 +436,7 @@ void scroll_print(int lines)
 		/*
 		 * Show update
 		 */
-		//write_printers();
+		write_printers();
 	}
 	/*
 	 * If lines is positive, the dragging direction is up and the list 
@@ -460,6 +461,6 @@ void scroll_print(int lines)
 		/*
 		 * Show updates
 		 */
-		//write_printers();
+		write_printers();
 	}
 }

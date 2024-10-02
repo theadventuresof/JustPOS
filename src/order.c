@@ -1,6 +1,8 @@
-#include <panel.h>
+//#include <panel.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 #include "../lib/order.h"
 #include "../lib/err.h"
@@ -46,22 +48,6 @@ struct mod_t *child=NULL;
 void add_itm(int itm_num, int menu)
 {
 	char type[50];
-	if(menu == 1)
-	{
-		strncpy(type,"FOOD",5);
-	}
-	else if(menu == 2)
-	{
-		strncpy(type,"DRINK",6);
-	}
-	else if(menu == 3)
-	{
-		strncpy(type,"MOD",4);
-	}
-	else if(menu == 4)
-	{
-		strncpy(type,"CHARGE",7);
-	}
 	if(get_item_max(type) < itm_num)
 	{
 		return;
@@ -423,8 +409,8 @@ void del_itm(int itm_num)
 		shuffle_tabs();
 		write_to_menu_buttons();
 		write_pages();
-		update_panels();
-		doupdate();
+		//update_panels();
+		//doupdate();
 	}
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);
@@ -442,7 +428,7 @@ void del_itm(int itm_num)
 
 /*
  * Delete entire list. 
- */
+ */	
 void del_order(void)
 {
 	struct order_t *temp = head;
@@ -743,8 +729,8 @@ void highlight(int itm_num)
 				set_state("BSTATE",1);
 				shuffle_tabs();
 				write_to_menu_buttons();
-				update_panels();
-				doupdate();
+				//update_panels();
+				//doupdate();
 			}
 			return;
 		}
