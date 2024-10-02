@@ -5,6 +5,7 @@
 #include "../lib/report.h"
 #include "../lib/state.h"
 #include "../lib/scroll.h"
+#include "../lib/print.h"
 
 WINDOW *settings_return;
 PANEL *settings_returnp;
