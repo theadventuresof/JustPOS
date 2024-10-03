@@ -31,6 +31,7 @@ struct status{
 	int current_cell;
 	int printer1;
 	int printer2;
+	int which_printer;
 }status;
 
 /*
@@ -81,6 +82,10 @@ void set_state(char type[],int val)
 	{
 		status.printer2 = val;
 	}
+	else if(strcmp("WHICH_PRINTER",type) == 0)
+	{
+		status.which_printer = val;
+	}
 }
 
 
@@ -122,6 +127,10 @@ int get_state(char type[])
 	{
 		val = status.printer2;
 	}
+	else if(strcmp("WHICH_PRINTER",type) == 0)
+	{
+		val = status.which_printer;
+	}
 	return val;
 }
 
@@ -158,6 +167,10 @@ void init(void)
 	 */
 	set_state("PRINTER_1",0);
 	set_state("PRINTER_2",0);
+	/*
+	 * No printer selected to configure (settings menu)
+	 */
+	set_state("WHICH_PRINTER",0);
 	/*
 	 * Init indexes for scrollable windows 
 	 */

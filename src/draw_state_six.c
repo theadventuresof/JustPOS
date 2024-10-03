@@ -6,6 +6,8 @@
 #include "../lib/state.h"
 #include "../lib/scroll.h"
 #include "../lib/print.h"
+#include "../lib/err.h"
+#include "../lib/draw.h"
 
 WINDOW *settings_return;
 PANEL *settings_returnp;
@@ -97,7 +99,12 @@ void draw_settings_windows(void)
 	box(printer_button[2],0,0);
 	printer_buttonp[2] = new_panel(printer_button[2]);
 	mvwprintw(stdscr,9,91,"Configure counter printer");
-	
+	if(get_state("WHICH_PRINTER") == 1)
+	{
+		wattron(printer_button[2],A_BOLD);
+		mvwprintw(printer_button[2],1,3,"X");
+		wattroff(printer_button[2],A_BOLD);
+	}
 	/*
 	 * Draw configure printer 2 box
 	 */
@@ -105,7 +112,12 @@ void draw_settings_windows(void)
 	box(printer_button[3],0,0);
 	printer_buttonp[3] = new_panel(printer_button[3]);
 	mvwprintw(stdscr,9,121,"Configure grill printer");
-	
+	if(get_state("WHICH_PRINTER") == 2)
+	{
+		wattron(printer_button[3],A_BOLD);
+		mvwprintw(printer_button[3],1,3,"X");
+		wattroff(printer_button[3],A_BOLD);
+	}
 	/*
 	 * Draw installed printers window 
 	 */
@@ -131,7 +143,7 @@ void draw_settings_windows(void)
 }
 
 /*
- * 
+ * Copy blanks to each position of printer_win
  */
 void clear_printer_win(void)
 {
@@ -142,29 +154,73 @@ void clear_printer_win(void)
 }
 
 /*
- * 
+ * Write detected printers to printer_win
  */
 void write_to_printer_win(char device[],int format)
 {
-	int y,x;
-	getyx(printer_win,y,x);
-	if(y == 0)
+	/*
+	 * Attempt to get printer name from .conf and store value in 
+	 * current_printer
+	 */
+	char current_printer[100];
+	/*
+	 * Attempt to find counter printer
+	 */
+	if(get_state("WHICH_PRINTER") == 1)
 	{
-		y = 2;
+		get_file_data(".conf","printer1=",current_printer);
 	}
-	if(x == 0)
+	/*
+	 * Attempt to find grill printer
+	 */
+	else if(get_state("WHICH_PRINTER") == 2)
 	{
-		x = 1;
+		get_file_data(".conf","printer2=",current_printer);
 	}
-	wattron(printer_win,A_BOLD);
-	wattron(printer_win,COLOR_PAIR(1));
+	/*
+	 * Remove trailing newline
+	 */
+	current_printer[strcspn(current_printer,"\n")] = 0;
+	/*
+	 * Check if printer name from .conf matches device name from 
+	 * detected printer list
+	 */
+	if(strncmp(device,current_printer,strlen(current_printer)) == 0)
+	{
+		/*
+		 * If current_printer is not blank and matches device from 
+		 * detected printers list, draw it with blue highlighting
+		 */
+		if(strlen(current_printer) > 0)
+		{
+			wattron(printer_win,A_BOLD);
+			wattron(printer_win,COLOR_PAIR(12));
+		}
+	}
+	/*
+	 * Here, we stick some blank spaces onto the end of the device name
+	 * so that highlighting highlights to the end of the line and so that
+	 * the next device will be drawn to the next line
+	 */
+	concat_blanks(48-strlen(device),device);
+	/*
+	 * set_printerdex("CURRENT",1) tells the system to add one to "CURRENT"
+	 * this is used to track where we are in the list and if an item is 
+	 * within the range of "MIN" and "MAX" visible on printer_win
+	 */
 	set_printerdex("CURRENT",1);
 	if((get_printerdex("CURRENT") >= get_printerdex("MIN")) & (get_printerdex("CURRENT") < get_printerdex("MAX")))
 	{
+		/*
+		 * Do actual writing/drawing
+		 */
 		wprintw(printer_win,"%s",device);
 	}
+	/*
+	 * Turn off bold and color pairings, and show updates
+	 */
 	wattroff(printer_win,A_BOLD);
-	wattroff(printer_win,COLOR_PAIR(1));
+	wattroff(printer_win,COLOR_PAIR(12));
 	update_panels();
 	doupdate();
 }

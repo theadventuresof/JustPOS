@@ -31,6 +31,25 @@ panels - part of ncurses
 sed - Almost(?) always included with Linux
 CUPS - for printing receipts
 
+Printers-----------------------------------------------------------
+ 
+Printers are detected with lpstat -v (via CUPS). Installing your printer
+through cups is not covered here. Although you may have luck trying
+via localhost:631/ in your browser. If you do not have CUPS installed
+you will have to check the documentation for your distro.
+
+Since JustPOS is designed with small operations in mind, only two 
+printers are supported. Under the settings menu there is a checkbox 
+for each printer to be enabled. Check there first if you have issues.
+
+A second row of checkboxes selects which printer to select/change. One
+printer prints tickets to the grill, while the other prints to the 
+counter. The detected devices are displayed below the checkboxes and 
+if more than five devices are detected, the window may be scrolled to 
+show more devices. If a printer is already selected in .conf, it will
+appear with blue highlighting when you attempt to modify it through the
+settings menu.
+
 Scrolling----------------------------------------------------------
 
 The scrolling functions -- as mentioned above -- were tested

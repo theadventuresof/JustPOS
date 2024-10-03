@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <panel.h>
+#include <stdbool.h>
 
 #include "../lib/print.h"
 #include "../lib/file.h"
@@ -184,26 +184,40 @@ int check_duplicate_printer(char device[])
 
 
 /*
- * 
+ * Send lines to write_to_printer_win for display
  */
 void write_printers(void)
 {
+	/*
+	 * Clear everything from printer win
+	 */
 	clear_printer_win();
+	/*
+	 * Starting linked list from 0 so, set CURRENT to 0 also
+	 */
 	set_printerdex("CURRENT",0);
+	/*
+	 * Point to list
+	 */
 	struct devices *lk = head1;
-	char temp[100];
+	/*
+	 * Return if list is null
+	 */
 	if(lk == NULL)
 	{
-		err_dialog("No printers found");
 		return;
 	}
 	else if(lk != NULL)
 	{
+		/*
+		 * Iterate through list
+		 */
 		while(lk != NULL)
 		{
-			strncpy(temp,lk->device,strlen(lk->device) + 1);
-			concat_blanks(48-strlen(lk->device),temp);
-			write_to_printer_win(temp,1);
+			/*
+			 * Send device name to be written to printer_win
+			 */
+			write_to_printer_win(lk->device,0);
 			lk = lk->next;
 		}
 	}

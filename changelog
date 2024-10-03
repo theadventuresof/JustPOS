@@ -502,4 +502,11 @@ Added duplicate checking to printer list
 
 Started working on printer_win scrolling
   -Making progress, now scrollable!
+  
+10/3/2024
+
+Still working on printer_win, as noted above scrolling does work. What
+I've been doing is working on the formatting when copying to printer_win
+Now if you have a printer selected in .conf, it will appear with blue
+highlighting in printer_win.
 

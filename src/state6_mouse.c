@@ -78,4 +78,32 @@ void find_mouse_settings(int y,int x)
 		}
 		draw_settings_windows();
 	}
+	/*
+	 * If configure printer_1 is pressed
+	 */
+	if((y >= 10) & (y <= 12) & (x >= 90) & (x <= 96))
+	{
+		if(get_state("WHICH_PRINTER") == 1)
+		{
+			set_state("WHICH_PRINTER",0);
+		}
+		else{
+			set_state("WHICH_PRINTER",1);
+		}
+		draw_settings_windows();
+	}
+	/*
+	 * If configure printer_2 is pressed
+	 */
+	if((y >= 10) & (y <= 12) & (x >= 121) & (x <= 127))
+	{
+		if(get_state("WHICH_PRINTER") == 2)
+		{
+			set_state("WHICH_PRINTER",0);
+		}
+		else{
+			set_state("WHICH_PRINTER",2);
+		}
+		draw_settings_windows();
+	}
 }

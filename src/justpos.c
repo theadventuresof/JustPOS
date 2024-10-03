@@ -41,7 +41,7 @@ int main(void)
 	init_pair(9,COLOR_BLACK,COLOR_BLUE);
 	init_pair(10,COLOR_BLACK,COLOR_YELLOW);
 	init_pair(11,COLOR_CYAN,COLOR_BLACK);
-	init_pair(12,COLOR_WHITE,COLOR_BLUE);
+	init_pair(12,COLOR_BLACK,COLOR_BLUE);
 	
 	
 	/*
@@ -58,8 +58,11 @@ int main(void)
 	mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, NULL);
 	printf("\033[?1003h\n"); 
 	
+	/*
+	 * Get screen size
+	 */
 	int key,y,x;
-	getmaxyx(stdscr,y,x); //get screen size
+	getmaxyx(stdscr,y,x);
 	
 	/*
 	 * This if/else condition checks to see if the screen is big enough
@@ -170,8 +173,6 @@ int main(void)
 					{
 						set_scrolldex("DIFF",get_scrolldex("TOUCH")-ev.y);
 						scroll_print(get_scrolldex("DIFF"));
-						move(0,0);
-						printw("%d/%d %d",get_printerdex("MIN"),get_printerdex("MAX"),get_printerdex("CURRENT"));
 					}
 				}
 			}
