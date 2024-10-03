@@ -169,6 +169,9 @@ void get_mouse(int y,int x)
 	 */
 	else if(get_state("STATE") == 6)
 	{
+		/*
+		 * If mouse event occured on printer_win
+		 */
 		if((y >= 16) & (y <= 20) & (x >= 90) & (x <= 138))
 		{
 			int line = (y + get_printerdex("MIN")) - 17;
@@ -185,6 +188,9 @@ void get_mouse(int y,int x)
 				write_printers();
 			}
 		}
+		/*
+		 * All other mouse functions
+		 */
 		else{
 			find_mouse_settings(y,x);
 		}

@@ -215,6 +215,14 @@ void write_printers(void)
 		while(lk != NULL)
 		{
 			/*
+			 * If current printer is highlighted, copy it's name to
+			 * printerdex.selected
+			 */
+			if(get_printerdex("CURRENT") == get_printerdex("LINE"))
+			{
+				set_printer_device(lk->device);
+			}
+			/*
 			 * Send device name to be written to printer_win
 			 */
 			write_to_printer_win(lk->device,0);

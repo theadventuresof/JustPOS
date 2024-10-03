@@ -1,10 +1,14 @@
 #include <panel.h>
+#include <string.h>
 
 #include "../lib/mouse.h"
 #include "../lib/state.h"
 #include "../lib/keyboard.h"
 #include "../lib/draw_state_6.h"
 #include "../lib/scroll.h"
+#include "../lib/print.h"
+#include "../lib/file.h"
+#include "../lib/err.h"
 
 void find_mouse_settings(int y,int x)
 {
@@ -109,5 +113,37 @@ void find_mouse_settings(int y,int x)
 		}
 		set_printerdex("LINE",-1);
 		draw_settings_windows();
+	}
+	/*
+	 * If select printer button is pressed
+	 */
+	if((y >= 23) & (y <= 25) & (x >= 110) & (x <= 123))
+	{
+		if((get_state("WHICH_PRINTER") == 0) | (get_printerdex("LINE") == -1))
+		{
+			return;
+		}
+		char full_line[100];
+		char device[100];
+		get_printer_device(device);
+		if(get_state("WHICH_PRINTER") == 1)
+		{
+			strncpy(full_line,"printer1=",10);
+		}
+		else if(get_state("WHICH_PRINTER") == 2)
+		{
+			strncpy(full_line,"printer2=",10);
+		}
+		strncat(full_line,device,strlen(device)+1);
+		if(get_state("WHICH_PRINTER") == 1)
+		{
+			change_conf_line("printer1=",full_line);
+		}
+		else if(get_state("WHICH_PRINTER") == 2)
+		{
+			change_conf_line("printer2=",full_line);
+		}
+		set_printerdex("LINE",-1);
+		write_printers();
 	}
 }

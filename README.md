@@ -50,6 +50,11 @@ show more devices. If a printer is already selected in .conf, it will
 appear with blue highlighting when you attempt to modify it through the
 settings menu.
 
+To change the device for either printer, select the checkbox to configure
+either counter or grill printer, select a new device (green highlighting)
+and press the select button. Upon success, the preferred printer should
+be displayed in blue highlighting.
+
 Scrolling----------------------------------------------------------
 
 The scrolling functions -- as mentioned above -- were tested

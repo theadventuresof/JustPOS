@@ -343,6 +343,7 @@ struct printerdex{
 	int current;
 	int line;
 	char device[100];	
+	char selected[100];
 }printerdex;
 
 /*
@@ -463,4 +464,20 @@ void scroll_print(int lines)
 		 */
 		write_printers();
 	}
+}
+
+/*
+ * Copy printer name to printerdex
+ */
+void set_printer_device(char device[])
+{
+	strncpy(printerdex.selected,device,strlen(device)+1);
+}
+
+/*
+ * Get printer name from printerdex
+ */
+void get_printer_device(char *device)
+{
+	strncpy(device,printerdex.selected,strlen(printerdex.selected));
 }

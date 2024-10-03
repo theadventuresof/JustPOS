@@ -30,6 +30,9 @@ PANEL *printer_winp;
 WINDOW *printer_button[4];
 PANEL *printer_buttonp[4];
 
+WINDOW *select_printer;
+PANEL *select_printerp;
+
 /*
  * Draw return button for settings screen
  */
@@ -130,6 +133,13 @@ void draw_settings_windows(void)
 	 */
 	printer_win = newwin(5,48,16,91);
 	printer_winp = new_panel(printer_win);
+	/*
+	 * Draw select button
+	 */
+	select_printer = newwin(3,15,22,108);
+	box(select_printer,0,0);
+	mvwprintw(select_printer,1,5,"SELECT");
+	select_printerp = new_panel(select_printer);
 	/*
 	 * Draw return to main menu button
 	 */
@@ -268,6 +278,11 @@ void del_settings_windows(void)
 	{
 		del_panel(printer_winp);
 		printer_win = NULL;
+	}
+	if(select_printer != NULL)
+	{
+		del_panel(select_printerp);
+		select_printer = NULL;
 	}
 	for(int i = 0; i < 4; i++)
 	{
