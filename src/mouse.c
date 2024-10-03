@@ -7,6 +7,7 @@
 #include "../lib/state.h"
 #include "../lib/recall.h"
 #include "../lib/keypad.h"
+#include "../lib/print.h"
 
 /*
  * The main entry point for mouse/touch input
@@ -168,7 +169,25 @@ void get_mouse(int y,int x)
 	 */
 	else if(get_state("STATE") == 6)
 	{
-		find_mouse_settings(y,x);
+		if((y >= 16) & (y <= 20) & (x >= 90) & (x <= 138))
+		{
+			int line = (y + get_printerdex("MIN")) - 17;
+			if((y == get_scrolldex("TOUCH")) & (line >= 0) & (get_state("WHICH_PRINTER") > 0))
+			{
+				if(line == get_printerdex("LINE"))
+				{
+					set_printerdex("LINE",-1);
+					write_printers();
+					return;
+				}
+				set_printerdex("LINE",line);
+				doupdate();
+				write_printers();
+			}
+		}
+		else{
+			find_mouse_settings(y,x);
+		}
 	}
 	/*
 	 * 

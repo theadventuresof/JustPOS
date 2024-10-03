@@ -4,6 +4,7 @@
 #include "../lib/state.h"
 #include "../lib/keyboard.h"
 #include "../lib/draw_state_6.h"
+#include "../lib/scroll.h"
 
 void find_mouse_settings(int y,int x)
 {
@@ -46,6 +47,7 @@ void find_mouse_settings(int y,int x)
 		del_state(6);
 		set_state("STATE",1);
 		set_state("PREV_STATE",1);
+		set_printerdex("LINE",-1);
 		draw_state(1);
 	}
 	/*
@@ -90,6 +92,7 @@ void find_mouse_settings(int y,int x)
 		else{
 			set_state("WHICH_PRINTER",1);
 		}
+		set_printerdex("LINE",-1);
 		draw_settings_windows();
 	}
 	/*
@@ -104,6 +107,7 @@ void find_mouse_settings(int y,int x)
 		else{
 			set_state("WHICH_PRINTER",2);
 		}
+		set_printerdex("LINE",-1);
 		draw_settings_windows();
 	}
 }

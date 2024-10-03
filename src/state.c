@@ -183,6 +183,7 @@ void init(void)
 	set_printerdex("MIN",1);
 	set_printerdex("MAX",6);
 	set_printerdex("MAX_LINE",1);
+	set_printerdex("LINE",-1);
 	/*
 	 * Set keyboard to default state (LETTERS IN CAPS)
 	 */

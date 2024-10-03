@@ -508,5 +508,8 @@ Started working on printer_win scrolling
 Still working on printer_win, as noted above scrolling does work. What
 I've been doing is working on the formatting when copying to printer_win
 Now if you have a printer selected in .conf, it will appear with blue
-highlighting in printer_win.
+highlighting in printer_win
+
+Added a 'help' and 'quit' button to manager menu, help does not yet do 
+anything, but I want it to display the readme in a scrollable box
 

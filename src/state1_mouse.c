@@ -141,6 +141,7 @@ void find_mouse_menu_buttons(int y,int x)
 		add_itm(val,get_state("BSTATE"));
 		update_order_stat();
 		write_list();
+		return;
 	}
 	else if(get_state("BSTATE") == 3)
 	{
@@ -150,6 +151,7 @@ void find_mouse_menu_buttons(int y,int x)
 		}
 		add_mod(get_state("PREV_ITM"),val,3);
 		write_list();
+		return;
 	}
 	else if(get_state("BSTATE") == 4)
 	{
@@ -160,6 +162,7 @@ void find_mouse_menu_buttons(int y,int x)
 		add_mod(get_state("PREV_ITM"),val,4);
 		update_order_stat();
 		write_list();
+		return;
 	}
 }
 

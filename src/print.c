@@ -149,7 +149,7 @@ void populate_printer_list(char device[])
  */
 int check_duplicate_printer(char device[])
 {
-	int val = 0;
+	//int val = 0;
 	/*
 	 * Point to head of list
 	 */
@@ -170,16 +170,16 @@ int check_duplicate_printer(char device[])
 		 * Check if device name to be inserted into list is the same
 		 * as current node
 		 */
-		if(strcmp(printers->device,device) == 0)
+		if(strncmp(printers->device,device,strlen(device)) == 0)
 		{
 			/*
 			 * If entry is duplicate, return 1. Otherwise return 0
 			 */
-			val = 1;
+			return 1;
 		}
 		printers = printers->next;
 	}
-	return val;
+	return 0;
 }
 
 

@@ -198,6 +198,14 @@ void write_to_printer_win(char device[],int format)
 		}
 	}
 	/*
+	 * 
+	 */
+	if(get_printerdex("LINE") == get_printerdex("CURRENT"))
+	{
+		wattroff(printer_win,COLOR_PAIR(12));
+		wattron(printer_win,COLOR_PAIR(1));
+	}
+	/*
 	 * Here, we stick some blank spaces onto the end of the device name
 	 * so that highlighting highlights to the end of the line and so that
 	 * the next device will be drawn to the next line
@@ -221,6 +229,7 @@ void write_to_printer_win(char device[],int format)
 	 */
 	wattroff(printer_win,A_BOLD);
 	wattroff(printer_win,COLOR_PAIR(12));
+	wattroff(printer_win,COLOR_PAIR(1));
 	update_panels();
 	doupdate();
 }

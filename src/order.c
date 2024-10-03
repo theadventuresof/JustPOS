@@ -729,8 +729,6 @@ void highlight(int itm_num)
 				set_state("BSTATE",1);
 				shuffle_tabs();
 				write_to_menu_buttons();
-				//update_panels();
-				//doupdate();
 			}
 			return;
 		}
