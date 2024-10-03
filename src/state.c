@@ -456,10 +456,26 @@ void find_max_items(void)
 /*
  * Retrieve max number of items from structure itemmax
  */
-int get_item_max(char type[])
+int get_item_max(void)
 {
-	int val;
-	if(strcmp("FOOD",type) == 0)
+	int val=0;
+	if(get_state("BSTATE") == 1)
+	{
+		val = itemmax.max_food;
+	}
+	else if(get_state("BSTATE") == 2)
+	{
+		val = itemmax.max_drink;
+	}
+	else if(get_state("BSTATE") == 3)
+	{
+		val = itemmax.max_mod;
+	}
+	else if(get_state("BSTATE") == 4)
+	{
+		val = itemmax.max_charge;
+	}
+	/*if(strcmp("FOOD",type) == 0)
 	{
 		val = itemmax.max_food;
 	}
@@ -474,7 +490,7 @@ int get_item_max(char type[])
 	else if(strcmp("CHARGE",type) == 0)
 	{
 		val = itemmax.max_charge;
-	}
+	}*/
 	return val;
 }
 

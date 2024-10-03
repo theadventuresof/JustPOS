@@ -145,7 +145,7 @@ void write_to_menu_buttons(void)
 			wattron(itm_btns[i],COLOR_PAIR(3));
 		}
 		int position = get_page("PG_MIN") + i + 1;
-		if((position <= get_item_max(menu)) & (i <= get_page("PG_MAX")) & (position >= get_page("PG_MIN")))
+		if((position <= get_item_max()) & (i <= get_page("PG_MAX")) & (position >= get_page("PG_MIN")))
 		{
 			char name[100];
 			get_name(type,name,position);
@@ -477,7 +477,8 @@ void set_max_pages(void)
 	double decimal_value;
 	int int_value,num_value;
 	
-	num_value = get_item_max("FOOD");
+	set_state("BSTATE",1);
+	num_value = get_item_max();
 	decimal_value = num_value/11.00;
 	int_value = (int)decimal_value;
 	if(decimal_value > int_value)
@@ -492,7 +493,8 @@ void set_max_pages(void)
 		maxdex.max_food_page = 1;
 	}
 	
-	num_value = get_item_max("DRINK");
+	set_state("BSTATE",2);
+	num_value = get_item_max();
 	decimal_value = num_value/11.00;
 	int_value = (int)decimal_value;
 	if(decimal_value  > int_value)
@@ -507,7 +509,8 @@ void set_max_pages(void)
 		maxdex.max_drink_page = 1;
 	}
 	
-	num_value = get_item_max("MOD");
+	set_state("BSTATE",3);
+	num_value = get_item_max();
 	decimal_value = num_value/9.00;
 	int_value = (int)decimal_value;
 	if(decimal_value > int_value)
@@ -522,7 +525,8 @@ void set_max_pages(void)
 		maxdex.max_drink_page = 1;
 	}
 	
-	num_value = get_item_max("CHARGE");
+	set_state("BSTATE",4);
+	num_value = get_item_max();
 	decimal_value = num_value/9.00;
 	int_value = (int)decimal_value;
 	if(decimal_value > int_value)
@@ -536,6 +540,7 @@ void set_max_pages(void)
 	else{
 		maxdex.max_charge_page = 1;
 	}
+	set_state("BSTATE",1);
 }
 
 /*

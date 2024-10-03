@@ -27,7 +27,7 @@ void draw_manager_buttons(void)
 	/*
 	 * Draw help button
 	 */
-	help = newwin(3,15,38,80);
+	help = newwin(3,16,38,80);
 	box(help,0,0);
 	mvwprintw(help,1,6,"HELP");
 	helpp = new_panel(help);
@@ -35,7 +35,7 @@ void draw_manager_buttons(void)
 	/*
 	 * Draw quit button
 	 */
-	quit = newwin(3,15,38,110);
+	quit = newwin(3,16,38,110);
 	box(quit,0,0);
 	mvwprintw(quit,1,6,"QUIT");
 	quitp = new_panel(quit);

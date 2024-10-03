@@ -130,11 +130,11 @@ void find_mouse_menu_buttons(int y,int x)
 	}
 	if(get_state("BSTATE") < 3)
 	{
-		if((get_state("BSTATE") == 1) & (val > get_item_max("FOOD")))
+		if((get_state("BSTATE") == 1) & (val > get_item_max()))
 		{
 			return;
 		}
-		if((get_state("BSTATE") == 2) & (val > get_item_max("DRINK")))
+		if((get_state("BSTATE") == 2) & (val > get_item_max()))
 		{
 			return;
 		}
@@ -145,7 +145,7 @@ void find_mouse_menu_buttons(int y,int x)
 	}
 	else if(get_state("BSTATE") == 3)
 	{
-		if(get_item_max("MOD") < val)
+		if(get_item_max() < val)
 		{
 			return;
 		}
@@ -155,7 +155,7 @@ void find_mouse_menu_buttons(int y,int x)
 	}
 	else if(get_state("BSTATE") == 4)
 	{
-		if(get_item_max("CHARGE") < val)
+		if(get_item_max() < val)
 		{
 			return;
 		}

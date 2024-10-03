@@ -3,7 +3,7 @@
 
 void set_state(char type[],int val);
 int get_state(char type[]);
-int get_item_max(char type[]);
+int get_item_max(void);
 int get_page(char type[]);
 void init(void);
 void draw_state(int state);

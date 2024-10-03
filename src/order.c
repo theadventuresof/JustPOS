@@ -47,29 +47,70 @@ struct mod_t *child=NULL;
  */
 void add_itm(int itm_num, int menu)
 {
-	char type[50];
-	if(get_item_max(type) < itm_num)
+	/*
+	 * Return if desired item does not exist
+	 */
+	if(get_item_max() < itm_num)
 	{
 		return;
 	}
-	
-	if(total_items() == 0)
+	/*
+	 * Create and initialize new node
+	 */
+	struct order_t *lk = (struct order_t*)malloc(sizeof(struct order_t));
+	lk->itm_num = itm_num;
+	lk->qty = 1;
+	get_name(menu,lk->name,itm_num);
+	lk->charge = get_itm(menu,"COST",itm_num);
+	lk->menu = menu;
+	lk->next = NULL;
+	lk->child = NULL;
+	/*
+	 * Point to head of list 
+	 */
+	struct order_t *ord = head;
+	/*
+	 * If order list is empty place new node to head
+	 */
+	if(!ord)
 	{
-		insert_head(itm_num,menu,type);
+		/*
+		 * Place new node at head of list and highlight entry on order_win
+		 */
+		ord = lk;
+		ord->next = head;
+		head = ord;
 		highlight(0);
 	}
-	else if(total_items() > 0)
+	/*
+	 * If order list is not empty, place new node to tail
+	 */
+	else if(ord)
 	{
+		/*
+		 * Check duplicate returns 1 and adds 1 to ord->qty if an item
+		 * is determined to be a duplicate (unmodified items only) 
+		 * otherwise, it returns 0
+		 */
 		if(check_duplicate(itm_num,menu) == 0)
 		{
-			insert_tail(itm_num,menu,type);
+			/*
+			 * Find tail of list
+			 */
+			while(ord->next != NULL)
+			{
+				ord = ord->next;
+			}
+			/*
+			 * Insert node to tail of list and highlight it
+			 */
+			ord->next = lk;
 			highlight(total_cells()-1);
-			write_pages();
-		}
-		else{
-			return;
 		}
 	}
+	/*
+	 * Update index for scrolling order_win
+	 */
 	set_scrolldex("MAX_LINE",total_lines());
 	if(get_scrolldex("MAX_LINE") > get_scrolldex("MAX"))
 	{
@@ -107,12 +148,12 @@ int check_duplicate(int itm_num,int menu)
 				{
 					highlight(i);
 				}
-				if(((i/12) + 1) != get_index("ORDER"))
+				/*if(((i/12) + 1) != get_index("ORDER"))
 				{
 					set_index("ORDER",(i/12) + 1);
 					write_list();
 					write_pages();
-				}
+				}*/
 				return 1;	
 			}
 		}
@@ -121,58 +162,6 @@ int check_duplicate(int itm_num,int menu)
 	}
 	
 	return 0;
-}
-
-/*
- * Insert node at head of parent list
- */
-void insert_head(int itm_num, int menu, char name[])
-{
-	/*
-	 * Allocate memory and initialize 
-	 */
-	struct order_t *lk = (struct order_t*) malloc(sizeof(struct order_t));
-	lk->itm_num = itm_num;
-	lk->qty = 1;
-	get_name(menu,lk->name,itm_num);
-	lk->charge = get_itm(menu,"COST",itm_num);
-	lk->menu = menu;
-	lk->next=head;
-	lk->child = NULL;
-	/*
-	 * Insert node to head
-	 */
-	head=lk;
-}
-
-/*
- * This function adds an item to the end of the parent list. 
- */
-void insert_tail(int itm_num, int menu, char name[])
-{
-	/*
-	 * Allocate memory and initialize 
-	 */
-	struct order_t *lk = (struct order_t*) malloc(sizeof(struct order_t));
-	lk->itm_num = itm_num;
-	lk->qty = 1;
-	get_name(menu,lk->name,itm_num);
-	lk->charge = get_itm(menu,"COST",itm_num);
-	lk->menu = menu;
-	lk->next = NULL;
-	lk->child = NULL;
-	/*
-	 * Find end of parent list
-	 */
-	struct order_t *list = head;
-	while(list->next != NULL)
-	{
-		list = list->next;
-	}
-	/*
-	 * Insert new node to tail
-	 */
-	list->next = lk;
 }
 
 /*
@@ -1019,6 +1008,10 @@ void add_mod(int itm_num,int mod_num,int menu)
 	}
 	*mod_link = new_mod;
 	set_scrolldex("MAX_LINE",total_lines());
+	if(get_scrolldex("MAX_LINE") > get_scrolldex("MAX"))
+	{
+		scroll_to_end();
+	}
 }
 
 /*
@@ -1035,9 +1028,13 @@ void remove_mods(int itm_num)
 	}
 	itm->child = NULL;
 	set_scrolldex("MAX_LINE",total_lines());
-	if(get_scrolldex("MAX") > get_scrolldex("MAX_LINE"))
+	if(get_scrolldex("MAX_LINE") < get_scrolldex("MAX"))
 	{
 		scroll_to_end();
+	}
+	else if(get_scrolldex("MAX") <= 28)
+	{
+		scroll_to_top();
 	}
 }
 

@@ -515,3 +515,5 @@ highlighting in printer_win
 Added a 'help' and 'quit' button to manager menu, help does not yet do 
 anything, but I want it to display the readme in a scrollable box
 
+Rewrote add_itm to no longer defer to two funcitons but simply determine
+where in the list to place new nodes. This saves on some lines of code.
