@@ -420,13 +420,28 @@ void add_msg(int itm_num, char msg[])
  */
 void del_itm(int itm_num)
 {
+	/*
+	 * Point to head of list and make previos pointer
+	 */
 	struct order_t *temp = head, *prev;
-	
+	/*
+	 * Return if list is NULL
+	 */
+	if(!temp)
+	{
+		return;
+	}
+	/*
+	 * Iterate through list until itm_num node
+	 */
 	int i=0;
 	if(itm_num > 0)
 	{
 		while(i < itm_num)
 		{
+			/*
+			 * Set previous to current node, and continue to next node
+			 */
 			prev = temp;
 			temp = temp->next;
 			i++;
@@ -436,29 +451,53 @@ void del_itm(int itm_num)
 				return;
 			}
 		}
+		/*
+		 * Remove old link from list
+		 */
 		prev->next = temp->next;
 	}
+	/*
+	 * If item number is 0, change head pointer
+	 */
 	else if(itm_num == 0)
 	{
 		head = head->next;
 	}
+	/*
+	 * If mod or charge tab is selected, revert to food tab
+	 */
 	if((get_state("BSTATE") == 3) | (get_state("BSTATE") == 4))
 	{
 		set_state("BSTATE",1);
 		shuffle_tabs();
 		write_to_menu_buttons();
 	}
+	/*
+	 * No item is highlighted after deleting a node
+	 */
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);
+	/*
+	 * Update total lines in list for scrolling
+	 */
 	set_scrolldex("MAX_LINE",total_lines());
-	if(get_scrolldex("MAX") > get_scrolldex("MAX_LINE"))
+	/*
+	 * Set scrolldex for various edge cases 
+	 */
+	int max_line = find_item_max_line();
+	int max_diff = get_scrolldex("MAX") - max_line;
+	if(get_scrolldex("MAX_LINE") <= 27)
 	{
-		if(get_scrolldex("MAX_LINE") < 27)
-		{
-			scroll_to_top();
-			return;
-		}
+		scroll_to_top();
+	}
+	if(max_line == get_scrolldex("MAX_LINE"))
+	{
 		scroll_to_end();
+	}
+	if(max_diff > 0)
+	{
+		set_scrolldex("MAX",max_line + max_diff);
+		set_scrolldex("MIN",(max_line + max_diff)-27);
 	}
 }
 
@@ -1136,6 +1175,7 @@ void add_mod(int itm_num,int mod_num,int menu)
 		set_scrolldex("MAX",max_line);
 		set_scrolldex("MIN",max_line-27);
 	}
+	write_list();
 }
 
 /*
@@ -1143,24 +1183,62 @@ void add_mod(int itm_num,int mod_num,int menu)
  */
 void remove_mods(int itm_num)
 { 
+	/*
+	 * Point to head
+	 */
 	struct order_t *itm = head;
+	/*
+	 * Return if null
+	 */
+	if(!itm)
+	{
+		return;
+	}
+	/*
+	 * Iterate through list until itm_num is reached
+	 */
 	int i=0;
 	while(i < itm_num)
 	{
 		itm = itm->next;
 		i++;
 	}
+	/*
+	 * Set child (mod) list to NULL
+	 */
 	itm->child = NULL;
+	/*
+	 * Update maximum number of lines in order for scrolling
+	 */
 	set_scrolldex("MAX_LINE",total_lines());
+	/*
+	 * Find max item line for itm_num and difference between max item line
+	 * and maximum visible line of order list 
+	 */
 	int max_line = find_item_max_line();
-	if((max_line < get_scrolldex("MAX")) & (get_scrolldex("MAX") > 27))
-	{
-		set_scrolldex("MAX",max_line);
-		set_scrolldex("MIN",max_line-27);
-	} 
-	else if(get_scrolldex("MAX") <= 28)
+	int max_diff = get_scrolldex("MAX") - max_line;
+	/*
+	 * If order list is under 27 lines, reset scrolldex
+	 */
+	if(get_scrolldex("MAX_LINE") <= 27)
 	{
 		scroll_to_top();
+	}
+	/*
+	 * If maximum item line number is the maximum line, scroll to end
+	 */
+	if(max_line == get_scrolldex("MAX_LINE"))
+	{
+		scroll_to_end();
+	}
+	/*
+	 * Otherwise, draw entries below highlighted item and reserve list
+	 * position
+	 */
+	if(max_diff > 0)
+	{
+		set_scrolldex("MAX",max_line + max_diff);
+		set_scrolldex("MIN",(max_line + max_diff)-27);
 	}
 }
 
