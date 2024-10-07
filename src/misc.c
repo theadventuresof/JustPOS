@@ -14,9 +14,11 @@ void print_clock(void)
 {
 	char time[50];
 	get_time(time);
-	move(1,0);
+	move(0,66);
 	clrtoeol();
+	attron(COLOR_PAIR(1));
 	printw("%s",time);
+	attroff(COLOR_PAIR(1));
 	update_panels();
 	doupdate();
 }

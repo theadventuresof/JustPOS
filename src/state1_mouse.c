@@ -13,6 +13,7 @@
 #include "../lib/recall.h" 
 #include "../lib/scroll.h"
 #include "../lib/file.h"
+#include "../lib/draw_state_6.h"
 
 /*
  * Find mouse events that occur over the 12 menu buttons
@@ -699,6 +700,32 @@ void find_mouse_keypad(int y,int x)
 				del_order();
 				change_dialog(change);
 			}
+		}
+		/*
+		 * FUNC 5 = printer1-copies
+		 */
+		else if(get_keypad_state("FUNC") == 5)
+		{
+			char num[50];
+			float copies = get_keypad_data();
+			sprintf(num,"printer1-copies=%.0f",copies);
+			change_conf_line("printer1-copies=",num);
+			clear_keypad();
+			delete_keypad();
+			draw_settings_windows();
+		}
+		/*
+		 * FUNC 6 = printer2-copies
+		 */
+		else if(get_keypad_state("FUNC") == 6)
+		{
+			char num[50];
+			float copies = get_keypad_data();
+			sprintf(num,"printer2-copies=%.0f",copies);
+			change_conf_line("printer2-copies=",num);
+			clear_keypad();
+			delete_keypad();
+			draw_settings_windows();
 		}
 	}
 }	

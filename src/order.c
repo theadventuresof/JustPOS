@@ -148,12 +148,6 @@ int check_duplicate(int itm_num,int menu)
 				{
 					highlight(i);
 				}
-				/*if(((i/12) + 1) != get_index("ORDER"))
-				{
-					set_index("ORDER",(i/12) + 1);
-					write_list();
-					write_pages();
-				}*/
 				return 1;	
 			}
 		}
@@ -274,20 +268,44 @@ int total_cells(void)
  */
 int total_lines(void)
 {
+	/*
+	 * Make pointers to head and child lists
+	 */
 	struct order_t *ord = head;
 	struct mod_t *mod;
+	/*
+	 * Set total lines explicitly to 0
+	 */
 	int total = 0;
+	/*
+	 * If order is null, it contains 0 lines
+	 */
 	if(!ord)
 	{
 		return 0;
 	}
+	/*
+	 * While order is not null, find lines
+	 */
 	while(ord)
 	{
+		/*
+		 * Each item has 3 lines by default
+		 */
 		total += 3;
 		mod = ord->child;
+		/*
+		 * Pass through child list
+		 */
 		while(mod)
 		{
+			/*
+			 * Each mod is +1 lines
+			 */
 			total++;
+			/*
+			 * Each charge has one mod line plus one price line
+			 */
 			if(mod->mod_menu == 4)
 			{
 				total++;
@@ -361,7 +379,6 @@ void add_msg(int itm_num, char msg[])
 		mod_link = &(*mod_link)->next;
 	}
 	*mod_link = new_mod;
-	//strncpy(ord->msg,msg,50);
 	set_scrolldex("MAX_LINE",total_lines());
 }
 
@@ -397,9 +414,7 @@ void del_itm(int itm_num)
 		set_state("BSTATE",1);
 		shuffle_tabs();
 		write_to_menu_buttons();
-		write_pages();
-		//update_panels();
-		//doupdate();
+		//write_pages();
 	}
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);

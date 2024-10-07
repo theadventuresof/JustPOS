@@ -41,7 +41,7 @@ int main(void)
 	init_pair(9,COLOR_BLACK,COLOR_BLUE);
 	init_pair(10,COLOR_BLACK,COLOR_YELLOW);
 	init_pair(11,COLOR_CYAN,COLOR_BLACK);
-	init_pair(12,COLOR_BLACK,COLOR_BLUE);
+	init_pair(12,COLOR_WHITE,COLOR_BLUE);
 	
 	
 	/*

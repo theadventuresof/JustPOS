@@ -27,8 +27,8 @@ PANEL *printer_displayp;
 WINDOW *printer_win;
 PANEL *printer_winp;
 
-WINDOW *printer_button[4];
-PANEL *printer_buttonp[4];
+WINDOW *printer_button[6];
+PANEL *printer_buttonp[6];
 
 WINDOW *select_printer;
 PANEL *select_printerp;
@@ -133,6 +133,26 @@ void draw_settings_windows(void)
 	 */
 	printer_win = newwin(5,48,16,91);
 	printer_winp = new_panel(printer_win);
+	/*
+	 * Draw counter printer copies window
+	 */
+	char p1_copies[10];
+	get_file_data(".conf","printer1-copies=",p1_copies);
+	printer_button[4] = newwin(3,7,30,90);
+	box(printer_button[4],0,0);
+	mvwprintw(stdscr,29,91,"Num copies counter printer");
+	mvwprintw(printer_button[4],1,3,"%s",p1_copies);
+	printer_buttonp[4] = new_panel(printer_button[4]);
+	/*
+	 * Draw grill printer copies window
+	 */
+	char p2_copies[10];
+	get_file_data(".conf","printer2-copies=",p2_copies);
+	printer_button[5] = newwin(3,7,30,120);
+	box(printer_button[5],0,0);
+	mvwprintw(stdscr,29,121,"Num copies grill printer");
+	mvwprintw(printer_button[5],1,3,"%s",p2_copies);
+	printer_buttonp[5] = new_panel(printer_button[5]);
 	/*
 	 * Draw select button
 	 */
@@ -284,7 +304,7 @@ void del_settings_windows(void)
 		del_panel(select_printerp);
 		select_printer = NULL;
 	}
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i <= 6; i++)
 	{
 		if(printer_button[i] != NULL)
 		{

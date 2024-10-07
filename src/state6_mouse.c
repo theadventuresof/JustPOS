@@ -4,6 +4,7 @@
 #include "../lib/mouse.h"
 #include "../lib/state.h"
 #include "../lib/keyboard.h"
+#include "../lib/keypad.h"
 #include "../lib/draw_state_6.h"
 #include "../lib/scroll.h"
 #include "../lib/print.h"
@@ -115,7 +116,7 @@ void find_mouse_settings(int y,int x)
 		draw_settings_windows();
 	}
 	/*
-	 * If select printer button is pressed
+	 * If select button is pressed
 	 */
 	if((y >= 23) & (y <= 25) & (x >= 110) & (x <= 123))
 	{
@@ -145,5 +146,25 @@ void find_mouse_settings(int y,int x)
 		}
 		set_printerdex("LINE",-1);
 		write_printers();
+	}
+	/*
+	 * If counter printer copies window is pressed
+	 */
+	if((y >= 30) & (y <= 32) & (x >= 90) & (x <= 97))
+	{
+		set_state("STATE",2);
+		set_state("PREV_STATE",6);
+		set_keypad_state("FUNC",5);
+		draw_keypad("CENTER");
+	}
+	/*
+	 * If grill printer copies window is pressed
+	 */
+	if((y >= 30) & (y <= 32) & (x >= 120) & (x <= 127))
+	{
+		set_state("STATE",2);
+		set_state("PREV_STATE",6);
+		set_keypad_state("FUNC",6);
+		draw_keypad("CENTER");
 	}
 }

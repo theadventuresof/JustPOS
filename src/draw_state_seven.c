@@ -16,6 +16,7 @@ PANEL *quitp;
  */
 void draw_manager_buttons(void)
 {
+	del_manager_buttons();
 	/*
 	 * Draw return to main menu button
 	 */

@@ -250,6 +250,13 @@ void set_keypad_val(char val[1])
 				return;
 			} 
 		}
+		if((get_keypad_state("FUNC") == 5) | (get_keypad_state("FUNC") == 6))
+		{
+			if(strlen(kpd.keypad_val) + 1 > 2)
+			{
+				return;
+			} 
+		}
 		strncat(kpd.keypad_val,val,2);
 	}
 	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);

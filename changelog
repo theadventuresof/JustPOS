@@ -517,3 +517,10 @@ anything, but I want it to display the readme in a scrollable box
 
 Rewrote add_itm to no longer defer to two funcitons but simply determine
 where in the list to place new nodes. This saves on some lines of code.
+
+Moved clock position to line 0 and centered among buttons
+  -Also made it black text on green background
+  
+10/5/2024
+
+Added option in settings to adjust number of copies for each printer
