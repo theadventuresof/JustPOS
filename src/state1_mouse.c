@@ -331,7 +331,6 @@ void find_mouse_system_buttons(int y,int x)
 		del_state(1);
 		set_state("PREV_STATE",6);
 		set_state("STATE",6);
-		//erase();
 		draw_state(6);
 		return;
 	}
@@ -620,7 +619,6 @@ void find_mouse_keypad(int y,int x)
 	{
 		if(get_state("STATE") != 5)
 		{
-			clear_keypad();
 			delete_keypad();
 			set_state("STATE",get_state("PREV_STATE"));
 		}
@@ -644,11 +642,11 @@ void find_mouse_keypad(int y,int x)
 		{
 			int data = (int)get_keypad_data();
 			modify_qty(get_state("PREV_ITM"),data);
-			clear_keypad();
 			delete_keypad();
 			set_state("STATE",get_state("PREV_STATE"));
 			update_order_stat();
 			write_list();
+			return;
 		}
 		/*
 		 * FUNC 2 = Add open food item/charge
@@ -656,11 +654,11 @@ void find_mouse_keypad(int y,int x)
 		else if(get_keypad_state("FUNC") == 2)
 		{
 			add_open_food(get_keypad_data());
-			clear_keypad();
 			delete_keypad();
 			set_state("STATE",get_state("PREV_STATE"));
 			update_order_stat();
 			write_list();
+			return;
 		}
 		/*
 		 * FUNC 3 = Search for order in specified day -- recall menu
@@ -669,7 +667,6 @@ void find_mouse_keypad(int y,int x)
 		{
 			char order[50];
 			sprintf(order,"order-%.0f",get_keypad_data());
-			clear_keypad();
 			delete_keypad();
 			set_state("STATE",get_state("PREV_STATE"));
 			int check = find_recall_order(order);
@@ -678,6 +675,7 @@ void find_mouse_keypad(int y,int x)
 				set_recalldex("LINE",check);
 				write_recall();
 			}
+			return;
 		}
 		/*
 		 * FUNC 4 = Evaluate cash payment
@@ -700,6 +698,7 @@ void find_mouse_keypad(int y,int x)
 				del_order();
 				change_dialog(change);
 			}
+			return;
 		}
 		/*
 		 * FUNC 5 = printer1-copies
@@ -710,9 +709,10 @@ void find_mouse_keypad(int y,int x)
 			float copies = get_keypad_data();
 			sprintf(num,"printer1-copies=%.0f",copies);
 			change_conf_line("printer1-copies=",num);
-			clear_keypad();
 			delete_keypad();
+			set_state("STATE",6);
 			draw_settings_windows();
+			return;
 		}
 		/*
 		 * FUNC 6 = printer2-copies
@@ -723,9 +723,10 @@ void find_mouse_keypad(int y,int x)
 			float copies = get_keypad_data();
 			sprintf(num,"printer2-copies=%.0f",copies);
 			change_conf_line("printer2-copies=",num);
-			clear_keypad();
 			delete_keypad();
+			set_state("STATE",6);
 			draw_settings_windows();
+			return;	
 		}
 	}
 }	

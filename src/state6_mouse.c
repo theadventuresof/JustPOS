@@ -22,6 +22,7 @@ void find_mouse_settings(int y,int x)
 		set_keyboard("FUNC",3);
 		set_state("STATE",3);
 		set_state("PREV_STATE",6);
+		return;
 	}
 	/*
 	 * If conf_msg window is pressed
@@ -32,6 +33,7 @@ void find_mouse_settings(int y,int x)
 		set_keyboard("FUNC",4);
 		set_state("STATE",3);
 		set_state("PREV_STATE",6);
+		return;
 	}
 	/*
 	 * If phone/social window is pressed
@@ -42,6 +44,7 @@ void find_mouse_settings(int y,int x)
 		set_keyboard("FUNC",5);
 		set_state("STATE",3);
 		set_state("PREV_STATE",6);
+		return;
 	}
 	/*
 	 * If return is pressed
@@ -54,6 +57,7 @@ void find_mouse_settings(int y,int x)
 		set_state("PREV_STATE",1);
 		set_printerdex("LINE",-1);
 		draw_state(1);
+		return;
 	}
 	/*
 	 * If enable printer_1 is pressed
@@ -69,6 +73,7 @@ void find_mouse_settings(int y,int x)
 			set_state("PRINTER_1",1);
 		}
 		draw_settings_windows();
+		return;
 	}
 	/*
 	 * If enable printer_2 is pressed
@@ -84,6 +89,7 @@ void find_mouse_settings(int y,int x)
 			set_state("PRINTER_2",1);
 		}
 		draw_settings_windows();
+		return;
 	}
 	/*
 	 * If configure printer_1 is pressed
@@ -99,6 +105,7 @@ void find_mouse_settings(int y,int x)
 		}
 		set_printerdex("LINE",-1);
 		draw_settings_windows();
+		return;
 	}
 	/*
 	 * If configure printer_2 is pressed
@@ -114,6 +121,7 @@ void find_mouse_settings(int y,int x)
 		}
 		set_printerdex("LINE",-1);
 		draw_settings_windows();
+		return;
 	}
 	/*
 	 * If select button is pressed
@@ -146,6 +154,7 @@ void find_mouse_settings(int y,int x)
 		}
 		set_printerdex("LINE",-1);
 		write_printers();
+		return;
 	}
 	/*
 	 * If counter printer copies window is pressed
@@ -156,6 +165,7 @@ void find_mouse_settings(int y,int x)
 		set_state("PREV_STATE",6);
 		set_keypad_state("FUNC",5);
 		draw_keypad("CENTER");
+		return;
 	}
 	/*
 	 * If grill printer copies window is pressed
@@ -166,5 +176,6 @@ void find_mouse_settings(int y,int x)
 		set_state("PREV_STATE",6);
 		set_keypad_state("FUNC",6);
 		draw_keypad("CENTER");
+		return;
 	}
 }

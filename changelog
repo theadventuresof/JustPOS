@@ -524,3 +524,8 @@ Moved clock position to line 0 and centered among buttons
 10/5/2024
 
 Added option in settings to adjust number of copies for each printer
+
+10/7/2024
+
+Fixed a freezing issue when adjusting number of copies for a printer
+  -Just added set_state("STATE",6); and it worked
