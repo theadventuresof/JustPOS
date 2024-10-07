@@ -1152,10 +1152,12 @@ void remove_mods(int itm_num)
 	}
 	itm->child = NULL;
 	set_scrolldex("MAX_LINE",total_lines());
-	if(get_scrolldex("MAX_LINE") < get_scrolldex("MAX"))
+	int max_line = find_item_max_line();
+	if((max_line < get_scrolldex("MAX")) & (get_scrolldex("MAX") > 27))
 	{
-		scroll_to_end();
-	}
+		set_scrolldex("MAX",max_line);
+		set_scrolldex("MIN",max_line-27);
+	} 
 	else if(get_scrolldex("MAX") <= 28)
 	{
 		scroll_to_top();
