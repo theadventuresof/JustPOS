@@ -347,23 +347,36 @@ void modify_price(int itm_num,float price)
 }
 
 /*
- * Add special message or instruction to an item in order (eg ALLERGY
- * or CHEESE ON HALF)
+ * Insert user message to mod (child) list
  */
 void add_msg(int itm_num, char msg[])
 {
+	/*
+	 * Point to head of order list
+	 */
 	struct order_t *ord = head;
+	/*
+	 * Allocate memory for new node to mod (child) list
+	 */
 	struct mod_t *new_mod = (struct mod_t*)malloc(sizeof(struct mod_t));
-	
+	/*
+	 * Initialize new mod node -- only copying a message to mod_list->msg
+	 */
 	strncpy(new_mod->msg,msg,strlen(msg) + 1);
 	new_mod->mod_menu = 0;
 	new_mod->next = NULL;
 	
 	int i=0;
+	/*
+	 * Return if order list is null
+	 */
 	if(!ord)
 	{
 		return;
 	}
+	/*
+	 * Iterate through order list until itm_num node is reached
+	 */
 	if(itm_num > 0)
 	{
 		while(i < itm_num)
@@ -373,13 +386,33 @@ void add_msg(int itm_num, char msg[])
 		}
 	}
 	
+	/*
+	 * Point to base address of mod (child) list
+	 */
 	struct mod_t **mod_link = &ord->child;
+	/*
+	 * While mod (child) list is not null, iterate through list
+	 */
 	while(*mod_link)
 	{
 		mod_link = &(*mod_link)->next;
 	}
+	/*
+	 * Insert new node into mod list
+	 */
 	*mod_link = new_mod;
+	/*
+	 * Update maximum possible line baesd on total_lines() and check
+	 * to see if order_win needs to be scrolled based on 
+	 * find_item_max_line()
+	 */
 	set_scrolldex("MAX_LINE",total_lines());
+	int max_line = find_item_max_line();
+	if(max_line > get_scrolldex("MAX"))
+	{
+		set_scrolldex("MAX",max_line);
+		set_scrolldex("MIN",max_line-27);
+	}
 }
 
 /*
@@ -414,7 +447,6 @@ void del_itm(int itm_num)
 		set_state("BSTATE",1);
 		shuffle_tabs();
 		write_to_menu_buttons();
-		//write_pages();
 	}
 	set_state("HIGHLIGHT",0);
 	set_state("PREV_ITM",-1);
@@ -502,6 +534,81 @@ int find_item_lines(int line)
 	 * Return invalid response if no item was selected
 	 */
 	return -1;
+}
+
+/*
+ * Find maximum line of highlighted item. Used to move order list
+ * for making all modifications to an item visible.
+ */
+int find_item_max_line(void)
+{
+	/*
+	 * Point to order list
+	 */
+	struct order_t *ord = head;
+	struct mod_t *mod;
+	/*
+	 * Return false if order list is NULL
+	 */
+	if(!ord)
+	{
+		return false;
+	}
+	/*
+	 * Track lines traversed 
+	 */
+	int i = 0;
+	/*
+	 * While order list is not null, iterate through list
+	 */
+	while(ord)
+	{
+		/*
+		 * Each item by default has three lines
+		 */
+		i += 3;
+		/*
+		 * Point to child list
+		 */
+		mod = ord->child;
+		/*
+		 * While child list is not null, iterate through list
+		 */
+		while(mod)
+		{
+			/*
+			 * Each mod has at least one line, so we count one more
+			 */
+			i++;
+			/*
+			 * If mod menu = 4, an extra line is drawn, so we count one more
+			 */
+			if(mod->mod_menu == 4)
+			{
+				i++;
+			}
+			/*
+			 * Point to next node in child list
+			 */
+			mod = mod->next;
+		}
+		/*
+		 * If we are counting the highlighted item, this is as far as we
+		 * need to go, and we return the maximum line of the list
+		 */
+		if(ord->highlight == 1)
+		{
+			return i;
+		}
+		/*
+		 * Otherwise, point to next node in order list
+		 */
+		ord = ord->next;
+	}
+	/*
+	 * If we made it here, there is no useful information. Return false
+	 */
+	return false;
 }
 
 /*
@@ -1023,9 +1130,11 @@ void add_mod(int itm_num,int mod_num,int menu)
 	}
 	*mod_link = new_mod;
 	set_scrolldex("MAX_LINE",total_lines());
-	if(get_scrolldex("MAX_LINE") > get_scrolldex("MAX"))
+	int max_line = find_item_max_line();
+	if(max_line > get_scrolldex("MAX"))
 	{
-		scroll_to_end();
+		set_scrolldex("MAX",max_line);
+		set_scrolldex("MIN",max_line-27);
 	}
 }
 

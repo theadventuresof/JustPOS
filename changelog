@@ -529,3 +529,10 @@ Added option in settings to adjust number of copies for each printer
 
 Fixed a freezing issue when adjusting number of copies for a printer
   -Just added set_state("STATE",6); and it worked
+  
+Wrote a new function to fix a long time bug in scrolling
+  -find_item_max_line() goes through the order list and finds the maximum
+   line of the highlighted item. Using the returned value, we explicitly
+   set the MIN/MAX of scrolldex to show the bottom of the highlighted item
+   Before it was necessary to scroll manually to see all modifications
+   or messages
