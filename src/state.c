@@ -154,6 +154,10 @@ void init(void)
 	set_state("STATE",1);
 	set_state("PREV_STATE",1);
 	/*
+	 * No menu buttons are highlighted
+	 */
+	set_state("CUR_CELL",-1);
+	/*
 	 * Set buttons to display food menu
 	 */
 	set_state("BSTATE",1);

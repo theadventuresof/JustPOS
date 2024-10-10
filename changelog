@@ -536,3 +536,12 @@ Wrote a new function to fix a long time bug in scrolling
    set the MIN/MAX of scrolldex to show the bottom of the highlighted item
    Before it was necessary to scroll manually to see all modifications
    or messages
+   
+10/8/2024
+
+Now de-select highlighted buttons when any menu button is pressed or
+menu page is changed
+
+10/9/2024
+
+Comment updates and more scrolling updates (very minor)

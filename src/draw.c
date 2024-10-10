@@ -822,24 +822,13 @@ void clear_order_stat(void)
 }
 
 /*
- * 
+ * Un-highlight menu button (after search)
  */
-void print_months(void)
+void reset_menu_button(void)
 {
-	clear_menu_buttons();
-	mvwprintw(itm_btns[0],1,13,"Jan");
-	mvwprintw(itm_btns[1],1,13,"Feb");
-	mvwprintw(itm_btns[2],1,13,"Mar");
-	mvwprintw(itm_btns[3],1,13,"Apr");
-	mvwprintw(itm_btns[4],1,13,"May");
-	mvwprintw(itm_btns[5],1,13,"Jun");
-	mvwprintw(itm_btns[6],1,13,"Jul");
-	mvwprintw(itm_btns[7],1,13,"Aug");
-	mvwprintw(itm_btns[8],1,13,"Sep");
-	mvwprintw(itm_btns[9],1,13,"Oct");
-	mvwprintw(itm_btns[10],1,13,"Nov");
-	mvwprintw(itm_btns[11],1,13,"Dec");
-	
-	update_panels();
-	doupdate();
+	if(get_state("CUR_CELL") >= 0)
+	{
+		wbkgd(itm_btns[get_state("CUR_CELL")],COLOR_PAIR(2));
+		doupdate();
+	}
 }

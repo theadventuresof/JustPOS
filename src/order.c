@@ -322,8 +322,15 @@ int total_lines(void)
  */
 void modify_price(int itm_num,float price)
 {
+	/*
+	 * Point to head
+	 */
 	struct order_t *ord = head;
 	int i=0;
+	/*
+	 * If node 0 is to be modified, check if it is NULL and return if 
+	 * it is
+	 */
 	if(itm_num == 0)
 	{
 		if(ord == NULL)
@@ -331,6 +338,9 @@ void modify_price(int itm_num,float price)
 			return;
 		}
 	}
+	/*
+	 * Otherwise iterate to specified node 
+	 */
 	else if(itm_num > 0)
 	{
 		while(i < itm_num)
@@ -343,6 +353,9 @@ void modify_price(int itm_num,float price)
 			}
 		}
 	}
+	/*
+	 * Set new price
+	 */
 	ord->open_food = price;
 }
 
@@ -490,11 +503,11 @@ void del_itm(int itm_num)
 	{
 		scroll_to_top();
 	}
-	if(max_line == get_scrolldex("MAX_LINE"))
+	else if(max_line == get_scrolldex("MAX_LINE"))
 	{
 		scroll_to_end();
 	}
-	if(max_diff > 0)
+	else if(max_diff > 0)
 	{
 		set_scrolldex("MAX",max_line + max_diff);
 		set_scrolldex("MIN",(max_line + max_diff)-27);
@@ -1227,7 +1240,7 @@ void remove_mods(int itm_num)
 	/*
 	 * If maximum item line number is the maximum line, scroll to end
 	 */
-	if(max_line == get_scrolldex("MAX_LINE"))
+	else if(max_line == get_scrolldex("MAX_LINE"))
 	{
 		scroll_to_end();
 	}
@@ -1235,7 +1248,7 @@ void remove_mods(int itm_num)
 	 * Otherwise, draw entries below highlighted item and reserve list
 	 * position
 	 */
-	if(max_diff > 0)
+	else if(max_diff > 0)
 	{
 		set_scrolldex("MAX",max_line + max_diff);
 		set_scrolldex("MIN",(max_line + max_diff)-27);

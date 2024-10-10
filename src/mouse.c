@@ -8,6 +8,7 @@
 #include "../lib/recall.h"
 #include "../lib/keypad.h"
 #include "../lib/print.h"
+#include "../lib/draw.h"
 
 /*
  * The main entry point for mouse/touch input
@@ -42,6 +43,10 @@ void get_mouse(int y,int x)
 		 */
 		if((y >= 5) & (y <= 23) & (x >= 9) & (x <= 98))
 		{
+			if(get_state("CUR_CELL") >= 0)
+			{
+				reset_menu_button();
+			}
 			find_mouse_menu_buttons(y,x);
 		}
 		/*

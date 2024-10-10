@@ -46,6 +46,7 @@ void search(char val[])
 				write_pages();
 				itm_num = (itm_num - (12 * (get_index("FOOD") -1)));
 				select_menu_button(itm_num);
+				set_state("CUR_CELL",itm_num-1);
 				return;
 			}
 			else if(i == 2)
@@ -55,14 +56,15 @@ void search(char val[])
 				write_pages();
 				itm_num = (itm_num - (12 * (get_index("DRINK") - 1)));
 				select_menu_button(itm_num);
+				set_state("CUR_CELL",itm_num-1);
 				return;
 			}
 			doupdate();
 		} 
 		else if(itm_num == 0)
 		{
-			//err_dialog("ITM NOT FOUND!!");
-			write_to_menu_buttons();
+			//return;
+			//write_to_menu_buttons();
 		}
 	}
 }
