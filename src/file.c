@@ -228,13 +228,14 @@ void recall(char order[])
 	/*
 	 * Loop through every line of the receipt file. 
 	 */
+	float charges=0;
 	while(!feof(target_order))
 	{
 		/*
 		 * Get one line from the receipt file, remove the newline, and
 		 * check the line against food and drink menus
 		 */
-		float charges=0;
+		//charges = 0;
 		fgets(line,50,target_order);
 		line[strcspn(line,"\n")] = 0;
 		itm_num = check_menu_line(line,1);
@@ -259,7 +260,7 @@ void recall(char order[])
 		}
 		else if(strncmp(line,"   ",3) == 0)
 		{
-			charges = recall_mods(line,i-1);
+			charges += recall_mods(line,i-1);
 		}
 		else if(strncmp(line,"x",1) == 0)
 		{
@@ -320,10 +321,14 @@ void recall_details(char line2[],int itm_num,float charges)
 	value1 = strtof(cost,NULL);
 	if(which_menu(itm_num) == 5)
 	{
-		char stuff[20];
-		sprintf(stuff,"%.2f",get_of_val(itm_num));
-		//err_dialog(stuff);
-		modify_price(itm_num,((get_of_val(itm_num)*value)+(charges*value)));
+		
+		//char test[50];
+		//sprintf(test,"%.2f",((value1)-(charges*value))/value);
+		//err_dialog(test);
+		modify_price(itm_num,((value1)-(charges*value))/value);
+		move(1,0);
+		clrtoeol();
+		//mvwprintw(stdscr,1,0,"%.2f",);
 		return;
 	}
 	modify_price(itm_num,((value1/value)-(charges*value)));

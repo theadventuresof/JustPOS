@@ -1,7 +1,8 @@
-//#include <panel.h>
+#include <panel.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include <stdbool.h>
 
 #include "../lib/order.h"
@@ -740,15 +741,15 @@ void write_list(void)
 		 */
 		while(mod != NULL)
 		{
-			if(mod->mod_menu == 3)
+			/*if(mod->mod_menu == 3)
 			{
 				strncpy(menu,"MOD",4);
 			}
 			else if(mod->mod_menu == 4)
 			{
 				strncpy(menu,"CHARGE",7);
-				charges += get_itm(4,"COST",mod->mod_num);
-			}
+
+			}*/
 			if(mod->mod_menu == 0)
 			{
 				strncpy(details,"   ",4);
@@ -768,6 +769,7 @@ void write_list(void)
 				sprintf(details,"    +$%.2f",get_itm(4,"COST",mod->mod_num));
 				concat_blanks(34-strlen(details),details);
 				write_to_order_win(details,0,ord->highlight);	
+				charges += get_itm(4,"COST",mod->mod_num);
 			}
 			mod = mod->next;
 		}
@@ -778,7 +780,7 @@ void write_list(void)
 		else if(ord->menu == 5)
 		{
 			charges += ord->open_food;
-			sprintf(details,"x%d        @$%.2f",ord->qty,(charges * ord->qty));
+			sprintf(details,"x%d        @$%.2f",ord->qty,(charges*ord->qty));
 		}
 		concat_blanks(34-strlen(details),details);
 		write_to_order_win(details,0,ord->highlight);

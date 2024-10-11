@@ -545,3 +545,20 @@ menu page is changed
 10/9/2024
 
 Comment updates and more scrolling updates (very minor)
+
+The bug mentioned on 9/23/2024 has re-surfaced. Recall does not collect
+open food price correctly. 
+  -somewhat fixed, I managed to track down my shaky math. I was adding
+   open food at $0 when an open food item was detected, and then trying 
+   to use that $0 value to find the real cost. Still displaying nonsense
+   value when open food + charges and qty is > 1.
+  -Found some more information, everything works fine when qty = 1. But
+   when qty > 1, the ord->open_food value displays as negative and it's
+   adding a negative value making things weird
+  -This bug is very stubborn and slowly driving me insane.
+  
+10/11/2024
+
+I probably didn't fix it, but I did manage to get the correct numbers 
+from an open food item with extra charges and multiply qty. If this did
+fix it, it was just a goofy math problem. 
