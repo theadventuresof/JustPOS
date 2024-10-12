@@ -321,17 +321,8 @@ void recall_details(char line2[],int itm_num,float charges)
 	value1 = strtof(cost,NULL);
 	if(which_menu(itm_num) == 5)
 	{
-		
-		//char test[50];
-		//sprintf(test,"%.2f",((value1)-(charges*value))/value);
-		//err_dialog(test);
 		modify_price(itm_num,((value1)-(charges*value))/value);
-		move(1,0);
-		clrtoeol();
-		//mvwprintw(stdscr,1,0,"%.2f",);
-		return;
 	}
-	modify_price(itm_num,((value1/value)-(charges*value)));
 	
 }
 

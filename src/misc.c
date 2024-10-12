@@ -84,3 +84,29 @@ void copy_fragment(char source[],int begin,int end,char *dest)
 	}
 	strncpy(dest,temp,strlen(temp) + 1);
 }
+
+WINDOW *go_back;
+PANEL *go_backp;
+/*
+ * Draw return to main menu button
+ */
+void draw_return(void)
+{
+	del_return();
+	go_back = newwin(3,15,38,5);
+	box(go_back,0,0);
+	mvwprintw(go_back,1,5,"RETURN");
+	go_backp = new_panel(go_back);
+}
+
+/*
+ * Delete return button from memory
+ */
+void del_return(void)
+{
+	if(go_back != NULL)
+	{
+		del_panel(go_backp);
+		go_back = NULL;
+	}
+}

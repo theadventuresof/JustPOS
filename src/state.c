@@ -292,6 +292,7 @@ void draw_state(int state)
 			draw_order();
 			print_clock();
 			draw_logo();
+			draw_return();
 			write_list();
 			write_recall();
 			return;
@@ -308,6 +309,7 @@ void draw_state(int state)
 			set_keypad_state("FUNC",4);
 			write_list();
 			draw_logo();
+			draw_return();
 			print_clock();
 			draw_cash_btns();
 			return;
@@ -319,6 +321,7 @@ void draw_state(int state)
 		{
 			erase();
 			draw_logo();
+			draw_return();
 			print_clock();
 			draw_settings_windows();
 			find_printers();
@@ -331,6 +334,7 @@ void draw_state(int state)
 		{
 			erase();
 			draw_logo();
+			draw_return();
 			print_clock();
 			draw_manager_buttons();
 			return;
@@ -359,6 +363,7 @@ void del_state(int state)
 		del_recall_win();
 		del_recall_sys_btns();
 		del_order_win();
+		del_return();
 		return;
 	}
 	else if(state == 5)
@@ -366,16 +371,19 @@ void del_state(int state)
 		delete_keypad();
 		del_order_win();
 		del_cash_btns();
+		del_return();
 		return;
 	}
 	else if(state == 6)
 	{
 		del_settings_windows();
+		del_return();
 		return;
 	}
 	else if(state == 7)
 	{
 		del_manager_buttons();
+		del_return();
 		return;
 	}
 }

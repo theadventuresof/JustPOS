@@ -2,14 +2,14 @@
 
 #include "../lib/draw_state_7.h"
 
-WINDOW *manager_return;
-PANEL *manager_returnp;
-
 WINDOW *help;
 PANEL *helpp;
 
 WINDOW *quit;
 PANEL *quitp;
+
+WINDOW *itm_wiz;
+PANEL *itm_wizp;
 
 /*
  * 
@@ -17,14 +17,6 @@ PANEL *quitp;
 void draw_manager_buttons(void)
 {
 	del_manager_buttons();
-	/*
-	 * Draw return to main menu button
-	 */
-	manager_return = newwin(3,15,38,5);
-	box(manager_return,0,0);
-	mvwprintw(manager_return,1,5,"RETURN");
-	manager_returnp = new_panel(manager_return);
-	
 	/*
 	 * Draw help button
 	 */
@@ -40,6 +32,16 @@ void draw_manager_buttons(void)
 	box(quit,0,0);
 	mvwprintw(quit,1,6,"QUIT");
 	quitp = new_panel(quit);
+	
+	/*
+	 * Draw Item Wizard button
+	 */
+	itm_wiz = newwin(3,20,5,5);
+	box(itm_wiz,0,0);
+	mvwprintw(itm_wiz,1,5,"ITEM WIZARD");
+	itm_wizp = new_panel(itm_wiz);
+	
+	
 	update_panels();
 	doupdate();
 }
@@ -49,11 +51,6 @@ void draw_manager_buttons(void)
  */
 void del_manager_buttons(void)
 {
-	if(manager_return != NULL)
-	{
-		del_panel(manager_returnp);
-		manager_return = NULL;
-	}
 	if(help != NULL)
 	{
 		del_panel(helpp);
@@ -63,5 +60,10 @@ void del_manager_buttons(void)
 	{
 		del_panel(quitp);
 		quit = NULL;
+	}
+	if(itm_wiz != NULL)
+	{
+		del_panel(itm_wizp);
+		itm_wiz = NULL;
 	}
 }

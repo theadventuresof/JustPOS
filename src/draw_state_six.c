@@ -9,9 +9,6 @@
 #include "../lib/err.h"
 #include "../lib/draw.h"
 
-WINDOW *settings_return;
-PANEL *settings_returnp;
-
 WINDOW *order_dir;
 PANEL *order_dirp;
 
@@ -161,12 +158,8 @@ void draw_settings_windows(void)
 	mvwprintw(select_printer,1,5,"SELECT");
 	select_printerp = new_panel(select_printer);
 	/*
-	 * Draw return to main menu button
+	 * Show updates
 	 */
-	settings_return = newwin(3,15,38,5);
-	box(settings_return,0,0);
-	mvwprintw(settings_return,1,5,"RETURN");
-	settings_returnp = new_panel(settings_return);
 	write_printers();
 	update_panels();
 	doupdate();
@@ -269,11 +262,6 @@ void write_to_printer_win(char device[],int format)
  */
 void del_settings_windows(void)
 {
-	if(settings_return != NULL)
-	{
-		del_panel(settings_returnp);
-		settings_return = NULL;
-	}
 	if(order_dir != NULL)
 	{
 		del_panel(order_dirp);

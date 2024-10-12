@@ -556,9 +556,30 @@ open food price correctly.
    when qty > 1, the ord->open_food value displays as negative and it's
    adding a negative value making things weird
   -This bug is very stubborn and slowly driving me insane.
+  -Fixed 10/11/2024
   
 10/11/2024
 
 I probably didn't fix it, but I did manage to get the correct numbers 
-from an open food item with extra charges and multiply qty. If this did
-fix it, it was just a goofy math problem. 
+from an open food item with extra charges and multiply qty. (VIA recall())
+If this did fix it, it was just a goofy math problem. 
+
+10/12/2024
+
+After a lot more testing on my open food bug, I am marking it as fixed.
+Turns out I am just really bad at logic and math. In the reacall_details
+function, I was receiving the complete cost (value) quantity (value1) 
+charges (charges). But charges only represented the charges for x1 of 
+an item. I (for some reason) had it set up to divide value1 by value
+to give me the price of x1 of an item -- which would also include the 
+charges for said item. But I was subtracting charges * value1 which in
+some cases gave negative values. Now I'm using this:
+
+modify_price(itm_num,((value) - (charges*value1)/value1));
+//set open food value to individual item price
+
+When displaying to the screen, write_list() finds the charges and adds 
+them back
+
+Changing the return to main menu button to be defined in misc.c/h because
+it is reused in many different menus
