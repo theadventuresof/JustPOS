@@ -11,6 +11,7 @@
 #include "../lib/draw_state_5.h"
 #include "../lib/draw_state_6.h"
 #include "../lib/draw_state_7.h"
+#include "../lib/draw_state_8.h"
 #include "../lib/scroll.h"
 #include "../lib/misc.h"
 #include "../lib/recall.h"
@@ -295,6 +296,8 @@ void draw_state(int state)
 			draw_return();
 			write_list();
 			write_recall();
+			update_panels();
+			doupdate();
 			return;
 		}
 		/*
@@ -337,6 +340,17 @@ void draw_state(int state)
 			draw_return();
 			print_clock();
 			draw_manager_buttons();
+			return;
+		}
+		/*
+		 * Item wiz visible
+		 */
+		else if(state == 8)
+		{
+			draw_logo();
+			draw_return();
+			print_clock();
+			draw_itm_wiz_btns();
 			return;
 		}
 	} 
@@ -384,6 +398,12 @@ void del_state(int state)
 	{
 		del_manager_buttons();
 		del_return();
+		return;
+	}
+	else if(state == 8)
+	{
+		del_return();
+		del_itm_wiz_btns();
 		return;
 	}
 }

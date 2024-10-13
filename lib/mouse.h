@@ -14,5 +14,7 @@ void find_mouse_payment_keypad(int y,int x);
 void find_mouse_cash_buttons(int y,int x);
 void find_mouse_settings(int y,int x);
 void find_mouse_manager(int y,int x);
+void find_mouse_itm_wiz(int y,int x);
+void find_mouse_yes_no(int y,int x);
 
 #endif

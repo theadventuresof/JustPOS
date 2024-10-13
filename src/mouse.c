@@ -16,6 +16,13 @@
 void get_mouse(int y,int x)
 {
 	/*
+	 * If yes/no dialog is visible
+	 */
+	if(get_state("STATE") == -1)
+	{
+		find_mouse_yes_no(y,x);
+	}
+	/*
 	 * If error dialog is visible
 	 */
 	if(get_state("STATE") == 0)
@@ -206,6 +213,13 @@ void get_mouse(int y,int x)
 	else if(get_state("STATE") == 7)
 	{
 		find_mouse_manager(y,x);
+	}
+	/*
+	 * 
+	 */
+	else if(get_state("STATE") == 8)
+	{
+		find_mouse_itm_wiz(y,x);
 	}
 	move(2,1);
 	clrtoeol();

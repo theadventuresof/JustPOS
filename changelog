@@ -558,6 +558,12 @@ open food price correctly.
   -This bug is very stubborn and slowly driving me insane.
   -Fixed 10/11/2024
   
+10/13/2024
+
+Started to add a yes/no dialog option
+
+Added new state for dialog option and for item wizard menu
+  
 10/11/2024
 
 I probably didn't fix it, but I did manage to get the correct numbers 

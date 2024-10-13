@@ -345,6 +345,13 @@ void find_mouse_system_buttons(int y,int x)
 		draw_state(7);
 	}
 	/*
+	 * If pay card button is pressed
+	 */
+	if((y >= 34) & (y <= 36) & (x >= 50) & (x <= 69))
+	{
+		yes_no_dialog("MSG",1);
+	}
+	/*
 	 * If pay cash button is pressed
 	 */
 	if((y >= 34) & (y <= 36) & (x >= 76) & (x <= 94))
@@ -524,7 +531,6 @@ void find_mouse_keypad(int y,int x)
 	}
 	else if(get_keypad_state("STATE") == 2)
 	{
-		//startx = startx - 58;
 		startx = 9;
 	}
 	

@@ -145,3 +145,84 @@ void del_err_dialog(void)
 	update_panels();
 	doupdate();
 }
+
+WINDOW *yes_no_window;
+PANEL *yes_no_windowp;
+
+WINDOW *yes;
+PANEL *yesp;
+
+WINDOW *no;
+PANEL *nop;
+
+/*
+ * Draw yes/no dialog window(s)
+ */
+void yes_no_dialog(char msg[],int option)
+{
+	del_yes_no_dialog();
+	/*
+	 * Get screen size
+	 */
+	int y,x;
+	getmaxyx(stdscr,y,x);
+	/*
+	 * Change current state to previous state and set current state to -1
+	 */
+	set_state("PREV_STATE",get_state("STATE"));
+	set_state("STATE",-1);
+	/*
+	 * Draw yes_no_window
+	 */
+	yes_no_window = newwin(10,60,(y/2)-5,(x/2)-30);
+	box(yes_no_window,0,0);
+	yes_no_windowp = new_panel(yes_no_window);
+	/*
+	 * Draw yes window
+	 */
+	yes = derwin(yes_no_window,3,11,6,10);
+	box(yes,0,0);
+	yesp = new_panel(yes);
+	mvwprintw(yes,1,4,"YES");
+	/*
+	 * Draw no window
+	 */
+	no = derwin(yes_no_window,3,11,6,40);
+	box(no,0,0);
+	nop = new_panel(no);
+	mvwprintw(no,1,5,"NO");
+	/*
+	 * Print message to yes_no_window
+	 */
+	mvwprintw(yes_no_window,4,30-strlen(msg)/2,"%s",msg);
+	/*
+	 * Show updates
+	 */
+	update_panels();
+	doupdate();
+}
+
+/*
+ * Delete yes_no_window(s) from memory
+ */
+void del_yes_no_dialog(void)
+{
+	if(yes_no_window != NULL)
+	{
+		del_panel(yes_no_windowp);
+		yes_no_window = NULL;
+	}
+	if(yes != NULL)
+	{
+		del_panel(yesp);
+		yes = NULL;
+	}
+	if(no != NULL)
+	{
+		del_panel(nop);
+		no = NULL;
+	}
+	set_state("STATE",get_state("PREV_STATE"));
+	update_panels();
+	doupdate();
+}
