@@ -21,6 +21,7 @@ void get_mouse(int y,int x)
 	if(get_state("STATE") == -1)
 	{
 		find_mouse_yes_no(y,x);
+		return;
 	}
 	/*
 	 * If error dialog is visible
