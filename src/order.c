@@ -356,6 +356,7 @@ void modify_price(int itm_num,float price)
 	/*
 	 * Set new price
 	 */
+	ord->charge = price;
 	ord->open_food = price;
 }
 
@@ -438,6 +439,11 @@ void del_itm(int itm_num)
 	 */
 	struct order_t *temp = head, *prev;
 	/*
+	 * Find how many lines are occupied by item (for adjusting list position)
+	 */
+	int max_line = find_item_max_line();
+	int max_diff = max_line - find_item_min_line();
+	/*
 	 * Return if list is NULL
 	 */
 	if(!temp)
@@ -495,22 +501,26 @@ void del_itm(int itm_num)
 	 */
 	set_scrolldex("MAX_LINE",total_lines());
 	/*
-	 * Set scrolldex for various edge cases 
+	 * If list is small enough to fit in order_win without scrolling
+	 * go to top
 	 */
-	int max_line = find_item_max_line();
-	int max_diff = get_scrolldex("MAX") - max_line;
 	if(get_scrolldex("MAX_LINE") <= 27)
 	{
 		scroll_to_top();
 	}
-	else if(max_line == get_scrolldex("MAX_LINE"))
+	/*
+	 * If you have removed the tail element, scroll to bottom
+	 */
+	else if(max_line-max_diff == get_scrolldex("MAX_LINE"))
 	{
 		scroll_to_end();
 	}
-	else if(max_diff > 0)
-	{
-		set_scrolldex("MAX",max_line + max_diff);
-		set_scrolldex("MIN",(max_line + max_diff)-27);
+	else{
+		int min = get_state("MIN_LINE");
+		set_scrolldex("MIN",min-max_diff);
+		set_scrolldex("MAX",(min-max_diff)+27);
+		//set_scrolldex("MAX",max_line + max_diff);
+		//set_scrolldex("MIN",(max_line + max_diff)-27);
 	}
 }
 
@@ -664,19 +674,100 @@ int find_item_max_line(void)
 }
 
 /*
+ * Find minimum line occupied by an item (Used by remove mods and del_item)
+ */
+int find_item_min_line(void)
+{
+	/*
+	 * Point to head of order list and create pointer for mods list
+	 */
+	struct order_t *ord = head;
+	struct mod_t *mod;
+	/*
+	 * Return false if order is empty
+	 */
+	if(!ord)
+	{
+		return false;
+	}
+	/*
+	 * Track number of lines traversed 
+	 */
+	int i=0;
+	/*
+	 * Begin iterating through order
+	 */
+	while(ord)
+	{
+		/*
+		 * If current node is the highlighted node, return current position
+		 */
+		if(ord->highlight == 1)
+		{
+			return i;
+		}
+		/*
+		 * Add 3 default lines
+		 */
+		i += 3;
+		/*
+		 * Point to child list
+		 */
+		mod = ord->child;
+		/*
+		 * Begin iterating through child list
+		 */
+		while(mod)
+		{
+			/*
+			 * Add 1 default line
+			 */
+			i += 1;
+			/*
+			 * If extra charge, add one more line
+			 */
+			if(mod->mod_menu == 4)
+			{
+				i += 1;
+			}
+			/*
+			 * Continue to next node in mod list if any
+			 */
+			mod = mod->next;
+		}
+		/*
+		 * Continue to next node in order list if any
+		 */
+		ord = ord->next;
+	}
+	return false;
+}
+
+/*
  * If an item is an open food charge, this retrieves it's cost from
  * the list
  */
 float get_of_val(int itm_num)
 {
+	/*
+	 * Declare float to hold value, and point to head of order list
+	 */
 	float val;
 	struct order_t *ord = head;
+	/*
+	 * Return false if order is empty
+	 */
 	if(ord == NULL)
 	{
 		return false;
 	}
-	
+	/*
+	 * Track position in list
+	 */
 	int i;
+	/*
+	 * Continue traversing list until desired node reached
+	 */
 	if(itm_num > 0)
 	{
 		while(i < itm_num)
@@ -685,6 +776,9 @@ float get_of_val(int itm_num)
 			i++;
 		}
 	}
+	/*
+	 * Return open_food value from desired node in list
+	 */
 	val = ord->open_food;
 	return val;
 }
@@ -740,15 +834,6 @@ void write_list(void)
 		 */
 		while(mod != NULL)
 		{
-			/*if(mod->mod_menu == 3)
-			{
-				strncpy(menu,"MOD",4);
-			}
-			else if(mod->mod_menu == 4)
-			{
-				strncpy(menu,"CHARGE",7);
-
-			}*/
 			if(mod->mod_menu == 0)
 			{
 				strncpy(details,"   ",4);
@@ -910,6 +995,11 @@ void highlight(int itm_num)
 	 * Tell system an item is highlighted
 	 */
 	set_state("HIGHLIGHT",1);
+	/*
+	 * Record minimum line of highlighted item
+	 */
+	//set_state("MIN_LINE",find_item_min_line());
+	set_state("MIN_LINE",get_scrolldex("MIN"));
 	/*
 	 * Show changes in order_win
 	 */
@@ -1220,6 +1310,7 @@ void remove_mods(int itm_num)
 	/*
 	 * Set child (mod) list to NULL
 	 */
+	//int max_line = find_item_min_line();
 	itm->child = NULL;
 	/*
 	 * Update maximum number of lines in order for scrolling
@@ -1229,7 +1320,7 @@ void remove_mods(int itm_num)
 	 * Find max item line for itm_num and difference between max item line
 	 * and maximum visible line of order list 
 	 */
-	int max_line = find_item_max_line();
+	int max_line = find_item_min_line();
 	int max_diff = get_scrolldex("MAX") - max_line;
 	/*
 	 * If order list is under 27 lines, reset scrolldex
@@ -1241,7 +1332,7 @@ void remove_mods(int itm_num)
 	/*
 	 * If maximum item line number is the maximum line, scroll to end
 	 */
-	else if(max_line == get_scrolldex("MAX_LINE"))
+	else if(max_line == get_scrolldex("MAX_LINE")-3)
 	{
 		scroll_to_end();
 	}
@@ -1251,8 +1342,8 @@ void remove_mods(int itm_num)
 	 */
 	else if(max_diff > 0)
 	{
-		set_scrolldex("MAX",max_line + max_diff);
-		set_scrolldex("MIN",(max_line + max_diff)-27);
+		set_scrolldex("MAX",get_state("MIN_LINE")+27);
+		set_scrolldex("MIN",get_state("MIN_LINE"));
 	}
 }
 

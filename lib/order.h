@@ -23,6 +23,7 @@ int total_cells(void);
 int total_lines(void);
 int find_item_lines(int line);
 int find_item_max_line(void);
+int find_item_min_line(void);
 float get_of_val(int itm_num);
 float calc_total();
 

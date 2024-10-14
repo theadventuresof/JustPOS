@@ -23,11 +23,6 @@ void find_mouse_yes_no(int y,int x)
 	 * Make x equal to left hand corner of yes no winow
 	 */
 	maxx = (maxx/2) - 30;
-	
-	move(1,0);
-	printw("%d/%d",maxy,maxx);
-	doupdate();
-	
 	/*
 	 * If yes is pressed 
 	 */

@@ -33,6 +33,7 @@ struct status{
 	int printer1;
 	int printer2;
 	int which_printer;
+	int min_line;
 }status;
 
 /*
@@ -87,6 +88,10 @@ void set_state(char type[],int val)
 	{
 		status.which_printer = val;
 	}
+	else if(strcmp("MIN_LINE",type) == 0)
+	{
+		status.min_line = val;
+	}
 }
 
 
@@ -131,6 +136,10 @@ int get_state(char type[])
 	else if(strcmp("WHICH_PRINTER",type) == 0)
 	{
 		val = status.which_printer;
+	}
+	else if(strcmp("MIN_LINE",type) == 0)
+	{
+		val = status.min_line;
 	}
 	return val;
 }
