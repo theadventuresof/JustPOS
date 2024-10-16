@@ -1,6 +1,6 @@
 CC=gcc
 deps=../lib/justpos.h
-LIBS=-lpanel -lncurses
+LIBS=-lpanel -lncursesw
 
 justpos:
 	$(CC) -Wall -o justpos $(LIBS) src/*.c

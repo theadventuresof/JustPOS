@@ -603,3 +603,11 @@ left over. Now, when an item is higlighted, the minimum of the scrolling
 index is saved and used to reset the list position.
 
 Del_itm no longer leaves blank spaces when list is larger than 27 lines
+
+10/15/2024
+
+Started messing wih some unicode characters. Going to attempt to make
+some 'digits' for keypad -- for better visibility. Also planning on 
+replacing arrows with symbols.
+  -Unicode 'digits' are comprised of 3x3 blocks using unicode characters
+   mostly from \u258X and \u259X

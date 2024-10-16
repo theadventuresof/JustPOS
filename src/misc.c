@@ -110,3 +110,74 @@ void del_return(void)
 		go_back = NULL;
 	}
 }
+
+/*
+ * Use unicode symbols to draw 3x3 block size numbers (for keypad)
+ */
+void draw_number(char num[],char *line1,char *line2,char *line3)
+{
+	if(strncmp(num,"1",1) == 0)
+	{
+		strncpy(line1," \u259D\u2588",13);
+		strncpy(line2,"  \u2588",8);
+		strncpy(line3,"  \u2588",13);
+	}
+	else if(strncmp(num,"2",1) == 0)
+	{
+		strncpy(line1,"\u2580\u2580\u2588",13);
+		strncpy(line2,"\u2588\u2580\u2580",13);
+		strncpy(line3,"\u2580\u2580\u2580",13);
+	}
+	else if(strncmp(num,"3",1) == 0)
+	{
+		strncpy(line1,"\u2580\u2580\u2588",13);
+		strncpy(line2,"\u2580\u2580\u2588",13);
+		strncpy(line3,"\u2580\u2580\u2580",13);
+	}
+	else if(strncmp(num,"4",1) == 0)
+	{
+		strncpy(line1,"\u2588 \u2588",10);
+		strncpy(line2,"\u2580\u2580\u2588",13);
+		strncpy(line3,"  \u2588",8);
+	}
+	else if(strncmp(num,"5",1) == 0)
+	{
+		strncpy(line1,"\u2588\u2580\u2580",13);
+		strncpy(line2,"\u2580\u2580\u2588",13);
+		strncpy(line3,"\u2580\u2580\u2580",13);
+	}
+	else if(strncmp(num,"6",1) == 0)
+	{
+		strncpy(line1,"\u2588\u2580\u2580",13);
+		strncpy(line2,"\u2588\u2580\u2588",13);
+		strncpy(line3,"\u2580\u2580\u2580",13);
+	}
+	else if(strncmp(num,"7",1) == 0)
+	{
+		strncpy(line1,"\u2580\u2580\u2588",14);
+		strncpy(line2,"  \u2588",8);
+		strncpy(line3,"  \u2588",8);
+	}
+	else if(strncmp(num,"8",1) == 0)
+	{
+		strncpy(line1,"\u2588\u2580\u2588",13);
+		strncpy(line2,"\u2588\u2583\u2588",13);
+		strncpy(line3,"\u2588\u2583\u2588",13);
+	}
+	else if(strncmp(num,"9",1) == 0)
+	{
+		strncpy(line1,"\u2588\u2580\u2588",13);
+		strncpy(line2,"\u2580\u2580\u2588",13);
+		strncpy(line3,"  \u2588",8);
+	}
+	else if(strncmp(num,"0",1) == 0)
+	{
+		strncpy(line1,"\u2588\u2580\u2588",13);
+		strncpy(line2,"\u2588 \u2588",8);
+		strncpy(line3,"\u2588\u2583\u2588",13);
+	}
+	else if(strncmp(num,".",1) == 0)
+	{
+		strncpy(line3," \u2597\u2596",11);
+	}
+}

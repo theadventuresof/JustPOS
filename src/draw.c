@@ -581,8 +581,10 @@ void draw_page_status(void)
 	pg[0] = newwin(3,6,24,37);
 	pg[1] = newwin(3,6,24,66);
 	
-	mvwprintw(pg[0],1,2,"<-");
-	mvwprintw(pg[1],1,2,"->");
+	mvwprintw(pg[0],1,2,"\u23EA");
+	mvwprintw(pg[1],1,2,"\u23E9");
+	//mvwprintw(pg[0],1,2,"<-");
+	//mvwprintw(pg[1],1,2,"->");
 		
 	for(int i = 0; i < 2; i++)
 	{
@@ -603,7 +605,6 @@ void del_page_status(void)
 		if(pg[i] != NULL)
 		{
 			del_panel(pgp[i]);
-			//delwin(pg[i]);
 			pg[i] = NULL;
 		}
 	}
@@ -733,7 +734,6 @@ void del_menu_tabs(void)
 		if(menu_tab[i] != NULL)
 		{
 			del_panel(menu_tabp[i]);
-			//delwin(menu_tab[i]);
 			menu_tab[i] = NULL;
 		}
 	}

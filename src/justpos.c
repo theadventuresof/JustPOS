@@ -1,6 +1,7 @@
 #include <panel.h>
 #include <sys/time.h>
 #include <signal.h>
+#include <locale.h>
 
 #include "../lib/err.h"
 #include "../lib/misc.h"
@@ -11,7 +12,7 @@
 
 int main(void)
 {
-	
+	setlocale(LC_ALL,"");   //Display unicode/wide chars
 	initscr();	 			//Start curses mode
 	curs_set(0);			//Do not display cursor
 	raw();					//Process input immediately
