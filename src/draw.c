@@ -800,7 +800,7 @@ void draw_logo(void)
 } 
 
 /*
- * Write statistics about current order
+ * Write statistics about current order using unicode letters/digits
  */
 void update_order_stat(void)
 {
@@ -809,14 +809,14 @@ void update_order_stat(void)
 	 * Write 'ITEMS' in unicode chars
 	 */
 	mvwprintw(order_stat,1,1,"\u259D\u2588\u2598 \u2580\u2588\u2580 \u2588\u2580\u2580 \u2588\u2584 \u2584\u2588 \u2588\u2580\u2580");
-	mvwprintw(order_stat,2,1," \u2588   \u2588  \u2588\u2580\u2580 \u2588 \u2580 \u2588 \u2580\u2580\u2588");
+	mvwprintw(order_stat,2,1," \u2588   \u2588  \u2588\u2580  \u2588 \u2580 \u2588 \u2580\u2580\u2588");
 	mvwprintw(order_stat,3,1,"\u259D\u2580\u2598  \u2580  \u2580\u2580\u2580 \u2580   \u2580 \u2580\u2580\u2580");
 	/*
 	 * Write 'PRICE' in unicode chars
 	 */
-	mvwprintw(order_stat,5,1,"\u2588\u2580\u2588 \u2588\u2580\u2580\u2588 \u259D\u2588\u2598 \u2588\u2580\u2580 \u2588\u2580\u2580");
-	mvwprintw(order_stat,6,1,"\u2588\u2580\u2580 \u2588\u2580\u2588\u2598  \u2588  \u2588   \u2588\u2580\u2580");
-	mvwprintw(order_stat,7,1,"\u2580   \u2580  \u2580 \u259D\u2580\u2598 \u2580\u2580\u2580 \u2580\u2580\u2580");
+	mvwprintw(order_stat,5,1,"\u2588\u2580\u2588 \u2588\u2594\u259A \u259D\u2588\u2598 \u2588\u2580\u2580 \u2588\u2580\u2580");
+	mvwprintw(order_stat,6,1,"\u2588\u2580\u2580 \u2588\u2594\u258D  \u2588  \u2588   \u2588\u2580");
+	mvwprintw(order_stat,7,1,"\u2580   \u2580 \u2580 \u259D\u2580\u2598 \u2580\u2580\u2580 \u2580\u2580\u2580");
 	
 	int i;
 	char num;
