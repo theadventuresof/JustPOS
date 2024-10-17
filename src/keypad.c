@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "../lib/keypad.h"
+#include "../lib/misc.h"
 
 /*
  * Keep track of where keypad is on the screen as well as what to do
@@ -67,7 +68,7 @@ void draw_keypad(char ref[])
 	 * Keypad display window. This window shows the user what value 
 	 * they input
 	 */
-	 keypad_display = derwin(keypad_win,2,54,4,4);
+	 keypad_display = derwin(keypad_win,4,54,2,4);
 	 wbkgd(keypad_display,COLOR_PAIR(1));
 	 keypad_displayp = new_panel(keypad_display);
 	 
@@ -250,6 +251,10 @@ void set_keypad_val(char val[1])
 				return;
 			} 
 		}
+		/*
+		 * Only allow two digits when setting number of copies from
+		 * settings menu
+		 */
 		if((get_keypad_state("FUNC") == 5) | (get_keypad_state("FUNC") == 6))
 		{
 			if(strlen(kpd.keypad_val) + 1 > 2)
@@ -259,7 +264,8 @@ void set_keypad_val(char val[1])
 		}
 		strncat(kpd.keypad_val,val,2);
 	}
-	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	write_keypad_val();
 	update_panels();
 	doupdate();
 }
@@ -271,7 +277,8 @@ void copy_to_keypad(char val[])
 {
 	clear_keypad();
 	strncpy(kpd.keypad_val,val,strlen(val) + 1);
-	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	write_keypad_val();
 	update_panels();
 	doupdate();
 }
@@ -281,7 +288,26 @@ void copy_to_keypad(char val[])
  */
 void write_keypad_val(void)
 {
-	mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	/*
+	 * Declare some strings to hold unicode chars (Each char is more than one byte)
+	 */
+	char line1[50];
+	char line2[50];
+	char line3[50];
+	/*
+	 * Each unicode block is 3x3, so we need to multiply strlen by 3 for positioning
+	 */
+	int x = (strlen(kpd.keypad_val) + 1)*4;
+	for(int i = 0; i < strlen(kpd.keypad_val);i++)
+	{
+		char num;
+		num = kpd.keypad_val[i];
+		draw_number(num,line1,line2,line3);
+		mvwprintw(keypad_display,1,(54-x)+(i*4),"%s",line1);
+		mvwprintw(keypad_display,2,(54-x)+(i*4),"%s",line2);
+		mvwprintw(keypad_display,3,(54-x)+(i*4),"%s",line3);
+	}
 	update_panels();
 	doupdate();
 }

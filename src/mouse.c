@@ -100,6 +100,7 @@ void get_mouse(int y,int x)
 		if((y >= maxy) & (y <= maxy + 30) & (x < maxx))
 		{
 			find_mouse_keypad(y,x);
+			return;
 		}
 	}
 	/*

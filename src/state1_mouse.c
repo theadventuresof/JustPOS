@@ -540,6 +540,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty) & (y <= starty + 3) & (x >= startx) & (x <= startx + 8))
 	{
 		set_keypad_val("1");
+		return;
 	}
 	/*
 	 * If number 2 is pressed
@@ -547,6 +548,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty) & (y <= starty + 3) & (x >= startx + 15) & (x <= startx + 22))
 	{
 		set_keypad_val("2");
+		return;
 	}
 	/*
 	 * If number 3 is pressed
@@ -554,6 +556,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty) & (y <= starty + 3) & (x >= startx + 29) & (x <= startx + 38))
 	{
 		set_keypad_val("3");
+		return;
 	}
 	/*
 	 * If number 4 is pressed
@@ -561,6 +564,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 6) & (y <= starty + 9) & (x >= startx) & (x <= startx + 8))
 	{
 		set_keypad_val("4");
+		return;
 	} 
 	/*
 	 * If number 5 is pressed
@@ -568,6 +572,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 6) & (y <= starty + 9) & (x >= startx + 15) & (x <= startx + 22))
 	{
 		set_keypad_val("5");
+		return;
 	}
 	/*
 	 * If number 6 is pressed 
@@ -575,6 +580,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 6) & (y <= starty + 9) & (x >= startx + 29) & (x <= startx + 38))
 	{
 		set_keypad_val("6");
+		return;
 	}
 	/*
 	 * If number 7 is pressed
@@ -582,6 +588,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 12) & (y <= starty + 15) & (x >= startx) & (x <= startx + 8))
 	{
 		set_keypad_val("7");
+		return;
 	}
 	/*
 	 * If number 8 is pressed
@@ -589,6 +596,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 12) & (y <= starty + 15) & (x >= startx + 15) & (x <= startx + 22))
 	{
 		set_keypad_val("8");
+		return;
 	}
 	/*
 	 * If number 9 is pressed
@@ -596,6 +604,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 12) & (y <= starty + 15) & (x >= startx + 29) & (x <= startx + 38))
 	{
 		set_keypad_val("9");
+		return;
 	}
 	/*
 	 * If number 0 is pressed
@@ -603,6 +612,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 18) & (y <= starty + 21) & (x >= startx + 15) & (x <= startx + 22))
 	{
 		set_keypad_val("0");
+		return;
 	}
 	/*
 	 * If decimal is pressed
@@ -610,6 +620,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 18) & (y <= starty + 21) & (x >= startx) & (x <= startx + 8))
 	{
 		set_keypad_val(".");
+		return;
 	}
 	/*
 	 * If back arrow is pressed
@@ -617,6 +628,7 @@ void find_mouse_keypad(int y,int x)
 	if((y >= starty + 18) & (y <= starty + 21) & (x >= startx + 29) & (x <= startx + 38))
 	{
 		keypad_back();
+		return;
 	}
 	/*
 	 * If keypad cancel is pressed

@@ -611,3 +611,15 @@ some 'digits' for keypad -- for better visibility. Also planning on
 replacing arrows with symbols.
   -Unicode 'digits' are comprised of 3x3 blocks using unicode characters
    mostly from \u258X and \u259X
+  -Still need to write logic to translate floats to unicode blocks. 
+  
+10/17/2024
+
+Finished designing my unicode digits, but I haven't yet solved getting 
+a space to display between the digits, they are very hard to read. Also
+1/4/7/8/9/0 need some adjusting to display correctly
+  -Finished adjusting 1/4/7/8/9/0 and now they are the same size as the
+   other digits
+  -Fixed adding spaces between digits
+    -Ended up treating each number as if it were 3x4 to allow a space 
+     between each digit 

@@ -112,72 +112,74 @@ void del_return(void)
 }
 
 /*
- * Use unicode symbols to draw 3x3 block size numbers (for keypad)
+ * Use unicode symbols to draw 3x3 block size numbers
  */
-void draw_number(char num[],char *line1,char *line2,char *line3)
+void draw_number(char num,char *line1,char *line2,char *line3)
 {
-	if(strncmp(num,"1",1) == 0)
+	if(num == '1')
 	{
 		strncpy(line1," \u259D\u2588",13);
-		strncpy(line2,"  \u2588",8);
-		strncpy(line3,"  \u2588",13);
+		strncpy(line2,"  \u2588",10);
+		strncpy(line3,"  \u2580",10);
 	}
-	else if(strncmp(num,"2",1) == 0)
+	else if(num == '2')
 	{
 		strncpy(line1,"\u2580\u2580\u2588",13);
 		strncpy(line2,"\u2588\u2580\u2580",13);
 		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,"3",1) == 0)
+	else if(num == '3')
 	{
 		strncpy(line1,"\u2580\u2580\u2588",13);
 		strncpy(line2,"\u2580\u2580\u2588",13);
 		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,"4",1) == 0)
+	else if(num == '4')
 	{
 		strncpy(line1,"\u2588 \u2588",10);
 		strncpy(line2,"\u2580\u2580\u2588",13);
-		strncpy(line3,"  \u2588",8);
+		strncpy(line3,"  \u2580",8);
 	}
-	else if(strncmp(num,"5",1) == 0)
+	else if(num == '5')
 	{
 		strncpy(line1,"\u2588\u2580\u2580",13);
 		strncpy(line2,"\u2580\u2580\u2588",13);
 		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,"6",1) == 0)
+	else if(num == '6')
 	{
 		strncpy(line1,"\u2588\u2580\u2580",13);
 		strncpy(line2,"\u2588\u2580\u2588",13);
 		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,"7",1) == 0)
+	else if(num == '7')
 	{
 		strncpy(line1,"\u2580\u2580\u2588",14);
 		strncpy(line2,"  \u2588",8);
-		strncpy(line3,"  \u2588",8);
+		strncpy(line3,"  \u2580",8);
 	}
-	else if(strncmp(num,"8",1) == 0)
+	else if(num == '8')
 	{
 		strncpy(line1,"\u2588\u2580\u2588",13);
-		strncpy(line2,"\u2588\u2583\u2588",13);
-		strncpy(line3,"\u2588\u2583\u2588",13);
+		strncpy(line2,"\u2588\u2580\u2588",13);
+		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,"9",1) == 0)
+	else if(num == '9')
 	{
 		strncpy(line1,"\u2588\u2580\u2588",13);
 		strncpy(line2,"\u2580\u2580\u2588",13);
-		strncpy(line3,"  \u2588",8);
+		strncpy(line3,"  \u2580",8);
 	}
-	else if(strncmp(num,"0",1) == 0)
+	else if(num == '0')
 	{
 		strncpy(line1,"\u2588\u2580\u2588",13);
-		strncpy(line2,"\u2588 \u2588",8);
-		strncpy(line3,"\u2588\u2583\u2588",13);
+		strncpy(line2,"\u2588 \u2588",10);
+		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
-	else if(strncmp(num,".",1) == 0)
+	else if(num == '.')
 	{
-		strncpy(line3," \u2597\u2596",11);
+		strncpy(line1,"   ",5);
+		strncpy(line2,"   ",5);
+		strncpy(line3," \u259D\u2598",11);
 	}
 }
