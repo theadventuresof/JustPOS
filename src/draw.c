@@ -9,6 +9,7 @@
 #include "../lib/item.h"
 #include "../lib/scroll.h"
 #include "../lib/justpos.h"
+#include "../lib/misc.h"
 
 /*
  * Keep track of current menu status
@@ -200,7 +201,7 @@ PANEL *order_statp;
 void draw_order_stat(void)
 {
 	del_order_stat();
-	order_stat = newwin(5,35,34,107);
+	order_stat = newwin(8,85,35,93);
 	order_statp = new_panel(order_stat);
 }
 
@@ -244,7 +245,6 @@ void del_order_win(void)
 	if(order_win != NULL)
 	{
 		del_panel(order_winp);
-		//delwin(order_win);
 		order_win = NULL;
 	}
 }
@@ -805,10 +805,45 @@ void draw_logo(void)
 void update_order_stat(void)
 {
 	clear_order_stat();
-	wattron(order_stat,A_BOLD);
-	mvwprintw(order_stat,1,1,"Total items:\t\t%d",total_items());
-	mvwprintw(order_stat,3,1,"Total price:\t\t%.2f",calc_total());
-	wattroff(order_stat,A_BOLD);
+	/*
+	 * Write 'ITEMS' in unicode chars
+	 */
+	mvwprintw(order_stat,1,1,"\u259D\u2588\u2598 \u2580\u2588\u2580 \u2588\u2580\u2580 \u2588\u2584 \u2584\u2588 \u2588\u2580\u2580");
+	mvwprintw(order_stat,2,1," \u2588   \u2588  \u2588\u2580\u2580 \u2588 \u2580 \u2588 \u2580\u2580\u2588");
+	mvwprintw(order_stat,3,1,"\u259D\u2580\u2598  \u2580  \u2580\u2580\u2580 \u2580   \u2580 \u2580\u2580\u2580");
+	/*
+	 * Write 'PRICE' in unicode chars
+	 */
+	mvwprintw(order_stat,5,1,"\u2588\u2580\u2588 \u2588\u2580\u2580\u2588 \u259D\u2588\u2598 \u2588\u2580\u2580 \u2588\u2580\u2580");
+	mvwprintw(order_stat,6,1,"\u2588\u2580\u2580 \u2588\u2580\u2588\u2598  \u2588  \u2588   \u2588\u2580\u2580");
+	mvwprintw(order_stat,7,1,"\u2580   \u2580  \u2580 \u259D\u2580\u2598 \u2580\u2580\u2580 \u2580\u2580\u2580");
+	
+	int i;
+	char num;
+	char line1[50];
+	char line2[50];
+	char line3[50];
+	char val[50];
+	sprintf(val,"%d",total_items());
+	for(i = 0; i < strlen(val); i++)
+	{
+		num = val[i];
+		draw_number(num,line1,line2,line3);
+		mvwprintw(order_stat,1,25+(i*4),"%s",line1);
+		mvwprintw(order_stat,2,25+(i*4),"%s",line2);
+		mvwprintw(order_stat,3,25+(i*4),"%s",line3);
+	}
+	
+	sprintf(val,"%.2f",calc_total());
+	for(i = 0; i < strlen(val);i++)
+	{
+		num = val[i];
+		draw_number(num,line1,line2,line3);
+		mvwprintw(order_stat,5,25+(i*4),"%s",line1);
+		mvwprintw(order_stat,6,25+(i*4),"%s",line2);
+		mvwprintw(order_stat,7,25+(i*4),"%s",line3);
+	}
+	
 	update_panels();
 	doupdate();
 }

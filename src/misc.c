@@ -131,7 +131,7 @@ void draw_number(char num,char *line1,char *line2,char *line3)
 	else if(num == '3')
 	{
 		strncpy(line1,"\u2580\u2580\u2588",13);
-		strncpy(line2,"\u2580\u2580\u2588",13);
+		strncpy(line2," \u2580\u2588",13);
 		strncpy(line3,"\u2580\u2580\u2580",13);
 	}
 	else if(num == '4')

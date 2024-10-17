@@ -622,4 +622,8 @@ a space to display between the digits, they are very hard to read. Also
    other digits
   -Fixed adding spaces between digits
     -Ended up treating each number as if it were 3x4 to allow a space 
-     between each digit 
+     between each digit
+     
+Changed order stat to display unicode digits and letters. Although the 
+'R' is not very good. I'll have to work on it. Maybe I should change
+'PRICE' for 'TOTAL' 
