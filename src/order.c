@@ -112,9 +112,35 @@ void add_itm(int itm_num, int menu)
 	 * Update index for scrolling order_win
 	 */
 	set_scrolldex("MAX_LINE",total_lines());
-	if(get_scrolldex("MAX_LINE") > get_scrolldex("MAX"))
+	/*
+	 * If the item we are adding goes over scrolldex MAX, scroll to end
+	 */
+	if(get_scrolldex("MAX_LINE") == get_scrolldex("MAX")+3)
 	{
 		scroll_to_end();
+	}
+	/*
+	 * If the item we are adding is a duplicate and exists in the first 
+	 * 27 lines of the list, scroll to top
+	 */
+	else if(find_item_max_line() < 27)
+	{
+		scroll_to_top();
+	}
+	/*
+	 * If item is in the middle of the list, but not visible focus 
+	 * highlighted item
+	 */
+	else{
+		int max = find_item_max_line();
+		if(max + 15 >= get_scrolldex("MAX_LINE"))
+		{
+			scroll_to_end();
+		}
+		else{
+			set_scrolldex("MIN",find_item_min_line()-11);
+			set_scrolldex("MAX",find_item_max_line()+12);
+		}
 	}
 }
 
@@ -998,7 +1024,6 @@ void highlight(int itm_num)
 	/*
 	 * Record minimum line of highlighted item
 	 */
-	//set_state("MIN_LINE",find_item_min_line());
 	set_state("MIN_LINE",get_scrolldex("MIN"));
 	/*
 	 * Show changes in order_win

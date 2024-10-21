@@ -627,3 +627,14 @@ a space to display between the digits, they are very hard to read. Also
 Changed order stat to display unicode digits and letters. Although the 
 'R' is not very good. I'll have to work on it. Maybe I should change
 'PRICE' for 'TOTAL' 
+  -Made the R look more readable, still thinking of writing 'TOTAL' instead
+  
+10/21/2024
+
+Small update to focusing highlighted items. Attempting to have the system
+focus items whose quantity is increased but already exist in the order.
+For example, the system should be able to place the scrolldex either to
+the top of the list, bottom of the list, or place the focused item in 
+the middle of the list based on highlighted item position
+
+Changed '<-' arrow on keypad for 'DEL' 
