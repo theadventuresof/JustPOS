@@ -114,7 +114,7 @@ void draw_keypad(char ref[])
 	 
 	  mvwprintw(keypad_nums[9],2,4,".");
 	  mvwprintw(keypad_nums[10],2,4,"0");
-	  mvwprintw(keypad_nums[11],2,3,"<-");
+	  mvwprintw(keypad_nums[11],2,3,"DEL");
 	  
 	/*
     * Keypad cancel button
@@ -264,7 +264,9 @@ void set_keypad_val(char val[1])
 		}
 		strncat(kpd.keypad_val,val,2);
 	}
-	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
+	/*
+	 * Show updates
+	 */
 	write_keypad_val();
 	update_panels();
 	doupdate();
@@ -277,7 +279,6 @@ void copy_to_keypad(char val[])
 {
 	clear_keypad();
 	strncpy(kpd.keypad_val,val,strlen(val) + 1);
-	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
 	write_keypad_val();
 	update_panels();
 	doupdate();
@@ -288,7 +289,6 @@ void copy_to_keypad(char val[])
  */
 void write_keypad_val(void)
 {
-	//mvwprintw(keypad_display,1,54-strlen(kpd.keypad_val),"%s",kpd.keypad_val);
 	/*
 	 * Declare some strings to hold unicode chars (Each char is more than one byte)
 	 */

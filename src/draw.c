@@ -91,43 +91,18 @@ void draw_menu_buttons(void)
  */
 void write_to_menu_buttons(void)
 {
+	/*
+	 * Clear all 12 menu buttons
+	 */
 	clear_menu_buttons();
-	char menu[50];
-	int type;
 	/*
-	 * If food menu is visible
+	 * Loop through once for each menu button
 	 */
-	if(get_state("BSTATE") == 1)
-	{
-		strncpy(menu,"FOOD",5);
-		type = 1;
-	}
-	/*
-	 * If drink menu is visible
-	 */
-	else if(get_state("BSTATE") == 2)
-	{
-		strncpy(menu,"DRINK",6);
-		type = 2;
-	}
-	/*
-	 * If mod menu is visible
-	 */
-	else if(get_state("BSTATE") == 3)
-	{
-		strncpy(menu,"MOD",4);
-		type = 3;
-	}
-	/*
-	 * If extra charge menu is visible
-	 */
-	else if(get_state("BSTATE") == 4)
-	{
-		strncpy(menu,"CHARGE",7);
-		type = 4;
-	}
 	for(int i = 0; i < 12; i++)
 	{
+		/*
+		 * Set some colors based on tabs and what is visible
+		 */
 		if(get_state("BSTATE") == 1)
 		{
 			wattron(itm_btns[i],COLOR_PAIR(4));
@@ -145,18 +120,33 @@ void write_to_menu_buttons(void)
 		{
 			wattron(itm_btns[i],COLOR_PAIR(3));
 		}
+		/*
+		 * Find index of current item (accounting for page num)
+		 */
 		int position = get_page("PG_MIN") + i + 1;
+		/*
+		 * Check if a given item is visible on current page
+		 */
 		if((position <= get_item_max()) & (i <= get_page("PG_MAX")) & (position >= get_page("PG_MIN")))
 		{
+			/*
+			 * If item is visible, print it
+			 */
 			char name[100];
-			get_name(type,name,position);
+			get_name(get_state("BSTATE"),name,position);
 			int len = (30 - (strlen(name)))/2;
 			mvwprintw(itm_btns[i],1,len,"%s",name);
+			/*
+			 * Show price except for mod menu
+			 */
 			if(get_state("BSTATE") != 3)
 			{
-				mvwprintw(itm_btns[i],2,12,"%.2f",get_itm(type,"COST",position));
+				mvwprintw(itm_btns[i],2,12,"%.2f",get_itm(get_state("BSTATE"),"COST",position));
 			}
 		}
+		/*
+		 * If mods are visible, show clear mods and keyboard button
+		 */
 		if(get_state("BSTATE") == 3)
 		{
 			wattron(itm_btns[9],A_BOLD);
@@ -166,11 +156,17 @@ void write_to_menu_buttons(void)
 			wattroff(itm_btns[9],A_BOLD);
 			wattroff(itm_btns[11],A_BOLD);
 		}
+		/*
+		 * Turn off all attributes used
+		 */
 		wattroff(itm_btns[i],COLOR_PAIR(4));
 		wattroff(itm_btns[i],COLOR_PAIR(11));
 		wattroff(itm_btns[i],COLOR_PAIR(6));
 		wattroff(itm_btns[i],COLOR_PAIR(3));
 	}
+	/*
+	 * Show changes
+	 */
 	update_panels();
 	doupdate();
 }
@@ -374,12 +370,21 @@ void write_to_order_win(char details[],int format,int highlight)
 		x = 3;
 		wmove(order_win,y,x);
 	}
+	/*
+	 * Increment "CURRENT" by 1 -- used to check range
+	 */
 	set_scrolldex("CURRENT",1);
+	/*
+	 * If item is in range, print to order_win along with a newline
+	 */
 	if((get_scrolldex("CURRENT") >= get_scrolldex("MIN")) & (get_scrolldex("CURRENT") < get_scrolldex("MAX")))
 	{
 		wprintw(order_win,"%s",details);
 		wprintw(order_win,"\n");
 	}
+	/*
+	 * Turn off attributes and show changes
+	 */
 	wattroff(order_win,COLOR_PAIR(1));
 	wattroff(order_win,A_BOLD);
 	update_panels();
@@ -450,7 +455,6 @@ void del_sys_buttons(void)
 		if(sys_btns[i] != NULL)
 		{
 			del_panel(sys_btnsp[i]);
-			//delwin(sys_btns[i]);
 			sys_btns[i] = NULL;
 		}
 	}
@@ -815,7 +819,7 @@ void update_order_stat(void)
 	 * Write 'PRICE' in unicode chars
 	 */
 	mvwprintw(order_stat,5,1,"\u2588\u2580\u2588 \u2588\u2594\u259A \u259D\u2588\u2598 \u2588\u2580\u2580 \u2588\u2580\u2580");
-	mvwprintw(order_stat,6,1,"\u2588\u2580\u2580 \u2588\u2594\u258D  \u2588  \u2588   \u2588\u2580");
+	mvwprintw(order_stat,6,1,"\u2588\u2580\u2580 \u2588\u2594\u258C  \u2588  \u2588   \u2588\u2580");
 	mvwprintw(order_stat,7,1,"\u2580   \u2580 \u2580 \u259D\u2580\u2598 \u2580\u2580\u2580 \u2580\u2580\u2580");
 	
 	int i;
