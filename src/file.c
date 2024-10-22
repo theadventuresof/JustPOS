@@ -31,7 +31,6 @@ void check_conf(void)
 	if(stat(".conf",&overflow) == -1)
 	{
 		export_default();
-		check_folders();
 	}
 	/*
 	 * Check to see if the directory (dir=) field is not blank
@@ -41,8 +40,8 @@ void check_conf(void)
 		{
 			change_conf_line("dir","dir=orders/");
 		}
-	check_folders();
 	}
+	check_folders();
 }
 
 /*
@@ -235,7 +234,7 @@ void recall(char order[])
 		 * Get one line from the receipt file, remove the newline, and
 		 * check the line against food and drink menus
 		 */
-		//charges = 0;
+		//float charges = 0;
 		fgets(line,50,target_order);
 		line[strcspn(line,"\n")] = 0;
 		itm_num = check_menu_line(line,1);
@@ -265,6 +264,7 @@ void recall(char order[])
 		else if(strncmp(line,"x",1) == 0)
 		{
 			recall_details(line,i-1,charges);
+			charges = 0;
 		}
 	}
 	fclose(target_order);

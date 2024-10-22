@@ -636,5 +636,15 @@ focus items whose quantity is increased but already exist in the order.
 For example, the system should be able to place the scrolldex either to
 the top of the list, bottom of the list, or place the focused item in 
 the middle of the list based on highlighted item position
+  -Seems to be working, removed some reduntant lines 
+  
+10/22/2024
+
+The bug that won't die! Extra charges on open food and recall.
+  -Made a small change today that in my brief tests is working
+  -Discovered that extra charges from other items added on to 
+   open food items because it was not resetting to 0. 
+  -Now, after adding charges to any item, charges is reset to 0.
+  -This appears to be working
 
 Changed '<-' arrow on keypad for 'DEL' 

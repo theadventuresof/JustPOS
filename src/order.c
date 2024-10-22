@@ -113,34 +113,20 @@ void add_itm(int itm_num, int menu)
 	 */
 	set_scrolldex("MAX_LINE",total_lines());
 	/*
-	 * If the item we are adding goes over scrolldex MAX, scroll to end
+	 * Force focus of highlighted item in list
 	 */
-	if(get_scrolldex("MAX_LINE") == get_scrolldex("MAX")+3)
-	{
-		scroll_to_end();
-	}
-	/*
-	 * If the item we are adding is a duplicate and exists in the first 
-	 * 27 lines of the list, scroll to top
-	 */
-	else if(find_item_max_line() < 27)
+	int max = find_item_max_line();
+	if(max <= 27)
 	{
 		scroll_to_top();
 	}
-	/*
-	 * If item is in the middle of the list, but not visible focus 
-	 * highlighted item
-	 */
+	else if(max + 15 >= get_scrolldex("MAX_LINE"))
+	{
+		scroll_to_end();
+	}
 	else{
-		int max = find_item_max_line();
-		if(max + 15 >= get_scrolldex("MAX_LINE"))
-		{
-			scroll_to_end();
-		}
-		else{
-			set_scrolldex("MIN",find_item_min_line()-11);
-			set_scrolldex("MAX",find_item_max_line()+12);
-		}
+		set_scrolldex("MIN",find_item_min_line()-11);
+		set_scrolldex("MAX",find_item_max_line()+12);
 	}
 }
 
