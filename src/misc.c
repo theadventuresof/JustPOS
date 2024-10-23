@@ -24,48 +24,54 @@ void print_clock(void)
 }
 
 /*
- * 
+ * Search through food and drink menu for name match
  */
 void search(char val[])
 {
 	int itm_num,i;
+	/*
+	 * Loop through both menus looking for a match
+	 */
 	for(i = 1; i < 3; i++)
 	{
+		/*
+		 * itm_num > 0 means a match is found
+		 */
 		itm_num = check_menu_line(val,i);
 		if(itm_num > 0)
 		{
-			char name[50];
-			get_name(i,name,itm_num);
+			/*
+			 * Make sure that correct menu is visible
+			 */
 			set_state("BSTATE",i);
 			shuffle_tabs();
-			write_to_menu_buttons();
+			/*
+			 * If i = 1, match was found in food menu, set index 
+			 * accordingly
+			 */
 			if(i == 1)
 			{
-				set_index("FOOD",itm_num/12 + 1);
-				write_to_menu_buttons();
-				write_pages();
-				itm_num = (itm_num - (12 * (get_index("FOOD") -1)));
-				select_menu_button(itm_num);
-				set_state("CUR_CELL",itm_num-1);
-				return;
+				set_index("FOOD",itm_num/13+1);
+				itm_num = (itm_num - (12 * (get_index("FOOD") - 1)));
 			}
+			/*
+			 * If i = 2, match was found in drink menu, set index 
+			 * accordingly
+			 */
 			else if(i == 2)
 			{
-				set_index("DRINK",itm_num/12 + 1);
-				write_to_menu_buttons();
-				write_pages();
+				set_index("DRINK",itm_num/13+1);
 				itm_num = (itm_num - (12 * (get_index("DRINK") - 1)));
-				select_menu_button(itm_num);
-				set_state("CUR_CELL",itm_num-1);
-				return;
 			}
-			doupdate();
+			/*
+			 * Show updates on screen 
+			 */
+			write_to_menu_buttons();
+			write_pages();
+			select_menu_button(itm_num);
+			set_state("CUR_CELL",itm_num-1);
+			return;
 		} 
-		else if(itm_num == 0)
-		{
-			//return;
-			//write_to_menu_buttons();
-		}
 	}
 }
 

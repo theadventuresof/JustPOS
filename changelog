@@ -637,6 +637,8 @@ For example, the system should be able to place the scrolldex either to
 the top of the list, bottom of the list, or place the focused item in 
 the middle of the list based on highlighted item position
   -Seems to be working, removed some reduntant lines 
+
+Changed '<-' arrow on keypad for 'DEL' 
   
 10/22/2024
 
@@ -647,4 +649,10 @@ The bug that won't die! Extra charges on open food and recall.
   -Now, after adding charges to any item, charges is reset to 0.
   -This appears to be working
 
-Changed '<-' arrow on keypad for 'DEL' 
+10/23/2024
+
+Discoverd and fixed a segmentation fault. 
+  -My math on search put items on the 12th button as position -1 on
+   page 2. Trying to set the background for a negative window caused 
+   segmentation fault. Currently working. 
+  -Also removed some rendunant code and updated comments. 

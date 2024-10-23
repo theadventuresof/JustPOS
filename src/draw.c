@@ -263,7 +263,7 @@ void clear_menu_buttons(void)
 }
 
 /*
- * 
+ * Highlight a menu button (used by search)
  */
 void select_menu_button(int button)
 {
