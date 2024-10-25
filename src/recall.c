@@ -1,3 +1,4 @@
+#include <panel.h>
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -14,20 +15,110 @@ struct dirent *dirord;
 /*
  * This structure holds the names of orders from a specified day.
  */
-struct recall_orders{
+/*struct recall_orders{
 	char order[50];
 	struct recall_orders *next;
 }recall_orders;
 
 struct recall_orders *top = NULL;
-struct recall_orders *next = NULL;
+struct recall_orders *next = NULL;*/
+
+//struct recall_ord *recall_orders;
+
+struct recall_ord *top = NULL;
+struct recall_ord *next = NULL;
 
 /*
  * 
  */
-void sort_recall(void)
+struct recall_ord *sort_recall(void)
 {
+	int len = get_length(top);
+	int itr = 0;
+	int swapped = 0;
+	
+	while(itr < len)
+	{
+		struct recall_ord *traverse_node = top;
+		struct recall_ord *prev_node = top;
+		swapped = 0;
+		
+		while(traverse_node->next != NULL)
+		{
+			struct recall_ord *temp = traverse_node->next;
+			int temp1 = get_orderno(traverse_node->order);
+			int temp2 = get_orderno(temp->order);
+			if(temp1 > temp2)
+			{
+				swapped = 1;
+				if(traverse_node == top)
+				{
+					traverse_node->next = temp->next;
+					temp->next = traverse_node;
+					prev_node = temp;
+					top = prev_node;
+				}
+				else{
+					traverse_node->next = temp->next;
+					temp->next = traverse_node;
+					prev_node->next = temp;
+					prev_node = temp;
+				}
+				continue;
+			}
+			prev_node = traverse_node;
+			traverse_node = traverse_node->next;
+		}
+		if(!swapped)
+		{
+			break;
+		}
+		itr++;
+	}
+	//mvwprintw(stdscr,1,0,"%d",len);
+	doupdate();
+	return top;
+}
 
+/*
+ * 
+ */
+int get_orderno(char order[])
+{
+	int val;
+	char temp[20];
+	if((get_recalldex("STATE") == 4) | (get_recalldex("STATE") == 2))
+	{
+		val = strtof(order,NULL);
+	}
+	else if(get_recalldex("STATE") == 1)
+	{
+		for(int i = 5; i < strlen(order) + 1; i++)
+		{
+			temp[i - 5] = order[i];
+			temp[i - 4] = '\0';
+		}
+		val = strtof(temp,NULL);
+	}
+	return val;
+}
+
+/*
+ * 
+ */
+int get_length(struct recall_ord *top)
+{
+	int i=0;
+	if(top == NULL)
+	{
+		return 0;
+	}
+	while(top->next)
+	{
+		i++;
+		top = top->next;
+	}
+	return i;
 }
 
 /*
@@ -38,11 +129,11 @@ void populate_recall_list(char order[])
 	/*
 	 * Allocate and initialize new node
 	 */
-	struct recall_orders *new_ord = (struct recall_orders*)malloc(sizeof(struct recall_orders));
+	struct recall_ord *new_ord = (struct recall_ord*)malloc(sizeof(struct recall_ord));
 	strncpy(new_ord->order,order,strlen(order)+1);
 	new_ord->next = NULL;
 	
-	struct recall_orders *lk = top;
+	struct recall_ord *lk = top;
 	/*
 	 * If top of list is NULL, insert to top/head
 	 */
@@ -126,6 +217,7 @@ void find_recall_list(char date[],int func)
 					 * Send entries to list
 					 */
 					populate_recall_list(dirord->d_name);
+					sort_recall();
 					i++;
 				}
 			}
@@ -149,7 +241,7 @@ void find_recall_list(char date[],int func)
  */
 void del_recall_list(void)
 {
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	if(!ord)
 	{
 		return;
@@ -172,7 +264,7 @@ void write_recall(void)
 	 */
 	clear_recall_win();
 	set_recalldex("CURRENT",0);
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	/*
 	 * Return if list is NULL
 	 */
@@ -213,7 +305,7 @@ int find_reacall_lines(int y)
 	 * 6, the touched line is also found
 	 */
 	y = (y + get_recalldex("MIN")) - 6;
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	/*
 	 * Return -1 if list is NULL
 	 */
@@ -244,7 +336,7 @@ int find_reacall_lines(int y)
  */
 void append_order_recall(char *order)
 {
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	/*
 	 * Return if list is NULL
 	 */
@@ -278,7 +370,7 @@ int find_recall_order(char val[])
 {
 	int line = -1,i=0;
 	
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	if(!ord)
 	{
 		return -1;
@@ -303,7 +395,7 @@ int count_recall(void)
 {
 	int count = 0;
 	
-	struct recall_orders *ord = top;
+	struct recall_ord *ord = top;
 	
 	if(!ord)
 	{

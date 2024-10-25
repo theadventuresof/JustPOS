@@ -656,3 +656,8 @@ Discoverd and fixed a segmentation fault.
    page 2. Trying to set the background for a negative window caused 
    segmentation fault. Currently working. 
   -Also removed some rendunant code and updated comments. 
+  
+10/25/2024
+
+Implemented bubble search to sort recall menu entires
+  -Sorts years, days, and order numbers !!Does not yet sort months!!

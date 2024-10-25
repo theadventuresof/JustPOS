@@ -236,14 +236,10 @@ void find_mouse_system_buttons(int y,int x)
 		set_state("HIGHLIGHT",0);
 		set_state("PREV_ITM",0);
 		set_scrolldex("MAX_LINE",1);
-		if(get_state("BSTATE") > 2)
-		{
-			set_index("FOOD",1);
-			set_state("BSTATE",1);
-			shuffle_tabs();
-			write_pages();
-			write_to_menu_buttons();
-		}
+		set_index("FOOD",1);
+		set_state("BSTATE",1);
+		shuffle_tabs();
+		write_to_menu_buttons();
 		update_panels();
 		doupdate();
 		return;
@@ -343,6 +339,7 @@ void find_mouse_system_buttons(int y,int x)
 		set_state("PREV_STATE",7);
 		set_state("STATE",7);
 		draw_state(7);
+		return;
 	}
 	/*
 	 * If pay card button is pressed
@@ -350,6 +347,7 @@ void find_mouse_system_buttons(int y,int x)
 	if((y >= 34) & (y <= 36) & (x >= 50) & (x <= 69))
 	{
 		yes_no_dialog("MSG",1);
+		return;
 	}
 	/*
 	 * If pay cash button is pressed
@@ -515,6 +513,11 @@ void find_mouse_menu_tabs(int y,int x)
  */
 void find_mouse_keypad(int y,int x)
 {
+	/*
+	 * Keypad is drawn to a relative position of either absolute left
+	 * or center of screen. First we need to get the screen size so 
+	 * that we can solve for the offset
+	 */
 	int starty,startx;
 	getmaxyx(stdscr,starty,startx);
 	if(get_keypad_state("STATE") == 1)

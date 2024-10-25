@@ -50,6 +50,7 @@ void find_mouse_recall_sys(int y,int x)
 			del_order();
 			recall(path);
 			scroll_to_top();
+			sort_recall();
 			write_list();
 		}
 		/*
@@ -70,6 +71,7 @@ void find_mouse_recall_sys(int y,int x)
 				set_recall_date(path);
 				del_recall_list();
 				find_recall_list(path,2);
+				//sort_recall();
 				write_recall();
 			}
 			else{
@@ -159,6 +161,7 @@ void find_mouse_recall_sys(int y,int x)
 		set_state("PREV_STATE",4);
 		set_keypad_state("FUNC",3);
 		draw_keypad("CENTER");
+		return;
 	}
 	/*
 	 * If print order button is pressed
@@ -177,5 +180,13 @@ void find_mouse_recall_sys(int y,int x)
 		}
 		char path[100];
 		print_reciept(path);
+		return;
+	}
+	/*
+	 * If void order button is pressed
+	 */
+	else if((y >= 29) & (y <= 31) & (x >= 10) & (x <= 30))
+	{
+		
 	}
 }
