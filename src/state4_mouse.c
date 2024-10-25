@@ -50,7 +50,7 @@ void find_mouse_recall_sys(int y,int x)
 			del_order();
 			recall(path);
 			scroll_to_top();
-			sort_recall();
+			//sort_recall();
 			write_list();
 		}
 		/*
@@ -102,7 +102,7 @@ void find_mouse_recall_sys(int y,int x)
 			set_recalldex("LINE",-1);
 			del_recall_list();
 			find_recall_list(full_path,2);
-			sort_recall();
+			//sort_recall();
 			write_recall();
 		}
 		/*

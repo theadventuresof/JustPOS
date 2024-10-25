@@ -192,7 +192,8 @@ void find_recall_list(char date[],int func)
 					/*
 					 * Send file name string to be inserted into linked list
 					 */
-						populate_recall_list(dirord->d_name);			
+						populate_recall_list(dirord->d_name);		
+						sort_recall();	
 						i++;
 				}
 			}
