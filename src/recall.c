@@ -12,19 +12,6 @@
 DIR *ordp;
 struct dirent *dirord;
 
-/*
- * This structure holds the names of orders from a specified day.
- */
-/*struct recall_orders{
-	char order[50];
-	struct recall_orders *next;
-}recall_orders;
-
-struct recall_orders *top = NULL;
-struct recall_orders *next = NULL;*/
-
-//struct recall_ord *recall_orders;
-
 struct recall_ord *top = NULL;
 struct recall_ord *next = NULL;
 
@@ -75,7 +62,6 @@ struct recall_ord *sort_recall(void)
 		}
 		itr++;
 	}
-	//mvwprintw(stdscr,1,0,"%d",len);
 	doupdate();
 	return top;
 }
@@ -86,18 +72,13 @@ struct recall_ord *sort_recall(void)
 int get_orderno(char order[])
 {
 	int val;
-	char temp[20];
 	if((get_recalldex("STATE") == 4) | (get_recalldex("STATE") == 2))
 	{
 		val = strtof(order,NULL);
 	}
 	else if(get_recalldex("STATE") == 1)
 	{
-		for(int i = 5; i < strlen(order) + 1; i++)
-		{
-			temp[i - 5] = order[i];
-			temp[i - 4] = '\0';
-		}
+		char *temp = order + 5;
 		val = strtof(temp,NULL);
 	}
 	return val;

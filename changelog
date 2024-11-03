@@ -661,3 +661,12 @@ Discoverd and fixed a segmentation fault.
 
 Implemented bubble search to sort recall menu entires
   -Sorts years, days, and order numbers !!Does not yet sort months!!
+  
+11/2/2024
+
+Changed how the order number is calculated. 
+  -Before it just counted the number of files and assumed that the next
+   number was the biggest number
+  -Now it checks for order- and void- and if found, checks the order number
+   against another value to get the highest number and more correct order
+   number

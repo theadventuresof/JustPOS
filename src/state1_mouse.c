@@ -299,9 +299,9 @@ void find_mouse_system_buttons(int y,int x)
 		del_recall_list();
 		char date[100];
 		get_dir_date(date);
+		set_recalldex("STATE",1);
 		find_recall_list(date,1);
 		set_recall_date(date);
-		set_recalldex("STATE",1);
 		set_recalldex("CURRENT",0);
 		set_recalldex("LINE",-1);
 		write_list();

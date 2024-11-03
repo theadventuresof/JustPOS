@@ -166,38 +166,75 @@ void check_folders(void)
 
 
 /*
- * This function simply aims to check the order directory for how many 
- * files (orders) it contains. 
+ * Return highest order number from current day directory
  */
 int find_orderno()
 {
-	
+	/*
+	 * Store current date directory according to .conf
+	 */
 	char folder[100];
 	get_dir_date(folder);
 	/*
-	 * Find number of files (orders) in the order directory corresponding
-	 * to the current day. We explicitly check to see that the file name
-	 * begins with 'order-'
+	 * Set integer to check against order number
 	 */
 	int num=0;
+	/*
+	 * If folder exists, open it
+	 */
 	if((dirp = opendir(folder)) != NULL)
 	{
+		/*
+		 * If date folder is not empty, read it
+		 */
 		while((orders = readdir(dirp)) != NULL)
 		{
+			/*
+			 * If entry is a directory, ignore it
+			 */
 			if(orders->d_type == DT_DIR)
 			{
 				continue;
 			}
-			else if(strncmp(orders->d_name,"order-",6) == 0)
+			/*
+			 * If file in date directory begins with 'order-' or 'void-' 
+			 * find and return highest number 
+			 */
+			else if((strncmp(orders->d_name,"order-",6) == 0) | (strncmp(orders->d_name,"void-",5) == 0))
 			{
-				num++;
+				/*
+				 * Use temp to skip over the text and find the number
+				 * of order- or void-
+				 */
+				char *temp;
+				if(strncmp(orders->d_name,"order-",6) == 0)
+				{
+					temp = orders->d_name + 6;
+				}
+				else if(strncmp(orders->d_name,"void-",5) == 0)
+				{
+					temp = orders->d_name + 5;
+				}
+				/*
+				 * If num is smaller, change value
+				 */
+				if(num < strtof(temp,NULL))
+				{
+					num = strtof(temp,NULL);
+				}
 			}
 		}
+		/*
+		 * Close directory stream
+		 */
 		closedir(dirp);
 	}
 	else{
 		err_dialog("COULD NOT OPEN ORDER DIRECTORY ORDERS WILL NOT BE SAVED");
 	}
+	/*
+	 * Return highest number
+	 */
 	return num;
 }
 
@@ -332,16 +369,11 @@ void recall_details(char line2[],int itm_num,float charges)
 float recall_mods(char line2[],int itm_num)
 {
 	float extra_charge=0;
-	int j=0,mod=0,charge=0;
-	char temp[100];
-	
+	int mod=0,charge=0;	
 	/*
 	 * Remove the three blank spaces by copying to temporary string
 	 */
-	for(j = strlen(line2)+1; j > 2; j--)
-	{
-		temp[j-3] = line2[j];
-	}
+	char *temp = line2 + 3;
 	/*
 	 * Check temp string value against the value passed to this function
 	 * (from receipt/text file)
