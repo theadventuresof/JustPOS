@@ -10,6 +10,7 @@
 #include "../lib/print.h"
 #include "../lib/keypad.h"
 #include "../lib/report.h"
+#include "../lib/draw_state_4.h"
 
 /*
  * 
@@ -47,6 +48,7 @@ void find_mouse_recall_sys(int y,int x)
 			char path[100];
 			get_recall_date(path);
 			append_order_recall(path);
+			write_recall_date(path);
 			del_order();
 			recall(path);
 			scroll_to_top();
@@ -66,6 +68,7 @@ void find_mouse_recall_sys(int y,int x)
 				get_recall_date(path);
 				append_order_recall(path);
 				strncat(path,"/",2);
+				write_recall_date(path);
 				set_recalldex("CURRENT",0);
 				set_recalldex("LINE",-1);
 				set_recall_date(path);
@@ -97,6 +100,7 @@ void find_mouse_recall_sys(int y,int x)
 			strncat(full_path,path,strlen(path) + 1);
 			strncat(full_path,"/",2);
 			set_recall_date(full_path);
+			write_recall_date(full_path);
 			set_recalldex("CURRENT",0);
 			set_recalldex("LINE",-1);
 			del_recall_list();
@@ -120,6 +124,7 @@ void find_mouse_recall_sys(int y,int x)
 				strncat(full_path,path,strlen(path) + 1);
 				strncat(full_path,"/",2);
 				set_recall_date(full_path);
+				write_recall_date(full_path);
 				del_recall_list();
 				set_recalldex("CURRENT",0);
 				set_recalldex("LINE",-1);
@@ -139,6 +144,7 @@ void find_mouse_recall_sys(int y,int x)
 		get_file_data(".conf","dir=",path);
 		find_recall_list(path,2);
 		set_recall_date(path);
+		write_recall_date(path);
 		set_recalldex("CURRENT",0);
 		set_recalldex("LINE",-1);
 		set_recalldex("MIN",0);
@@ -166,12 +172,7 @@ void find_mouse_recall_sys(int y,int x)
 	 */
 	else if((y >= 25) & (y <= 27) & (x >= 10) & (x <= 30))
 	{
-		if(get_recalldex("STATE") != 1)
-		{
-			err_dialog("NO ORDER SELECTED TO PRINT");
-			return;
-		}
-		if(get_recalldex("LINE") < 0)
+		if((get_recalldex("STATE") != 1) | (get_recalldex("LINE") < 0))
 		{
 			err_dialog("NO ORDER SELECTED TO PRINT");
 			return;
@@ -185,6 +186,36 @@ void find_mouse_recall_sys(int y,int x)
 	 */
 	else if((y >= 29) & (y <= 31) & (x >= 10) & (x <= 30))
 	{
-		
+		if((get_recalldex("LINE") < 0) | (get_recalldex("STATE") != 1))
+		{
+			err_dialog("NO ORDER SELECTED TO VOID");
+			return;
+		}
+		char name[50];
+		name[0] = '\0';
+		append_order_recall(name);
+		char msg[100];
+		strncpy(msg,"VOID ",6);
+		strncat(msg,name,strlen(name));
+		strncat(msg,"?",2);
+		yes_no_dialog(msg,1);
 	}
+}
+
+/*
+ * 
+ */
+void view_recall_orders(void)
+{
+	set_recalldex("STATE",1);
+	highlight_order_tabs();
+}
+
+/*
+ * 
+ */
+void view_recall_voids(void)
+{
+	set_recalldex("STATE",5);
+	highlight_order_tabs();
 }

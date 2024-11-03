@@ -3,8 +3,14 @@
 #include "../lib/draw_state_4.h"
 #include "../lib/scroll.h"
 
+WINDOW *recall_border;
+PANEL *recall_borderp;
 WINDOW *recall_win;
 PANEL *recall_winp;
+WINDOW *date_win;
+PANEL *date_winp;
+WINDOW *order_tab[2];
+PANEL *order_tabp[2];
 
 /*
  * Draw the window to display order numbers
@@ -12,8 +18,33 @@ PANEL *recall_winp;
 void draw_recall_win(void)
 {
 	del_recall_win();
-	recall_win = newwin(28,40,5,50);
+	date_win = newwin(3,42,3,49);
+	date_winp = new_panel(date_win);
+	order_tab[0] = newwin(7,10,5,40);
+	//box(order_tab[0],0,0);
+	order_tabp[0] = new_panel(order_tab[0]);
+	order_tab[1] = newwin(7,10,12,40);
+	//box(order_tab[1],0,0);
+	order_tabp[1] = new_panel(order_tab[1]);
+	recall_border = newwin(30,42,5,49);
+	box(recall_border,0,0);
+	recall_borderp = new_panel(recall_border);
+	recall_win = newwin(28,40,6,50);
 	recall_winp = new_panel(recall_win);
+	
+	mvwprintw(order_tab[0],1,4,"O");
+	mvwprintw(order_tab[0],2,4,"R");
+	mvwprintw(order_tab[0],3,4,"D");
+	mvwprintw(order_tab[0],4,4,"E");
+	mvwprintw(order_tab[0],5,4,"R");
+	mvwprintw(order_tab[0],6,4,"S");
+	
+	mvwprintw(order_tab[1],1,4,"V");
+	mvwprintw(order_tab[1],2,4,"O");
+	mvwprintw(order_tab[1],3,4,"I");
+	mvwprintw(order_tab[1],4,4,"D");
+	mvwprintw(order_tab[1],5,4,"S");
+	
 	update_panels();
 	doupdate();
 }
@@ -28,6 +59,43 @@ void del_recall_win(void)
 		del_panel(recall_winp);
 		recall_win = NULL;
 	}
+	if(recall_border != NULL)
+	{
+		del_panel(recall_borderp);
+		recall_border = NULL;
+	}
+	if(date_win != NULL)
+	{
+		del_panel(date_winp);
+		date_win = NULL;
+	}
+	for(int i =0; i < 2; i++)
+	{
+		if(order_tab[i] != NULL)
+		{
+			del_panel(order_tabp[i]);
+			order_tab[i] = NULL;
+		}
+	}
+}
+
+/*
+ * 
+ */
+void highlight_order_tabs(void)
+{
+	if(get_recalldex("STATE") <= 4)
+	{
+		wbkgd(order_tab[0],COLOR_PAIR(1));
+		wbkgd(order_tab[1],COLOR_PAIR(2));
+	}
+	else if(get_recalldex("STATE") == 5)
+	{
+		wbkgd(order_tab[0],COLOR_PAIR(2));
+		wbkgd(order_tab[1],COLOR_PAIR(1));
+	}
+	update_panels();
+	doupdate();
 }
 
 /*
@@ -161,6 +229,17 @@ void write_to_recall(char line[],int format)
 	/*
 	 * Show update
 	 */
+	update_panels();
+	doupdate();
+}
+
+/*
+ * 
+ */
+void write_recall_date(char date[])
+{
+	werase(date_win);
+	mvwprintw(date_win,1,1,"Viewing: %s",date);
 	update_panels();
 	doupdate();
 }

@@ -670,3 +670,13 @@ Changed how the order number is calculated.
   -Now it checks for order- and void- and if found, checks the order number
    against another value to get the highest number and more correct order
    number
+
+11/3/2024
+
+Started making void order logic. 
+
+Added tabs to view either orders or voids for a given day
+
+Changed some mouse settings
+
+Added date viewing to recall menu

@@ -156,7 +156,7 @@ int main(void)
 				/*
 				 * Check for recall state (4) and check if event occured in recall win
 				 */
-				else if((ev.y >= 5) & (ev.y <= 33) & (ev.x >= 50) & (ev.x <= 89) & (get_state("STATE") == 4))
+				else if((ev.y >= 6) & (ev.y <= 34) & (ev.x >= 50) & (ev.x <= 89) & (get_state("STATE") == 4))
 				{
 					if((get_scrolldex("DIFF") != get_scrolldex("TOUCH")-ev.y) & (get_scrolldex("TOUCH") > 0))
 					{

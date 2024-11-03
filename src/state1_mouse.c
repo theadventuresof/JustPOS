@@ -14,6 +14,7 @@
 #include "../lib/scroll.h"
 #include "../lib/file.h"
 #include "../lib/draw_state_6.h"
+#include "../lib/draw_state_4.h"
 
 /*
  * Find mouse events that occur over the 12 menu buttons
@@ -300,8 +301,10 @@ void find_mouse_system_buttons(int y,int x)
 		char date[100];
 		get_dir_date(date);
 		set_recalldex("STATE",1);
+		highlight_order_tabs();
 		find_recall_list(date,1);
 		set_recall_date(date);
+		write_recall_date(date);
 		set_recalldex("CURRENT",0);
 		set_recalldex("LINE",-1);
 		write_list();

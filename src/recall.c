@@ -282,11 +282,11 @@ int find_reacall_lines(int y)
 {
 	int i=0;
 	/*
-	 * recall_win begins on line 5, but does not write to line 0,
+	 * recall_win begins on line 6, but does not write to line 0,
 	 * so, by finding the minimum position of recall_win and subtracting
-	 * 6, the touched line is also found
+	 * 7, the touched line is also found
 	 */
-	y = (y + get_recalldex("MIN")) - 6;
+	y = (y + get_recalldex("MIN")) - 7;
 	struct recall_ord *ord = top;
 	/*
 	 * Return -1 if list is NULL
@@ -314,7 +314,7 @@ int find_reacall_lines(int y)
 }
 
 /*
- * Get date viewing from recalldex, and append a selected order
+ * 
  */
 void append_order_recall(char *order)
 {

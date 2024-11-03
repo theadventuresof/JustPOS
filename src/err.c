@@ -160,6 +160,10 @@ PANEL *nop;
  */
 void yes_no_dialog(char msg[],int option)
 {
+	/*
+	 * Set yes no state to perform relavant operations
+	 */
+	set_state("YES NO",option);
 	del_yes_no_dialog();
 	/*
 	 * Get screen size

@@ -152,6 +152,20 @@ void get_mouse(int y,int x)
 				write_recall();
 			}
 		}
+		/*
+		 * If orders tab is pressed
+		 */
+		else if((y >= 5) & (y <= 11) & (x >= 41) & (x <= 48))
+		{
+			view_recall_orders();
+		}
+		/*
+		 * If voids tab is pressed
+		 */
+		else if((y >= 13) & (y <= 18) & (x >= 41) & (x <= 48))
+		{
+			view_recall_voids();
+		}
 	}
 	else if(get_state("STATE") == 5)
 	{
