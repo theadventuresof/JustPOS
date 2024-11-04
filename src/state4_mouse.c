@@ -36,9 +36,9 @@ void find_mouse_recall_sys(int y,int x)
 	{
 		/*
 		 * Recalldex state 1 is to tell the system orders are visible
-		 * to be selected
+		 * to be selected (state 5 is for selecting voids)
 		 */
-		if(get_recalldex("STATE") == 1)
+		if((get_recalldex("STATE") == 1) | (get_recalldex("STATE") == 5))
 		{
 			if(get_recalldex("LINE") < 0)
 			{
@@ -139,6 +139,7 @@ void find_mouse_recall_sys(int y,int x)
 	else if((y >= 20) & (y <= 22) & (x >= 10) & (x <= 30))
 	{
 		set_recalldex("STATE",2);
+		highlight_order_tabs();
 		del_recall_list();
 		char path[100];
 		get_file_data(".conf","dir=",path);
@@ -191,6 +192,9 @@ void find_mouse_recall_sys(int y,int x)
 			err_dialog("NO ORDER SELECTED TO VOID");
 			return;
 		}
+		/*
+		 * Ask user if they would like to void selected order
+		 */
 		char name[50];
 		name[0] = '\0';
 		append_order_recall(name);
@@ -203,19 +207,49 @@ void find_mouse_recall_sys(int y,int x)
 }
 
 /*
- * 
+ * If orders tab is pressed, check if a day is selected, and display
+ * orders for given day 
  */
 void view_recall_orders(void)
 {
+	if((get_recalldex("STATE") > 1) & (get_recalldex("STATE") < 5))
+	{
+		err_dialog("SELECT A DAY TO VIEW");
+		return;
+	}
 	set_recalldex("STATE",1);
+	set_recalldex("LINE",-1);
 	highlight_order_tabs();
+	del_recall_list();
+	clear_recall_win();
+	char path[100];
+	get_recall_date(path);
+	find_recall_list(path,1);
+	write_recall();
 }
 
 /*
- * 
+ * If voids tab is selected, check if a day is selected, and display
+ * voided orders for a given day
  */
 void view_recall_voids(void)
 {
+	if(get_recalldex("STATE") == 5)
+	{
+		return;
+	}
+	else if(get_recalldex("STATE") != 1)
+	{
+		err_dialog("SELECT A DAY TO VIEW");
+		return;
+	}
 	set_recalldex("STATE",5);
+	set_recalldex("LINE",-1);
 	highlight_order_tabs();
+	del_recall_list();
+	clear_recall_win();
+	char path[100];
+	get_recall_date(path);
+	find_recall_list(path,3);
+	write_recall();
 }

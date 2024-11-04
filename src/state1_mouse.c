@@ -349,7 +349,6 @@ void find_mouse_system_buttons(int y,int x)
 	 */
 	if((y >= 34) & (y <= 36) & (x >= 50) & (x <= 69))
 	{
-		yes_no_dialog("MSG",1);
 		return;
 	}
 	/*

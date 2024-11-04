@@ -203,6 +203,11 @@ void get_mouse(int y,int x)
 		if((y >= 16) & (y <= 20) & (x >= 90) & (x <= 138))
 		{
 			int line = (y + get_printerdex("MIN")) - 17;
+			if(get_state("WHICH_PRINTER") == 0)
+			{
+				err_dialog("SELECT A PRINTER TO CONFIGURE");
+				return;
+			}
 			if((y == get_scrolldex("TOUCH")) & (line >= 0) & (get_state("WHICH_PRINTER") > 0))
 			{
 				if(line == get_printerdex("LINE"))

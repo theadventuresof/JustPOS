@@ -21,10 +21,8 @@ void draw_recall_win(void)
 	date_win = newwin(3,42,3,49);
 	date_winp = new_panel(date_win);
 	order_tab[0] = newwin(7,10,5,40);
-	//box(order_tab[0],0,0);
 	order_tabp[0] = new_panel(order_tab[0]);
 	order_tab[1] = newwin(7,10,12,40);
-	//box(order_tab[1],0,0);
 	order_tabp[1] = new_panel(order_tab[1]);
 	recall_border = newwin(30,42,5,49);
 	box(recall_border,0,0);
@@ -104,6 +102,8 @@ void highlight_order_tabs(void)
 void clear_recall_win(void)
 {
 	werase(recall_win);
+	update_panels();
+	doupdate();
 }
 
 WINDOW *recall_ord;

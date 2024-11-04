@@ -174,7 +174,6 @@ void find_recall_list(char date[],int func)
 					 * Send file name string to be inserted into linked list
 					 */
 						populate_recall_list(dirord->d_name);		
-						sort_recall();	
 						i++;
 				}
 			}
@@ -199,10 +198,18 @@ void find_recall_list(char date[],int func)
 					 * Send entries to list
 					 */
 					populate_recall_list(dirord->d_name);
-					sort_recall();
 					i++;
 				}
 			}
+			else if(func == 3)
+			{
+				if(strncmp(dirord->d_name,"void-",5) == 0)
+				{
+					populate_recall_list(dirord->d_name);
+					i++;
+				}
+			}
+			sort_recall();
 			set_recalldex("MAX_LINE",i);
 		}
 		/*

@@ -680,3 +680,10 @@ Added tabs to view either orders or voids for a given day
 Changed some mouse settings
 
 Added date viewing to recall menu
+
+11/4/2024
+
+Orders/voids tabs now display either orders or voids for a given day
+
+Added error dialog to printer selection
+  -If no printer is selected, an error prompts user to select printer
