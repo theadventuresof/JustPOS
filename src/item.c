@@ -104,9 +104,9 @@ void get_name(int menu,char* name,int itm_num)
 float get_itm(int menu,char val[],int itm_num)
 {
 	int i,comma=0,j=0,target;
-	char *dir = (char *)malloc(50);
-	char *line = (char *)malloc(99);
-	char *temp = (char *)malloc(50);
+	char dir[50];
+	char line[99];
+	char temp[50];
 	char c;
 	float value;
 	/*
@@ -134,9 +134,6 @@ float get_itm(int menu,char val[],int itm_num)
 	else if(which_menu(itm_num) == 5)
 	{
 		value = get_of_val(itm_num);	
-		free(line);
-		free(dir);
-		free(temp);
 		return value;
 	}
 	/*
@@ -158,13 +155,7 @@ float get_itm(int menu,char val[],int itm_num)
 	
 	if(data == NULL)
 	{
-		move(36,1);
-		clrtoeol();
-		printw("%s",dir);
 		err_dialog("SYSTEM FILE NOT FOUND!! GET_ITM");
-		free(dir);
-		free(line);
-		free(temp);
 		fclose(data);
 		return -1;
 	}
@@ -195,9 +186,6 @@ float get_itm(int menu,char val[],int itm_num)
 	}
 	fclose(data);
 	value = strtof(temp,NULL);
-	free(line);
-	free(dir);
-	free(temp);
 	return value;
 }
 

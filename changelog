@@ -687,3 +687,25 @@ Orders/voids tabs now display either orders or voids for a given day
 
 Added error dialog to printer selection
   -If no printer is selected, an error prompts user to select printer
+  
+Voids now sorted in recall menu
+
+11/8/2024
+
+Started counting voids (at their food cost) in reports
+
+11/17/2024
+
+Working on report system -- no longer re-creating daily report by iterating
+through every order if the daily report already exists.
+
+11/20/2024
+
+Still working on report system. More needs to be done...
+  -Mostly just adding voids to monthly reports but the amount is not
+   updating correctly
+   
+11/26/2024
+
+Small update, couldn't get correct report value because I was missing 
+a space...now I need to solve subtracting void value from sales value

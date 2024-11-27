@@ -1220,10 +1220,10 @@ void save_order(float paid,float change)
 		ord = ord->next;
 	}
 	fprintf(cur_order,"-------------------\n\n");
-	fprintf(cur_order,"Items Sold:\t%d\n",total_items());
-	fprintf(cur_order,"Total  Due:\t$%.2f\n",calc_total());
-	fprintf(cur_order,"Total Paid:\t$%.2f\n",paid);
-	fprintf(cur_order,"Change Due:\t$%.2f\n",change);
+	fprintf(cur_order,"Items Sold:     %d\n",total_items());
+	fprintf(cur_order,"Total  Due:     $%.2f\n",calc_total());
+	fprintf(cur_order,"Total Paid:     $%.2f\n",paid);
+	fprintf(cur_order,"Change Due:     $%.2f\n",change);
 	
 	fclose(cur_order);
 	free(msg);

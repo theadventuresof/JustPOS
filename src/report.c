@@ -7,15 +7,21 @@
 
 #include "../lib/report.h"
 #include "../lib/file.h"
+#include "../lib/item.h"
+#include "../lib/err.h"
 
 DIR *dir;
 DIR *subdir;
 DIR *month_dir;
+DIR *month_dir_void;
+DIR *subdir_void;
 DIR *year_dir;
 struct dirent *order;
 struct dirent *month_order;
+struct dirent *month_order_void;
 struct dirent *year_order;
 struct dirent *suborder;
+struct dirent *suborder_void;
 struct stat buf;
 
 /*
@@ -24,7 +30,8 @@ struct stat buf;
  */
 void gen_daily(char folder[])
 {
-	float daily_total;
+	float daily_total=0;
+	float void_total=0;
 	/*
 	 * If folder[] is a valid path, loop through every file/folder
 	 */
@@ -43,6 +50,17 @@ void gen_daily(char folder[])
 				strncat(target_file,order->d_name,strlen(order->d_name) + 1);
 				daily_total += scrape_order(target_file);
 			} 
+			/*
+			 * If file name begins with 'void-', assume it is a voided
+			 * receipt, and try to extract lost food cost
+			 */
+			else if(strncmp(order->d_name,"void-",5) == 0)
+			{
+				char target_file[100];
+				strncpy(target_file,folder,strlen(folder) + 1);
+				strncat(target_file,order->d_name,strlen(order->d_name) + 1);
+				void_total += scrape_voids(target_file);
+			}
 		}
 	}
 	closedir(dir);
@@ -55,7 +73,8 @@ void gen_daily(char folder[])
 	{
 		return;
 	}
-	fprintf(rpt,"net_sales=%.2f",daily_total);
+	fprintf(rpt,"net_sales=%.2f\n",daily_total);
+	fprintf(rpt,"total_voids=%.2f\n",void_total);
 	fclose(rpt);
 }	
 
@@ -67,7 +86,7 @@ float scrape_order(char order_path[])
 	char line[100];
 	char target[50];
 	int i=0,j=0;
-	float total;
+	float total=0;
 	
 	FILE *op;
 	op = fopen(order_path,"r");
@@ -120,13 +139,55 @@ float scrape_order(char order_path[])
 }
 
 /*
+ * 
+ */
+float scrape_voids(char file[])
+{
+	float val = 0;
+	char line[100];
+	
+	//FILE *target = fopen(file,"r");
+	//if(file == NULL)
+	//{
+	//	return false;
+	//}
+	char total[100];
+	get_file_data(file,"Total  Due:     $",total);
+	//total[strcspn(total," ")] = 0;
+	//total[strcspn(total,"$")] = 0;
+	val += strtof(total,NULL);
+	center_error(total);
+	/*while(!feof(target))
+	{
+		int item;
+		fgets(line,99,target);
+		line[strcspn(line,"\n")] = 0;
+		for(int i = 1; i <= 4; i++)
+		{
+			if(i == 3)
+			{
+				continue;
+			}
+			item = check_menu_line(line,i);
+			if(item > 0)
+			{
+				val += get_itm(i,"FC",item); 
+			}
+		}
+	}*/
+	//fclose(target);
+	return val;
+}
+
+/*
  * Given an abbreviated month name, use dir= value from .conf -- check
  * if path is valid, and attempt to calculate sales from every day in 
  * said month. Also output value to text file
  */
 void gen_monthly(char month[])
 {
-	float total;
+	float total=0;
+	float voids=0;
 	char path[100],temp[50];
 	
 	/*
@@ -146,6 +207,7 @@ void gen_monthly(char month[])
 	if(stat(path,&buf) == 0)
 	{
 		total = scrape_daily(path);
+		voids = scrape_daily_voids(path);
 	}
 	
 	/*
@@ -159,6 +221,7 @@ void gen_monthly(char month[])
 		return;
 	}
 	fprintf(rpt,"net_sales=%.2f",total);
+	fprintf(rpt,"total_voids=%.2f",voids);
 	fclose(rpt);
 }
 
@@ -167,7 +230,7 @@ void gen_monthly(char month[])
  */
 float scrape_daily(char month[])
 {
-	float day,val=0;
+	float day=0,val=0;
 	char *err;
 	if((month_dir = opendir(month)) != NULL)
 	{
@@ -190,10 +253,11 @@ float scrape_daily(char month[])
 				{
 					continue;
 				}
-				if (day <= 31)
+				if((day <= 31) & (day > 0))
 				{
 					char temp[100];
 					char line[100];
+					char daily[100];
 					strncpy(temp,month,strlen(month) + 1);
 					strncat(temp,month_order->d_name,strlen(month_order->d_name) + 1);
 					strncat(temp,"/",2);
@@ -201,23 +265,45 @@ float scrape_daily(char month[])
 					 * If our DT_DIR name is between 01 and 31, open each day
 					 * and check for regular files starting with 'order-'
 					 */
-					if((subdir = opendir(temp)) != NULL)
+					strncpy(daily,temp,strlen(temp)+1);
+					strncat(daily,"daily.rpt",10);
+					/*
+					 * If daily report exists
+					 */
+					if(stat(daily,&buf) == 0)
 					{
-						while((suborder = readdir(subdir)) != NULL)
+						FILE *daily_report;
+						daily_report = fopen(daily,"r");
+						if(daily_report == NULL)
 						{
-							/*
-							 * If our DT_REG files begin with 'order-', scrape them
-							 * for their total sales value. 
-							 */
-							if(strncmp(suborder->d_name,"order-",6) == 0)
+							return false;
+						}
+						char total[50];
+						get_file_data(daily,"net_sales=",total);
+						val += strtof(total,NULL);
+					}
+					/*
+					 * If daily report does not exist
+					 */
+					else{
+						if((subdir = opendir(temp)) != NULL)
+						{
+							while((suborder = readdir(subdir)) != NULL)
 							{
-								strncpy(line,temp,strlen(temp) + 1);
-								strncat(line,suborder->d_name,strlen(suborder->d_name) + 1);
-								val += scrape_order(line);
+								/*
+								 * If our DT_REG files begin with 'order-', scrape them
+								 * for their total sales value. 
+								 */
+								if(strncmp(suborder->d_name,"order-",6) == 0)
+								{
+									strncpy(line,temp,strlen(temp) + 1);
+									strncat(line,suborder->d_name,strlen(suborder->d_name) + 1);
+									val += scrape_order(line);
+								}
 							}
 						}
+						closedir(subdir);
 					}
-					closedir(subdir);
 				}
 			}
 		}
@@ -230,13 +316,79 @@ float scrape_daily(char month[])
 }
 
 /*
+ * 
+ */
+float scrape_daily_voids(char month[])
+{
+	float day=0;
+	float val=0;
+	char *err;
+	if((month_dir_void = opendir(month)) != NULL)
+	{
+		while((month_order_void = readdir(month_dir_void)) != NULL)
+		{
+			if(month_order_void->d_type == DT_DIR)
+			{
+				day = strtof(month_order_void->d_name,&err);
+				if(err == month_order_void->d_name)
+				{
+					continue;
+				}
+				if((day >= 0) & (day <= 31))
+				{
+					char temp[100];
+					char line[100];
+					char daily[100];
+					strncpy(temp,month,strlen(month) + 1);
+					strncat(temp,month_order_void->d_name,strlen(month_order_void->d_name) + 1);
+					strncat(temp,"/",2);
+					
+					strncat(daily,temp,strlen(temp)+1);
+					strncat(daily,"daily.rpt",10);
+					
+					if(stat(daily,&buf) == 0)
+					{
+						FILE *daily_report;
+						daily_report = fopen(daily,"r");
+						if(daily_report == NULL)
+						{
+							return false;
+						}
+						char total[50];
+						get_file_data(daily,"total_voids=",total);
+						val += strtof(total,NULL);
+					}
+					else{
+						if((subdir_void = opendir(temp)) != NULL)
+						{
+							while((suborder_void = readdir(subdir_void)) != NULL)
+							{
+								if(strncmp(suborder_void->d_name,"void-",5) == 0)
+								{
+									strncpy(line,temp,strlen(temp)+1);
+									strncat(line,suborder_void->d_name,strlen(suborder_void->d_name)+1);
+									val += scrape_voids(line);
+								}
+							}
+						}
+					}
+					closedir(subdir_void);
+				}
+			}
+		}
+	}
+	closedir(month_dir_void);
+	return val;
+}
+
+/*
  * Generate a file named yearly.rpt with the current sales from the
  * current year
  */
 void gen_yearly(char year[])
 {
 	char path[100];
-	float total;
+	float total=0;
 	
 	/*
 	 * Build a string to contain file path

@@ -67,7 +67,7 @@ struct recall_ord *sort_recall(void)
 }
 
 /*
- * 
+ * Return integer value for sorting recall list
  */
 int get_orderno(char order[])
 {
@@ -81,11 +81,16 @@ int get_orderno(char order[])
 		char *temp = order + 5;
 		val = strtof(temp,NULL);
 	}
+	else if(get_recalldex("STATE") == 5)
+	{
+		char *temp = order + 4;
+		val = strtof(temp,NULL);
+	}
 	return val;
 }
 
 /*
- * 
+ * Iterate through recall list and find number of entries
  */
 int get_length(struct recall_ord *top)
 {
