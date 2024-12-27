@@ -242,6 +242,10 @@ void get_mouse(int y,int x)
 	{
 		find_mouse_itm_wiz(y,x);
 	}
+	else if(get_state("STATE") == 9)
+	{
+		find_mouse_report_menu(y,x);
+	}
 	move(2,1);
 	clrtoeol();
 	printw("%d/%d",y,x);

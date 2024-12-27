@@ -371,6 +371,16 @@ void draw_state(int state)
 			draw_itm_wiz_btns();
 			return;
 		}
+		/*
+		 * Report screen visible
+		 */
+		else if(state == 9)
+		{
+			draw_logo();
+			draw_return();
+			print_clock();
+			return;
+		}
 	} 
 }
 
@@ -422,6 +432,11 @@ void del_state(int state)
 	{
 		del_return();
 		del_itm_wiz_btns();
+		return;
+	}
+	else if(state == 9)
+	{
+		del_return();
 		return;
 	}
 }

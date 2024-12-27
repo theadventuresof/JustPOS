@@ -82,7 +82,7 @@ void find_mouse_yes_no(int y,int x)
 			del_recall_list();
 			find_recall_list(path,1);
 			write_recall();
-			gen_today();
+			//gen_today();
 		}
 		/*
 		 * Delete yes_no window and reset STATE

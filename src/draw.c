@@ -436,6 +436,7 @@ void draw_sys_buttons(void)
 	mvwprintw(sys_btns[4],1,7,"RECALL");
 	mvwprintw(sys_btns[5],1,7,"SEARCH");
 	
+	mvwprintw(sys_btns[7],1,7,"REPORTS");
 	mvwprintw(sys_btns[8],1,6,"SETTINGS");
 	mvwprintw(sys_btns[9],1,7,"MANAGER");
 	mvwprintw(sys_btns[10],1,6,"PAY CARD");

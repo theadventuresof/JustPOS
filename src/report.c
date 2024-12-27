@@ -144,17 +144,13 @@ float scrape_order(char order_path[])
 float scrape_voids(char file[])
 {
 	float val = 0;
-	char line[100];
-	
-	//FILE *target = fopen(file,"r");
-	//if(file == NULL)
-	//{
-	//	return false;
-	//}
+	FILE *target = fopen(file,"r");
+	if(file == NULL)
+	{
+		return false;
+	}
 	char total[100];
 	get_file_data(file,"Total  Due:     $",total);
-	//total[strcspn(total," ")] = 0;
-	//total[strcspn(total,"$")] = 0;
 	val += strtof(total,NULL);
 	center_error(total);
 	/*while(!feof(target))
@@ -175,7 +171,7 @@ float scrape_voids(char file[])
 			}
 		}
 	}*/
-	//fclose(target);
+	fclose(target);
 	return val;
 }
 

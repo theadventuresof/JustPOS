@@ -709,3 +709,9 @@ Still working on report system. More needs to be done...
 
 Small update, couldn't get correct report value because I was missing 
 a space...now I need to solve subtracting void value from sales value
+
+12/26/2024
+
+Starting to add reports menu.
+  -Reports are no longer generated elsewhere they will have to be 
+   created explicitly

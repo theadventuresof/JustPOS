@@ -323,6 +323,17 @@ void find_mouse_system_buttons(int y,int x)
 		return;
 	}
 	/*
+	 * If reports button is pressed
+	 */
+	if((y >= 30) & (y <= 32) & (x >= 76) & (x <= 94))
+	{
+		del_state(1);
+		set_state("PREV_STATE",get_state("STATE"));
+		set_state("STATE",9);
+		draw_state(9);
+		return;
+	}
+	/*
 	 * If settings is pressed
 	 */
 	if((y >= 34) & (y <= 36) & (x <= 20))
@@ -717,7 +728,7 @@ void find_mouse_keypad(int y,int x)
 			{
 				change = total - owed;
 				save_order(total,change);
-				gen_today();
+				//gen_today();
 				del_order();
 				change_dialog(change);
 			}
