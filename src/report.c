@@ -32,6 +32,7 @@ void gen_daily(char folder[])
 {
 	float daily_total=0;
 	float void_total=0;
+	float food_cost=0;
 	/*
 	 * If folder[] is a valid path, loop through every file/folder
 	 */
@@ -49,6 +50,7 @@ void gen_daily(char folder[])
 				strncpy(target_file,folder,strlen(folder) + 1);
 				strncat(target_file,order->d_name,strlen(order->d_name) + 1);
 				daily_total += scrape_order(target_file);
+				food_cost += scrape_voids(target_file);
 			} 
 			/*
 			 * If file name begins with 'void-', assume it is a voided
@@ -64,6 +66,7 @@ void gen_daily(char folder[])
 		}
 	}
 	closedir(dir);
+	food_cost += void_total;
 	char target_file[100];
 	strncpy(target_file,folder,strlen(folder) + 1);
 	strncat(target_file,"daily.rpt",10);
@@ -75,6 +78,8 @@ void gen_daily(char folder[])
 	}
 	fprintf(rpt,"net_sales=%.2f\n",daily_total);
 	fprintf(rpt,"total_voids=%.2f\n",void_total);
+	fprintf(rpt,"total_fc=%.2f\n",food_cost);
+	fprintf(rpt,"profits=%.2f\n",daily_total - food_cost);
 	fclose(rpt);
 }	
 
@@ -100,13 +105,13 @@ float scrape_order(char order_path[])
 	while(!feof(op))
 	{
 		/*
-		 * Retrieve every line from order_path and check for 'Total Due'
+		 * Retrieve every line from order_path and check for 'Total  Due'
 		 */
 		fgets(line,99,op);
 		if(strncmp(line,"Total  Due",10) == 0)
 		{
 			/*
-			 * If 'Total Due' is found, remove the newline character and
+			 * If 'Total  Due' is found, remove the newline character and
 			 * loop until '$' is found.
 			 */
 			line[strcspn(line,"\n")] = 0;
@@ -119,7 +124,7 @@ float scrape_order(char order_path[])
 				}
 			} 
 			/*
-			 * Starting from the position of '$' copy character by 
+			 * Starting from the position after '$' copy character by 
 			 * character from text file to target string
 			 */
 			for(i = 0; i < strlen(line) + 1; i++)
@@ -139,38 +144,63 @@ float scrape_order(char order_path[])
 }
 
 /*
- * 
+ * Get voided/food cost date from specified file
  */
 float scrape_voids(char file[])
 {
+	/*
+	 * Establish a float value to hold food cost and open specified
+	 */
 	float val = 0;
 	FILE *target = fopen(file,"r");
+	/*
+	 * Stop here if specified file does not exist
+	 */
 	if(file == NULL)
 	{
 		return false;
 	}
-	char total[100];
-	get_file_data(file,"Total  Due:     $",total);
-	val += strtof(total,NULL);
-	center_error(total);
-	/*while(!feof(target))
+	/*
+	 * Define a string to hold each line, and begin looping through 
+	 * specified file until EOF
+	 */
+	char line[100];
+	while(!feof(target))
 	{
+		/*
+		 * Copy value of line in file to string 'line' and remove newline
+		 * character
+		 */
 		int item;
 		fgets(line,99,target);
 		line[strcspn(line,"\n")] = 0;
+		/*
+		 * Loop through the four menus (Food, Drink, Mods, Extra Charge)
+		 * to look for a matching item
+		 */
 		for(int i = 1; i <= 4; i++)
 		{
+			/*
+			 * Mods do not have a food cost value, skip this item
+			 */
 			if(i == 3)
 			{
 				continue;
 			}
 			item = check_menu_line(line,i);
+			/*
+			 * If file line is a menu item, try to extract food cost and
+			 * add it to val
+			 */
 			if(item > 0)
 			{
 				val += get_itm(i,"FC",item); 
 			}
 		}
-	}*/
+	}
+	/*
+	 * Close file and return floating value 'val'
+	 */
 	fclose(target);
 	return val;
 }

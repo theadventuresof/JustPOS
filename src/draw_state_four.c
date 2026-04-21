@@ -78,7 +78,7 @@ void del_recall_win(void)
 }
 
 /*
- * 
+ * Highlight selected order tab (voids/orders)
  */
 void highlight_order_tabs(void)
 {
@@ -106,7 +106,7 @@ void clear_recall_win(void)
 	doupdate();
 }
 
-WINDOW *recall_ord;
+WINDOW *recall_order;
 PANEL *recall_ordp;
 WINDOW *search_recall;
 PANEL *search_recallp;
@@ -123,10 +123,10 @@ PANEL *void_ordp;
 void draw_recall_sys_btns(void)
 {
 	del_recall_sys_btns();
-	recall_ord = newwin(3,20,12,10);
-	box(recall_ord,0,0);
-	mvwprintw(recall_ord,1,4,"RECALL/SELECT");
-	recall_ordp = new_panel(recall_ord);
+	recall_order = newwin(3,20,12,10);
+	box(recall_order,0,0);
+	mvwprintw(recall_order,1,4,"RECALL/SELECT");
+	recall_ordp = new_panel(recall_order);
 	search_recall = newwin(3,20,16,10);
 	box(search_recall,0,0);
 	mvwprintw(search_recall,1,4,"SEARCH ORDER");
@@ -154,10 +154,10 @@ void draw_recall_sys_btns(void)
  */
 void del_recall_sys_btns(void)
 {
-	if(recall_ord != NULL)
+	if(recall_order != NULL)
 	{
 		del_panel(recall_ordp);
-		recall_ord = NULL;
+		recall_order = NULL;
 	}
 	if(void_ord != NULL)
 	{
@@ -234,7 +234,7 @@ void write_to_recall(char line[],int format)
 }
 
 /*
- * 
+ * Show date being recalled
  */
 void write_recall_date(char date[])
 {

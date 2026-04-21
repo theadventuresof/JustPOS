@@ -167,6 +167,9 @@ void get_mouse(int y,int x)
 			view_recall_voids();
 		}
 	}
+	/*
+	 * If pay cash menu is visible
+	 */
 	else if(get_state("STATE") == 5)
 	{
 		/*

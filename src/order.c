@@ -116,14 +116,24 @@ void add_itm(int itm_num, int menu)
 	 * Force focus of highlighted item in list
 	 */
 	int max = find_item_max_line();
+	/*
+	 * If item is toward top of order, scroll to top
+	 */
 	if(max <= 27)
 	{
 		scroll_to_top();
 	}
+	/*
+	 * If item is toward end of order, scroll to end
+	 */
 	else if(max + 15 >= get_scrolldex("MAX_LINE"))
 	{
 		scroll_to_end();
 	}
+	/*
+	 * If order is long and item is somewhere in the middle, try
+	 * to focus last added item
+	 */
 	else{
 		set_scrolldex("MIN",find_item_min_line()-11);
 		set_scrolldex("MAX",find_item_max_line()+12);
@@ -276,7 +286,7 @@ int total_cells(void)
 }
 
 /*
- * Get total number of lines from current order
+ * Get total number of lines from current order (for scrolling)
  */
 int total_lines(void)
 {
@@ -317,6 +327,7 @@ int total_lines(void)
 			total++;
 			/*
 			 * Each charge has one mod line plus one price line
+			 * so we add one more line if it is an extra charge
 			 */
 			if(mod->mod_menu == 4)
 			{
@@ -373,7 +384,7 @@ void modify_price(int itm_num,float price)
 }
 
 /*
- * Insert user message to mod (child) list
+ * Insert user message (keyboard) to mod (child) list
  */
 void add_msg(int itm_num, char msg[])
 {

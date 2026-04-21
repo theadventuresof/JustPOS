@@ -328,7 +328,7 @@ void find_mouse_system_buttons(int y,int x)
 	if((y >= 30) & (y <= 32) & (x >= 76) & (x <= 94))
 	{
 		del_state(1);
-		set_state("PREV_STATE",get_state("STATE"));
+		set_state("PREV_STATE",9);
 		set_state("STATE",9);
 		draw_state(9);
 		return;

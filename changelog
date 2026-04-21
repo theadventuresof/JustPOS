@@ -715,3 +715,20 @@ a space...now I need to solve subtracting void value from sales value
 Starting to add reports menu.
   -Reports are no longer generated elsewhere they will have to be 
    created explicitly
+   
+1/22/2025
+
+Renamed WINDOW recall_ord to recall_order because recall_ord is also a 
+structure
+Added Window to house reports on report screen
+Added some buttons to report screen (non-functional currently)
+
+4/21/2026
+
+I have returned from the dead!
+Updated several comments for readability
+Added logic to retreive food cost during daily report generation. The
+food cost takes into account the food cost of all completed orders, as
+well as the food cost from all void orders. The daily report also subtracts
+food cost (which inclues void order food cost) from net_sales to figure
+total take home profits

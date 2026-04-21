@@ -12,6 +12,7 @@
 #include "../lib/draw_state_6.h"
 #include "../lib/draw_state_7.h"
 #include "../lib/draw_state_8.h"
+#include "../lib/draw_state_9.h"
 #include "../lib/scroll.h"
 #include "../lib/misc.h"
 #include "../lib/recall.h"
@@ -379,6 +380,8 @@ void draw_state(int state)
 			draw_logo();
 			draw_return();
 			print_clock();
+			draw_report_win();
+			draw_report_buttons();
 			return;
 		}
 	} 
@@ -437,6 +440,8 @@ void del_state(int state)
 	else if(state == 9)
 	{
 		del_return();
+		del_report_win();
+		del_report_buttons();
 		return;
 	}
 }
