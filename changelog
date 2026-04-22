@@ -732,3 +732,14 @@ food cost takes into account the food cost of all completed orders, as
 well as the food cost from all void orders. The daily report also subtracts
 food cost (which inclues void order food cost) from net_sales to figure
 total take home profits
+
+4/22/2026
+
+Still working on the reporting system.
+  -Completely deleted scrape_daily_voids function
+  -scrape_daily function now returns all values from daily.rpt
+  -gen_monthly function logic has been changed to simply read from 
+   daily.rpt in the given day folder (no longer checking to see if folder
+   is a number between 1 and 31, just skipping '..' folder, if you have 
+   random folders in a month folder, an empty daily.rpt will be created)
+My next goal is to apply the same logic to the gen_yearly function...
