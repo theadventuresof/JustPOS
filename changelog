@@ -743,3 +743,28 @@ Still working on the reporting system.
    is a number between 1 and 31, just skipping '..' folder, if you have 
    random folders in a month folder, an empty daily.rpt will be created)
 My next goal is to apply the same logic to the gen_yearly function...
+
+4/24/2026
+
+Deleted gen_today, reports will now be generated individually. 
+
+4/28/2026
+
+Still struggling with report system. 
+The gen_monthly function was re-written to scrape the daily report
+instead of re-generating the daily report for all days. It is assumed
+that the gen_daily function is run at the end of business day. If the 
+daily report is generated before the end of business some sales will 
+be un-accounted for. This can be fixed by re-generating the reports.
+
+5/5/2026
+
+Managed to fix a double free bug that was causing crashes. 
+Report system is still not working exactly how I want...
+  -Small update, The gen_yearly function is now operating more or less
+   how I expect (it scrapes the monthlys) the issue now is not checking
+   the '.' and '..' files and creating reports in there.
+  -After some code cleanup, I will push this to the main branch.
+Cleaned up some code, and added comments.
+Report system is now working as I expect!!!
+  -Next, I need to work on the TUI menu for report generation

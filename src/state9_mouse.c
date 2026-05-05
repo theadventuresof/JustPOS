@@ -35,7 +35,15 @@ void find_mouse_report_menu(int y,int x)
 	 */
 	if((y >= 16) & (y <= 18) & (x >= 9) & (x <= 27))
 	{
-		gen_monthly("Apr");
+		gen_monthly("May");
+		return;
+	}
+	/*
+	 * If Yearly Report button is pressed
+	 */
+	if((y >= 20) & (y <= 22) & (x >= 9) & (x <= 27))
+	{
+		gen_yearly("2026");
 		return;
 	}
 }

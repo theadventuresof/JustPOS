@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <curses.h>
 
 #include "../lib/report.h"
 #include "../lib/file.h"
@@ -273,7 +274,11 @@ float scrape_daily(char month[],float *vals)
 				/*
 				 * Don't search parent folder '..'
 				 */
-				if(strncmp(month_order->d_name,"..",3) == 0)
+				if((strncmp(month_order->d_name,"..",3) == 0) | (strncmp(month_order->d_name,".",2) == 0))
+				{
+					continue;
+				}
+				if(strlen(month_order->d_name) >2)
 				{
 					continue;
 				}
@@ -320,6 +325,7 @@ float scrape_daily(char month[],float *vals)
 				food += strtof(fc,NULL);
 				get_file_data(daily,"profits=",profit);
 				profits += strtof(profit,NULL);
+				fclose(daily_report);
 			}
 		}
 	}
@@ -332,13 +338,68 @@ float scrape_daily(char month[],float *vals)
 }
 
 /*
+ * 
+ */
+float scrape_monthly(char path[],char month[],float *vals)
+{
+	char net[50];
+	char voids[50];
+	char fc[50];
+	char profit[50];
+	float totals=0,voided=0,food=0,profits=0;
+	if(stat(path,&buf) == 0)
+	{
+		char monthly[100];
+		strncpy(monthly,path,strlen(path)+1);
+		strncat(monthly,"monthly.rpt",12);
+		/*
+		 * If monthly.rpt cannot be found, generate it
+		 */
+		if(stat(monthly,&buf) != 0)
+		{
+			gen_monthly(month);
+		}
+		/*
+		 * Open monthly.rpt in read only mode
+		 */
+		FILE *monthly_report;
+		monthly_report = fopen(monthly,"r");
+		if(monthly_report == NULL)
+		{
+			err_dialog("Something went wrong!");
+			return false;
+		}
+		/*
+		 * Copy values from monthly_report.rpt to some strings and 
+		 * convert to floats
+		 */
+		 get_file_data(monthly,"net_sales=",net);
+		 totals += strtof(net,NULL);
+		 get_file_data(monthly,"total_voids",voids);
+		 voided += strtof(voids,NULL);
+		 get_file_data(monthly,"total_fc=",fc);
+		 food += strtof(fc,NULL);
+		 get_file_data(monthly,"profits=",profit);
+		 profits += strtof(profit,NULL);
+		 fclose(monthly_report);
+	}
+	
+	vals[0] = totals;
+	vals[1] = voided;
+	vals[2] = food;
+	vals[3] = profits;
+	return 0;
+}
+
+/*
  * Generate a file named yearly.rpt with the current sales from the
  * current year
  */
 void gen_yearly(char year[])
 {
 	char path[100];
-	float total=0;
+	float vals[4];
+	float totals[4];
 	
 	/*
 	 * Build a string to contain file path
@@ -347,25 +408,51 @@ void gen_yearly(char year[])
 	strncat(path,year,strlen(year) + 1);
 	strncat(path,"/",2);
 	/*
+	 * If path does not exist, display an error and return
+	 */
+	if((year_dir = opendir(path)) == NULL)
+	{
+		err_dialog("No orders exist for specified year");
+		return;
+	}
+	/*
 	 * Check every file/folder in path string
 	 */
 	if((year_dir = opendir(path)) != NULL)
 	{
 		while((year_order = readdir(year_dir)) != NULL)
 		{
-			/*
-			 * If first three characters from abbreviated month name are 
-			 * matched, assume they are folders and check inside for orders
-			 */
-			if(validate_month(year_order->d_name) == 1)
+			if(year_order->d_type == DT_DIR)
 			{
+				/*
+				 * If the folder is not a correct (English) month 
+				 * abbreviation, continue
+				 */
+				if(validate_month(year_order->d_name) == 0)
+				{
+					continue;
+				}
+				/*
+				 * Build a string with the file path that needs to be 
+				 * checked
+				 */
 				char line[100];
 				get_file_data(".conf","dir=",line);
 				strncat(line,year,strlen(year) + 1);
 				strncat(line,"/",2);
 				strncat(line,year_order->d_name,strlen(year_order->d_name) + 1);
 				strncat(line,"/",2);
-				//total += scrape_daily(line);
+				/*
+				 * Get data from monthly.rpt files
+				 */
+				scrape_monthly(line,year_order->d_name,vals);
+				/*
+				 * Make totals equal the totals of all monthly.rpt files
+				 */
+				totals[0] += vals[0];
+				totals[1] += vals[1];
+				totals[2] += vals[2];
+				totals[3] += vals[3];
 			}
 		}
 	}
@@ -381,7 +468,10 @@ void gen_yearly(char year[])
 	{
 		return;
 	}
-	fprintf(rpt,"net_sales=%.2f",total);
+	fprintf(rpt,"net_sales=%.2f\n",totals[0]);
+	fprintf(rpt,"total_voids=%.2f\n",totals[1]);
+	fprintf(rpt,"total_fc=%.2f\n",totals[2]);
+	fprintf(rpt,"total_profit=%.2f\n",totals[3]);
 	fclose(rpt);
 }
 
@@ -441,28 +531,6 @@ int validate_month(char month[])
 		valid = 1;
 	}
 	return valid;
-}
-
-/*
- * Generate all reports 
- */
-void gen_today(void)
-{
-	char date[100],temp[50];
-	get_file_data(".conf","dir=",date);
-	get_current("YEAR",temp);
-	strncat(date,temp,strlen(temp) + 1);
-	strncat(date,"/",2);
-	gen_yearly(temp);
-	get_current("MONTH",temp);
-	gen_monthly(temp);
-	strncat(date,temp,strlen(temp) + 1);
-	strncat(date,"/",2);
-	get_current("DAY",temp);
-	strncat(date,temp,strlen(temp) + 1);
-	strncat(date,"/",2);
-	gen_daily(date);
-	
 }
 
 /*
